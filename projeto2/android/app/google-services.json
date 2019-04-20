@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "536646696245",
+    "firebase_url": "https://testedaora-3c603.firebaseio.com",
+    "project_id": "testedaora-3c603",
+    "storage_bucket": "testedaora-3c603.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:536646696245:android:d210c8caba2e61f6",
+        "android_client_info": {
+          "package_name": "com.projeto2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "536646696245-99ufafop4v08md6sqt9rtta4hbnlbede.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.projeto2",
+            "certificate_hash": "48050b71fb1512c4a8cf5c99f9f1b0647509f7b3"
+          }
+        },
+        {
+          "client_id": "536646696245-13n42bgqjt1a72nbkc5ch881o90qc9rc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1lavwOcw63SJVwQSvxFDu7Hax4qGa-WM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "536646696245-13n42bgqjt1a72nbkc5ch881o90qc9rc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
