@@ -1,0 +1,35 @@
+{
+  "project_info": {
+    "project_number": "699033061403",
+    "firebase_url": "https://bora-563ad.firebaseio.com",
+    "project_id": "bora-563ad",
+    "storage_bucket": "bora-563ad.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699033061403:android:07424ff4a2c369df",
+        "android_client_info": {
+          "package_name": "com.bora"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADC8vBVQ3cPNwyCsMXDt4p8B1x24JByBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699033061403-a38lcl0o9talongp68f37hsn15jq1pt5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
