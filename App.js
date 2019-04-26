@@ -32,7 +32,7 @@ class telaInicial extends Component {
           <Input placeholder={'E-mail'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='user' size={23} color='white'/>}/>
         </View>
         <View style={styles.input}>
-          <Input placeholder={'Senha'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='lock' size={23} color='white'/>} />
+          <Input placeholder={'Senha'} secureTextEntry={true} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='lock' size={23} color='white'/>} />
         </View>
       </View>
       <View style={styles.inputContainer2}>
@@ -74,7 +74,9 @@ class paginaPrincipal extends Component {
 }
 
 const AppSwitchNavigator = createStackNavigator({
-  telaInicial: { screen: telaInicial },
+  telaInicial: { screen: telaInicial,     navigationOptions: {
+      header: null,
+    }, },
   cadastroUsuario: { screen: cadastroUsuario },
   paginaPrincipal: {screen: paginaPrincipal}
 });

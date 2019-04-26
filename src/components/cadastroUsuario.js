@@ -30,11 +30,11 @@ export default class App extends Component{
               <Icon name='at' size={24} color='white'/>}/>
             </View>
             <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Senha' leftIcon={
+              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Senha' secureTextEntry={true} leftIcon={
               <Icon name='lock' size={24} color='white'/>}/>
             </View>
             <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Digite sua senha novamente' leftIcon={
+              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Digite sua senha novamente' secureTextEntry={true} leftIcon={
               <Icon name='lock' size={24} color='white'/>}/>
             </View>
           </ScrollView>
