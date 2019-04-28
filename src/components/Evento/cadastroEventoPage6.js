@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-import CadastroEventoPage6 from './cadastroEventoPage6'
 
 const theme = {
   colors: {
@@ -32,7 +30,7 @@ export default class App extends Component{
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage6') } titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
     </View>

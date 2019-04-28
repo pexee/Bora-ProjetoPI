@@ -1,9 +1,10 @@
-import React, {Component} from 'react';
-import {StyleSheet, View, Picker} from 'react-native';
-import { Input, Button, ThemeProvider, Text, Overlay, CheckBox} from 'react-native-elements';
+import React, {Component, Fragment} from 'react';
+import {StyleSheet, View} from 'react-native';
+import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage3 from './cadastroEventoPage3'
+import Overlay from 'react-native-modal-overlay';
 
 const theme = {
   colors: {
@@ -24,14 +25,15 @@ export default class App extends Component {
 }
 
 class cadastroEventoPage2 extends Component{
-  state = {Categoria: ''}
-  updateCategoria = (Categoria) => {
-     this.setState({ Categoria: Categoria })
+  state = {modalVisible: false}
+  
+  showOverlay() {
+    this.setState({modalVisible: true})
   }
-  state = {user: ''}
-  updateUser = (user) => {
-     this.setState({ user: user })
-  }
+  
+  onClose = () => this.setState({ modalVisible: false});
+
+
   render() {
     return (
       <View style={styles.container}>
@@ -43,7 +45,34 @@ class cadastroEventoPage2 extends Component{
             Qual a categoria do seu evento?
           </Text>
         </View>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage2') } titleStyle={{ color: 'black' }}/>
+        <View style={styles.button}>
+          <ThemeProvider theme={themeButton}>
+            <Button raised titleStyle={{ color: 'black' }} onPress={this.showOverlay.bind(this)} title="Escolha as categorias"/>
+              <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside
+              animationType="zoomIn" containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
+              childrenWrapperStyle={{backgroundColor: '#eee'}}
+              animationDuration={500}>
+              {
+                (hideModal, overlayState) => (
+                  <Fragment>
+                    <View style={styles.overlayContainer}>
+                      <Text>Escolha as categorias para seu evento:</Text>
+                      <CheckBox title='Rock' checked={this.state.checked}/>
+                      <CheckBox title='Sertanejo' checked={this.state.checked}/>
+                      <CheckBox title='Pagode' checked={this.state.checked}/>
+                      <CheckBox title='Samba' checked={this.state.checked}/>
+                      <CheckBox title='Eletro' checked={this.state.checked}/>
+                      <CheckBox title='Funk' checked={this.state.checked}/>
+                      <View style={styles.overlayButton}>
+                        <Button raised titleStyle={{ color: 'black' }} title="Confirmar" onPress={hideModal}/>
+                      </View>
+                    </View>
+                  </Fragment>
+                )
+              }
+            </Overlay>
+          </ThemeProvider>
+      </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage3') } titleStyle={{ color: 'black' }}/>
@@ -103,8 +132,14 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
   },
-  picker: {
-    color: '#fff',
-    borderRadius: 15,
-  }
+  overlayContainer: {
+    borderBottomWidth: 1, 
+    paddingTop: 10
+  },
+  overlayButton: {
+    marginTop: 5,
+    marginBottom: 5,
+    paddingLeft: 70,
+    paddingRight: 70,
+  },
 });
