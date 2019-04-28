@@ -1,11 +1,7 @@
 import React, {Component} from 'react';
 import { View, Button, Text } from 'react-native';
-import CadastroEvento from './cadastroEvento'
-
-import {
-    createSwitchNavigator,
-    createAppContainer,
-  } from 'react-navigation';
+import CadastroEventoPage1 from './Evento/cadastroEventoPage1'
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 
 export default class App extends Component {
     render() {
@@ -18,24 +14,35 @@ class paginaPrincipal extends Component{
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <Button 
-          title="Cadastrar Evento" onPress={() => this.props.navigation.navigate('cadastroEvento') }
+          title="Cadastrar Evento" onPress={() => this.props.navigation.navigate('cadastroEventoPage1') }
         />
       </View>
     );
     }
   }
 
-class cadastroEvento extends Component {
+class cadastroEventoPage1 extends Component {
     render(){
         return (
-            <CadastroEvento/>
+            <CadastroEventoPage1/>
         );
     }
 }
 
-const AppSwitchNavigator = createSwitchNavigator({
-    paginaPrincipal: {screen: paginaPrincipal},
-    cadastroEvento: {screen: cadastroEvento}
+
+const AppSwitchNavigator = createStackNavigator({
+    paginaPrincipal: {screen: paginaPrincipal,     navigationOptions: {
+      header: null,
+    }, },
+    cadastroEventoPage1: {screen: cadastroEventoPage1}
   });
   
 const AppContainer = createAppContainer(AppSwitchNavigator);
+
+cadastroEventoPage1.navigationOptions = {
+  title: 'Criar Evento',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}

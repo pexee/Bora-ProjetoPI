@@ -74,20 +74,20 @@ class paginaPrincipal extends Component {
 }
 
 const AppSwitchNavigator = createStackNavigator({
-  telaInicial: { screen: telaInicial,     navigationOptions: {
+  telaInicial: { screen: telaInicial,     
+    navigationOptions: {
       header: null,
-    }, },
+    }, 
+  },
   cadastroUsuario: { screen: cadastroUsuario },
-  paginaPrincipal: {screen: paginaPrincipal}
+  paginaPrincipal: {screen: paginaPrincipal,
+    navigationOptions: {
+      header: null,
+    },
+  }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
-
-telaInicial.navigationOptions = {
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
 
 cadastroUsuario.navigationOptions = {
   title: 'Cadastro',
