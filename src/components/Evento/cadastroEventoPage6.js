@@ -17,27 +17,19 @@ const themeButton = {
   }
 }
 
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
-
-class cadastroEventoPage5 extends Component{
+export default class App extends Component{
+  
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.icon}>
-        <Icon name='map-marker' size={120} color={"white"}/>
+        <Icon name='image' size={120} color={"white"}/>
         </View>
         <View style={styles.text}>
           <Text h4 style={{ color: theme.colors.primary }}>
-            Qual o local do seu evento?
+            Carregue a foto do seu evento
           </Text>
         </View>
-          <View style={styles.input}> 
-          <Input placeholder={'Endereço'} underlineColorAndroid='transparent' placeholderTextColor='white' />
-          </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage6') } titleStyle={{ color: 'black' }}/>
@@ -47,29 +39,6 @@ class cadastroEventoPage5 extends Component{
   );
   }
 }
-
-class cadastroEventoPage6 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage6/>
-      );
-  }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-  cadastroEventoPage5: {screen: cadastroEventoPage5,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  cadastroEventoPage6: {screen: cadastroEventoPage6,
-    navigationOptions: {
-      header: null,
-    },
-  }
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
   container: {

@@ -71,13 +71,6 @@ export default class App extends Component {
   
   const AppContainer = createAppContainer(AppSwitchNavigator);
   
-  cadastroEventoPage4.navigationOptions = {
-    title: 'Page 4',
-    headerTintColor: "white",
-    headerStyle: {
-      backgroundColor:'#1e90ff'
-    }  
-  }
 
   const styles = StyleSheet.create({
     container: {

@@ -43,15 +43,7 @@ class cadastroEventoPage2 extends Component{
             Qual a categoria do seu evento?
           </Text>
         </View>
-          <Overlay isVisible={this.state.isVisible} onBackdropPress={() => this.setState({ isVisible: false })}>
-            <CheckBox title='Rock' checked={this.state.checked}/>
-            <CheckBox title='Sertanejo' checked={this.state.checked}/>
-            <CheckBox title='Pagode' checked={this.state.checked}/>
-            <CheckBox title='Samba' checked={this.state.checked}/>
-            <CheckBox title='Eletro' checked={this.state.checked}/>
-            <CheckBox title='Funk' checked={this.state.checked}/>
             <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage2') } titleStyle={{ color: 'black' }}/>
-          </Overlay>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage3') } titleStyle={{ color: 'black' }}/>
@@ -85,13 +77,6 @@ const AppSwitchNavigator = createStackNavigator({
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
 
-cadastroEventoPage3.navigationOptions = {
-  title: 'Page 3',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
 
 const styles = StyleSheet.create({
   container: {
