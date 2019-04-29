@@ -42,11 +42,24 @@ export default class App extends Component{
       }
       
 
-      firebase.auth().createUserWithEmailAndPassword(email, password)
-      .then(function (user) {
-        firebase.database().ref('/usuarios/'+nome).set(user);
+      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      //firebase.auth().signInWithEmailAndPassword(email, password);
+      const user = await firebase.auth().currentUser;
+      if (user) {
+        firebase.database().ref('/usuarios/'+user.uid).set({
+          name: nome,
+          emaill : user.email,
+          uid: user.uid
+        });  
+      } else {
+        // No user is signed in.
+      }
+      
+        
+        
 
-      })
+      
+      
     
     this.setState({ isAuthenticated: true });
       

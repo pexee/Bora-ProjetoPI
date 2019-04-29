@@ -7,11 +7,6 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 
 import CadastroUsuario from './src/components/cadastroUsuario'
 import PaginaPrincipal from './src/components/Home'
-
-
-import CadastroUsuario from './src/components/cadastroUsuario'
-import PaginaPrincipal from './src/components/Home'
-
 import firebase from 'react-native-firebase';
 
 const theme = {
