@@ -8,6 +8,12 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroUsuario from './src/components/cadastroUsuario'
 import PaginaPrincipal from './src/components/Home'
 
+
+import CadastroUsuario from './src/components/cadastroUsuario'
+import PaginaPrincipal from './src/components/Home'
+
+import firebase from 'react-native-firebase';
+
 const theme = {
   colors: {
     primary: 'white'
@@ -21,29 +27,71 @@ export default class App extends Component {
 }
 
 class telaInicial extends Component {
+  state = {
+    email: 'geovanipedroso01@hotmail.com',
+    password: '',
+    isAuthenticated: false,
+  };
+
+  login = async () => {
+    const { email, password } = this.state;
+    
+    try {
+
+      
+      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
+      
+      this.setState({ isAuthenticated: true });
+      
+
+    } catch (error) {
+      
+    }
+
+    
+  }
+
+
   render() {
+    
     return (
       <View style={styles.container}>
+      {this.state.isAuthenticated ? <Text>logado com sucesso</Text>: null }
+      {this.state.isAuthenticated ? this.props.navigation.navigate('paginaPrincipal'): this.props.navigation.navigate('telaInicial') }
       <View style={styles.logoContainer}>
         <Image style={styles.image} source={require('./src/images/logo.png')}/>
       </View>
       <View style={styles.inputContainer}>
         <View style={styles.input}>
-          <Input placeholder={'E-mail'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='user' size={23} color='white'/>}/>
+          <Input placeholder={'E-mail'}
+            underlineColorAndroid='transparent' 
+            placeholderTextColor='white' 
+            leftIcon={<Icon name='user' size={23} color='white'/>}
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
+            
+            />
         </View>
         <View style={styles.input}>
-          <Input placeholder={'Senha'} secureTextEntry={true} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='lock' size={23} color='white'/>} />
+          <Input placeholder={'Senha'} 
+            underlineColorAndroid='transparent' 
+            placeholderTextColor='white' 
+            leftIcon={<Icon name='lock' size={23} color='white'/>} 
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })}
+            />
         </View>
       </View>
       <View style={styles.inputContainer2}>
           <ThemeProvider theme={theme}>
-           <Button raised title='Entrar' titleStyle={{ color: 'black' }}/>
-           </ThemeProvider>
+            <Button raised title='Entrar' onPress={ this.login } titleStyle={{ color: 'black' }}/>
+            </ThemeProvider>
+            
       </View>
       <View style={styles.inputContainer2}>
           <ThemeProvider theme={theme}>
-           <Button raised title='Home' onPress={ ()=> this.props.navigation.navigate('paginaPrincipal') } titleStyle={{ color: 'black' }}/>
-           </ThemeProvider>
+            <Button raised title='Home' onPress={ ()=> this.props.navigation.navigate('paginaPrincipal') } titleStyle={{ color: 'black' }}/>
+            </ThemeProvider>
       </View>
       <View style={styles.inputContainer2}>
         <Text style={styles.TextStyle} onPress={ ()=> this.props.navigation.navigate('cadastroUsuario') } >Não tem uma conta? Cadastra-se</Text>
@@ -55,6 +103,7 @@ class telaInicial extends Component {
     </View>
     );
   }
+      
 }
 
 class cadastroUsuario extends Component {
