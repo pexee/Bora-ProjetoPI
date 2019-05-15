@@ -24,7 +24,7 @@ export default class App extends Component {
 class telaInicial extends Component {
   state = {
     email: 'pexe@teste.com',
-    password: '',
+    password: '123456',
     isAuthenticated: false,
   };
 
@@ -73,6 +73,7 @@ class telaInicial extends Component {
             placeholderTextColor='white' 
             leftIcon={<Icon name='lock' size={23} color='white'/>} 
             value={this.state.password}
+            secureTextEntry={true}
             onChangeText={password => this.setState({ password })}
             />
         </View>
@@ -81,19 +82,9 @@ class telaInicial extends Component {
           <ThemeProvider theme={theme}>
             <Button raised title='Entrar' onPress={ this.login } titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
-            
-      </View>
-      <View style={styles.inputContainer2}>
-          <ThemeProvider theme={theme}>
-            <Button raised title='Home' onPress={ ()=> this.props.navigation.navigate('paginaPrincipal') } titleStyle={{ color: 'black' }}/>
-            </ThemeProvider>
       </View>
       <View style={styles.inputContainer2}>
         <Text style={styles.TextStyle} onPress={ ()=> this.props.navigation.navigate('cadastroUsuario') } >Não tem uma conta? Cadastra-se</Text>
-      </View>
-      <View style={styles.googleContainer}>
-        <GoogleSigninButton style={{width: 48, height: 48 }} size={GoogleSigninButton.Size.Icon} color={GoogleSigninButton.Color.Dark} />
-        <SocialIcon title='Entre com o Facebook' type='facebook'/>
       </View>
     </View>
     );
