@@ -6,6 +6,7 @@ import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage3 from './cadastroEventoPage3'
 import Overlay from 'react-native-modal-overlay';
 
+
 const theme = {
   colors: {
     primary: 'black'
@@ -25,7 +26,15 @@ export default class App extends Component {
 }
 
 class cadastroEventoPage2 extends Component{
-  state = {modalVisible: false}
+  state = {
+    modalVisible: false,
+    rock: false,
+    sertanejo: false,
+    pagode: false,
+    samba: false,
+    eletro: false,
+    funk: false,
+  }
   
   showOverlay() {
     this.setState({modalVisible: true})
@@ -57,12 +66,12 @@ class cadastroEventoPage2 extends Component{
                   <Fragment>
                     <View style={styles.overlayContainer}>
                       <Text>Escolha as categorias para seu evento:</Text>
-                      <CheckBox title='Rock' checked={this.state.checked}/>
-                      <CheckBox title='Sertanejo' checked={this.state.checked}/>
-                      <CheckBox title='Pagode' checked={this.state.checked}/>
-                      <CheckBox title='Samba' checked={this.state.checked}/>
-                      <CheckBox title='Eletro' checked={this.state.checked}/>
-                      <CheckBox title='Funk' checked={this.state.checked}/>
+                      <CheckBox title='Rock' checkedIcon='check-square' checkedColor='green' checked={this.state.rock} onPress={() => this.setState({rock: !this.state.rock})}/>
+                      <CheckBox title='Sertanejo' checkedIcon='check-square' checkedColor='green' checked={this.state.sertanejo} onPress={() => this.setState({sertanejo: !this.state.sertanejo})}/>
+                      <CheckBox title='Pagode' checkedIcon='check-square' checkedColor='green' checked={this.state.pagode} onPress={() => this.setState({pagode: !this.state.pagode})}/>
+                      <CheckBox title='Samba' checkedIcon='check-square' checkedColor='green' checked={this.state.samba} onPress={() => this.setState({samba: !this.state.samba})}/>
+                      <CheckBox title='Eletro' checkedIcon='check-square' checkedColor='green' checked={this.state.eletro} onPress={() => this.setState({eletro: !this.state.eletro})}/>
+                      <CheckBox title='Funk' checkedIcon='check-square' checkedColor='green' checked={this.state.funk} onPress={() => this.setState({funk: !this.state.funk})}/>
                       <View style={styles.overlayButton}>
                         <Button raised titleStyle={{ color: 'black' }} title="Confirmar" onPress={hideModal}/>
                       </View>
@@ -75,7 +84,7 @@ class cadastroEventoPage2 extends Component{
       </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage3') } titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> {module.exports.categorias = this.state; this.props.navigation.navigate('cadastroEventoPage3') }} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
     </View>

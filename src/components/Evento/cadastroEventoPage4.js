@@ -31,14 +31,18 @@ export default class App extends Component {
       super()
       this.state= {
         isVisible: false,
-        chosenDate: ''
+        data: '',
+        horario: '',
       }
     }
 
     handlePicker = (datetime) => {
+      var date = moment(datetime).format('DD/MM/YYYY HH:mm');
+      date = date.split(' ');
       this.setState({
         isVisible: false,
-        chosenDate: moment(datetime).format('DD/MM/YYYY')
+        data: date[0],
+        horario: date[1],
       })
     }
 
@@ -78,7 +82,9 @@ export default class App extends Component {
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage5') } titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> {module.exports.data = this.state.data;
+              module.exports.horario = this.state.horario; 
+              this.props.navigation.navigate('cadastroEventoPage5') }} titleStyle={{ color: 'black' }}/>
           </ThemeProvider>
         </View>
       </View>

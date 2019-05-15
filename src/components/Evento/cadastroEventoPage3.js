@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage4 from './cadastroEventoPage4'
 
+var msg = require('./cadastroEventoPage2');
+
 const theme = {
   colors: {
     primary: 'black'
@@ -24,6 +26,9 @@ export default class App extends Component {
   }
   
   class cadastroEventoPage3 extends Component{
+    state = {
+      descricao: '',
+    }
     render() {
       return (
       <View style={styles.container}>
@@ -36,11 +41,12 @@ export default class App extends Component {
           </Text>
         </View>
         <View style={styles.input}> 
-          <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' placeholderTextColor='white' />
+          <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' 
+          placeholderTextColor='white' onChangeText={(descricao) => this.setState({ descricao})}/>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage4') } titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> {module.exports.descricao = this.state.descricao; this.props.navigation.navigate('cadastroEventoPage4')}} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
       </View>

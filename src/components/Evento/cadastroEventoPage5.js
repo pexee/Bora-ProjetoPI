@@ -24,6 +24,9 @@ export default class App extends Component {
 }
 
 class cadastroEventoPage5 extends Component{
+  state = {
+    endereco: '',
+  }
   render() {
     return (
       <View style={styles.container}>
@@ -36,11 +39,11 @@ class cadastroEventoPage5 extends Component{
           </Text>
         </View>
           <View style={styles.input}> 
-          <Input placeholder={'Endereço'} underlineColorAndroid='transparent' placeholderTextColor='white' />
+          <Input placeholder={'Endereço'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(endereco) => this.setState({ endereco})}/>
           </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.props.navigation.navigate('cadastroEventoPage6') } titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> {module.exports.endereco = this.state.endereco; this.props.navigation.navigate('cadastroEventoPage6') }} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
     </View>

@@ -3,6 +3,8 @@ package com.bora;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.RNFetchBlob.RNFetchBlobPackage;
+import com.reactnative.ivpusic.imagepicker.PickerPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
@@ -13,6 +15,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
+import io.invertase.firebase.storage.RNFirebaseStoragePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,12 +32,15 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNFetchBlobPackage(),
+          new PickerPackage(),
           new RNGestureHandlerPackage(),
           new VectorIconsPackage(),
           new RNGoogleSigninPackage(),
           new RNFirebasePackage(),
           new RNFirebaseAuthPackage(),
-          new RNFirebaseDatabasePackage() 
+          new RNFirebaseDatabasePackage(),
+          new RNFirebaseStoragePackage()
       
       );
     }

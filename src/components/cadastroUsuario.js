@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider} from 'react-native-elements';
-
-
 import firebase from 'react-native-firebase';
 
 
