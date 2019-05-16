@@ -61,7 +61,8 @@ async criarEvento(){
   const sessionId = new Date().getTime();
   console.log(sessionId);
   const imageRef = storage.ref('eventos').child(`${sessionId}`);
-  var a = await imageRef.putFile(this.state.image.uri);
+  const a = await imageRef.putFile(this.state.image.uri);
+  const user = await firebase.auth().currentUser;
   firebase.database().ref('/eventos/').push().set({
     nome: nome.nome,
     descrição: descricao.descricao,
@@ -69,7 +70,8 @@ async criarEvento(){
     data: dateTime.data,
     horario: dateTime.horario,
     endereco: endereco.endereco,
-    image: a,
+    imageUrl: a.downloadURL,
+    proprietario: user.uid,
   })
 
 }

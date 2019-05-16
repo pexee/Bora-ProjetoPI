@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
-import { View, Button, StyleSheet, Text} from 'react-native';
+import { View, FlatList, Image, StyleSheet, Text} from 'react-native';
+import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right } from 'native-base'
 import CadastroEventoPage1 from './Evento/cadastroEventoPage1'
 import EditarUsuario from './editarUsuario'
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
-import {Header} from 'react-native-elements'
-import Icon from 'react-native-vector-icons/FontAwesome';
+import firebase from 'react-native-firebase';
+import {Header} from 'react-native-elements';
+import { Icon } from 'react-native-elements';
 import EditarEvento from './editarEvento'
 import VisualizarEvento from './visualizarEvento'
+
+var data = null;
+var a = false;
 
 export default class App extends Component {
     render() {
@@ -15,13 +20,33 @@ export default class App extends Component {
   }
 
 class paginaPrincipal extends Component{
+  state = {
+    data: data,
+  }
+
+  teste(){
+  if(a == false){
+    data = [];
+    firebase.database().ref('/eventos/').once('value', function(snapshot){
+      snapshot.forEach(function(childSnapshot){
+        data.push(childSnapshot.val());
+      });
+    });
+    //data = x;
+    this.setState({data: data});
+    a = true;
+  }
+}
+
+  
     render() {
+      this.teste();
       return (
         <View style={styles.container}>
           <Header
             statusBarProps={{ barStyle: 'light-content' }}
             barStyle="light-content"
-            leftComponent={<Icon style={styles.icone} name='bars' size={30} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
+            leftComponent={<Icon type='font-awesome' name='bars' size={25} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
             centerComponent={<Text style={styles.text} >Home</Text>}
             containerStyle={{
               height: 50,
@@ -29,23 +54,48 @@ class paginaPrincipal extends Component{
               justifyContent: 'space-around',
             }}
           />
-        <View style={styles.container2}>
-          <View style={styles.container3}>
-          <Button 
-            title="Cadastrar Evento" onPress={() => this.props.navigation.navigate('cadastroEventoPage1') }
-          />
-          </View>
-          <View style={styles.container3}>
-          <Button
-            title="Editar evento" onPress={() => this.props.navigation.navigate('editarEvento') }
-          />
-        </View>
-        <View style={styles.container3}>
-          <Button 
-            title="Visualizar Evento" onPress={() => this.props.navigation.navigate('visualizarEvento') }
-          />
-          </View>
-      </View>
+          <Container>
+        <Content>
+         <FlatList
+        horizontal
+        data={this.state.data}
+        renderItem={({ item: rowData }) => {
+          return (
+           <Card>
+            <CardItem>
+              <Left>
+                <Body>
+                  <Text> {rowData.nome} </Text>
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem cardBody button onPress={() => console.log(rowData)}>
+              <Image source={{uri: rowData.imageUrl}} style={{height: 200,width: null, flex: 1}}/>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Button transparent>
+                  <Icon type='font-awesome' size={10} name="thumbs-up" />
+                  <Text>12 bora</Text>
+                </Button>
+              </Left>
+              <Body>
+                <Button transparent>
+                  <Icon type='font-awesome' size={10} name="calendar" />
+                  <Text> 22/5 </Text>
+                </Button>
+              </Body>
+              <Right>
+                <Text> 11:30h </Text>
+              </Right>
+            </CardItem>
+          </Card>
+          );
+        }}
+        keyExtractor={(item, index) => index}/>
+        </Content>
+      </Container>
+          
     </View>
       );
     }
@@ -85,7 +135,8 @@ class visualizarEvento extends Component{
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: paginaPrincipal},
-  editarUsuario: {screen: editarUsuario}
+  editarUsuario: {screen: editarUsuario},
+  cadastroEventoPage1: {screen: cadastroEventoPage1}
 })
 
 const AppSwitchNavigator = createStackNavigator({
@@ -96,7 +147,7 @@ const AppSwitchNavigator = createStackNavigator({
     visualizarEvento: {screen: visualizarEvento, navigationOptions: {
       header: null,
     }, },
-    cadastroEventoPage1: {screen: cadastroEventoPage1},
+    cadastroEventoPage1: {screen: AppDrawerNavigator},
     editarEvento: {screen: editarEvento, navigationOptions: {
       header: null,
     },},
@@ -112,7 +163,7 @@ cadastroEventoPage1.navigationOptions = {
   }  
 }
 editarUsuario.navigationOptions = {
-  title: 'Configurações do usuário',
+  title: 'Editar informações',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
@@ -124,19 +175,36 @@ const styles = StyleSheet.create({
     flex: 1, 
   },
   container2: {
-    marginTop: 300,
+    marginTop: 20,
+    marginBottom: 10,
     justifyContent: 'center', 
     alignItems: 'center', 
   },
   container3: {
-    marginTop: 10,
+    marginTop: 1,
   },
   icone: {
     marginBottom: 20,
   },
+  card: {
+    width: 180,
+    height: 250,
+  },
+  textItem: {
+    textAlign: 'left',
+    color: 'black',
+    fontSize: 5,
+  },
   text: {
     marginBottom: 20,
     color: 'white',
-    fontSize: 18
+    fontSize: 20,
+  },
+  text2:{
+    color: '#1e90ff',
+    fontSize: 20,
+    fontWeight: 'bold',
+    textAlign: 'left',
+
   }
 });
