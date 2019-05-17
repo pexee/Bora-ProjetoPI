@@ -32,8 +32,8 @@ export default class App extends Component{
 
   pickSingle(cropit, circular=false, mediaType) {
     ImagePicker.openPicker({
-      width: 500,
-      height: 500,
+      width: 400,
+      height: 320,
       cropping: cropit,
       cropperCircleOverlay: circular,
       compressImageMaxWidth: 1000,
@@ -53,6 +53,10 @@ export default class App extends Component{
 
 renderImage(image) {
     return <Image style={{width: 300, height: 300, resizeMode: 'contain'}} source={image} />
+}
+
+renderIcon(){
+  return <Icon name='image' size={120} color={"white"} />
 }
 
 
@@ -81,7 +85,7 @@ async criarEvento(){
     return (
       <View style={styles.container}>
         <ScrollView>
-        {this.state.image ? this.renderImage(this.state.image) : null}
+        {this.state.image ? this.renderImage(this.state.image) : this.renderIcon()}
       </ScrollView>
         <View style={styles.text}>
           <Text h4 style={{ color: theme.colors.primary }}>

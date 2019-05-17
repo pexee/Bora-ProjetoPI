@@ -24,37 +24,24 @@ class paginaPrincipal extends Component{
     data: data,
   }
 
-  teste(){
-  if(a == false){
+  async teste(){
     data = [];
-    firebase.database().ref('/eventos/').once('value', function(snapshot){
+    await firebase.database().ref('/eventos/').once('value', function(snapshot){
       snapshot.forEach(function(childSnapshot){
         data.push(childSnapshot.val());
       });
     });
     //data = x;
-    this.setState({data: data});
-    a = true;
+    await this.setState({data: data});
   }
+
+carregar(){
+  this.teste();
+  return <Icon type='material' name='loop' size={120} color={"black"} />
 }
 
-  
-    render() {
-      this.teste();
-      return (
-        <View style={styles.container}>
-          <Header
-            statusBarProps={{ barStyle: 'light-content' }}
-            barStyle="light-content"
-            leftComponent={<Icon type='font-awesome' name='bars' size={25} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
-            centerComponent={<Text style={styles.text} >Home</Text>}
-            containerStyle={{
-              height: 50,
-              backgroundColor: '#1e90ff',
-              justifyContent: 'space-around',
-            }}
-          />
-          <Container>
+renderList(){
+  return <Container>
         <Content>
          <FlatList
         horizontal
@@ -69,8 +56,8 @@ class paginaPrincipal extends Component{
                 </Body>
               </Left>
             </CardItem>
-            <CardItem cardBody button onPress={() => console.log(rowData)}>
-              <Image source={{uri: rowData.imageUrl}} style={{height: 200,width: null, flex: 1}}/>
+            <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEvento')}}>
+              <Image source={{uri: rowData.imageUrl}} style={{height: 150, width: 220, resizeMode: 'stretch'}} />
             </CardItem>
             <CardItem>
               <Left>
@@ -95,6 +82,26 @@ class paginaPrincipal extends Component{
         keyExtractor={(item, index) => index}/>
         </Content>
       </Container>
+}
+
+  
+    render() {
+      return (
+        <View style={styles.container}>
+          <Header
+            statusBarProps={{ barStyle: 'light-content' }}
+            barStyle="light-content"
+            leftComponent={<Icon type='font-awesome' name='bars' size={25} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
+            centerComponent={<Text style={styles.text} >Home</Text>}
+            containerStyle={{
+              height: 50,
+              backgroundColor: '#1e90ff',
+              justifyContent: 'space-around',
+            }}
+          />
+          <Container>
+            {this.state.data ? this.renderList() : this.carregar()}
+          </Container>
           
     </View>
       );

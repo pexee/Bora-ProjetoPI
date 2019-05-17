@@ -3,6 +3,8 @@ import {StyleSheet, ScrollView, View, Image, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider, Header, CheckBox, Text} from 'react-native-elements';
 
+const dados = require('./Home');
+
 const theme = {
     colors: {
       primary: 'white'
@@ -13,24 +15,22 @@ export default class App extends Component{
   render() {
     return (
         <View style={styles.containerPrincipal}>
-            <View style={styles.logoContainer}>
-                <Image style={styles.image} source={require('../images/teste.png')}/>
-            </View>
+                <Image source={{uri: dados.dados.imageUrl}} style={{height: 180,width: null, flex: 1}}/>
             <View style={styles.nome}>
-                <Text h4 style={{color: 'white'}}>   Engenhariadas Paranaense</Text>
+                <Text h4 style={{color: 'white'}}>  {dados.dados.nome}</Text>
             </View>
             <View style={styles.horario}>
                 <View style={styles.iconCalendar}>
                     <Icon name='calendar' size={24} color='#1e90ff'/>
-                    <Text>20/07</Text>
+                    <Text> {dados.dados.data} </Text>
                 </View>
                 <View style={styles.iconClock}>
                     <Icon name='adjust' size={24} color='#1e90ff'/>
-                    <Text>15:30</Text>
+                    <Text> {dados.dados.horario} </Text>
                 </View>
             </View>
             <View style={styles.desc}>
-                <Text style={{color:'white'}}>Esse evento ira ocorrer em Umuarama, 3 festas open bar, loucura total melhor festas de todas</Text>
+                <Text style={{color:'white'}}> {dados.dados.descrição} </Text>
             </View>
             <View style={styles.local}>
                 <Icon name='map-marker' size={24} color='#1e90ff'/>
@@ -45,7 +45,6 @@ export default class App extends Component{
 const styles = StyleSheet.create({
     containerPrincipal: {
         flex: 1,
-        backgroundColor: '#1e90ff',
     },
     image: {
         width: 380,
