@@ -152,17 +152,6 @@ class editarEvento extends Component{
   render() {
     return (
         <View style={styles.containerPrincipal}>
-          <Header
-            statusBarProps={{ barStyle: 'light-content' }}
-            barStyle="light-content"
-            leftComponent={<Icon style={styles.icone} name='bars' size={30} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
-            centerComponent={<Text style={styles.text} >Editar evento</Text>}
-            containerStyle={{
-              height: 50,
-              backgroundColor: '#1e90ff',
-              justifyContent: 'space-around',
-            }}
-          />
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>

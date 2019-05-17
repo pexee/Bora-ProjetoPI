@@ -33,12 +33,12 @@ class visualizarEvento extends Component{
     }
 
     putButton(){
-        return <ActionButton buttonColor="#1e90ff">
-          <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => this.props.navigation.navigate('editarEvento')}>
+        return <ActionButton buttonColor='#00bfff'>
+          <ActionButton.Item buttonColor='#90ee90' title="Editar" onPress={() => this.props.navigation.navigate('editarEvento')}>
             <Icon type='material' name="edit" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
-            <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+          <ActionButton.Item buttonColor='red' title="Excluir" onPress={() => {}}>
+            <Icon name="close" type='material' style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
 
@@ -53,11 +53,11 @@ class visualizarEvento extends Component{
             </View>
             <View style={styles.horario}>
                 <View style={styles.iconCalendar}>
-                    <Icon name='calendar' size={24} color='#1e90ff'/>
+                    <Icon name='event' type='material' size={24} color='#1e90ff'/>
                     <Text> {dados.dados.data} </Text>
                 </View>
                 <View style={styles.iconClock}>
-                    <Icon name='adjust' size={24} color='#1e90ff'/>
+                    <Icon name='alarm' type='material' size={24} color='#1e90ff'/>
                     <Text> {dados.dados.horario} </Text>
                 </View>
             </View>
@@ -65,7 +65,7 @@ class visualizarEvento extends Component{
                 <Text style={{color:'white'}}> {dados.dados.descrição} </Text>
             </View>
             <View style={styles.local}>
-                <Icon name='map-marker' size={24} color='#1e90ff'/>
+                <Icon name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
                 <Text> {dados.dados.endereco} </Text>
             </View>
                 {this.isProprietario() ? this.putButton() : null}
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     },
     nome: {
         backgroundColor: '#1e90ff',
-        height: 60, 
+        height: 40, 
         color: '#fff',
         textAlign: 'center',
         alignItems: 'center',
@@ -134,7 +134,8 @@ const styles = StyleSheet.create({
     },
     iconCalendar: {
         marginTop: 10,
-        paddingLeft: 90,
+        paddingLeft: 70,
+        justifyContent: 'center',
         
     },
     actionButtonIcon: {
@@ -144,7 +145,8 @@ const styles = StyleSheet.create({
   },
     iconClock: {
         marginTop: 10,
-        paddingLeft: 125,
+        paddingLeft: 80,
+        justifyContent: 'center',
     },
     local: {
         backgroundColor: '#fff',

@@ -52,11 +52,15 @@ export default class App extends Component{
 }
 
 renderImage(image) {
-    return <Image style={{width: 300, height: 300, resizeMode: 'contain'}} source={image} />
+    return <View style={styles.teste}>
+    <Image style={{width: 300, height: 300, resizeMode: 'contain'}} source={image} />
+    </View>
 }
 
 renderIcon(){
-  return <Icon name='image' size={120} color={"white"} />
+  return <View style={styles.teste}>
+    <Icon name='image' size={120} color={"white"} />
+  </View>
 }
 
 
@@ -87,9 +91,11 @@ async criarEvento(){
   render() {
     return (
       <View style={styles.container}>
-        <ScrollView>
-        {this.state.image ? this.renderImage(this.state.image) : this.renderIcon()}
-      </ScrollView>
+        <View style={styles.containerImagem}>
+          <ScrollView>
+          {this.state.image ? this.renderImage(this.state.image) : this.renderIcon()}
+          </ScrollView>
+        </View>
         <View style={styles.text}>
           <Text h4 style={{ color: theme.colors.primary }}>
             Carregue a foto do seu evento
@@ -125,6 +131,11 @@ const styles = StyleSheet.create({
     paddingLeft: 70,
     paddingRight: 70,
   },
+  containerImagem:{
+    marginTop: 20,
+    paddingLeft: 20,
+    paddingRight: 20
+  },
   icon: {
     justifyContent: 'center', 
     alignItems: 'center',
@@ -132,6 +143,10 @@ const styles = StyleSheet.create({
   },
   text: {
     marginTop: 40,
+    justifyContent: 'center', 
+    alignItems: 'center',
+  },
+  teste : {
     justifyContent: 'center', 
     alignItems: 'center',
   }

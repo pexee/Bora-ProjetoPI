@@ -94,7 +94,7 @@ renderList(){
             leftComponent={<Icon type='font-awesome' name='bars' size={25} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
             centerComponent={<Text style={styles.text} >Home</Text>}
             containerStyle={{
-              height: 50,
+              height: 60,
               backgroundColor: '#1e90ff',
               justifyContent: 'space-around',
             }}
@@ -144,9 +144,7 @@ const AppSwitchNavigator = createStackNavigator({
       header: null,
     }, },
     editarUsuario: {screen: AppDrawerNavigator},
-    visualizarEvento: {screen: visualizarEvento, navigationOptions: {
-      header: null,
-    }, },
+    visualizarEvento: {screen: visualizarEvento},
     cadastroEventoPage1: {screen: AppDrawerNavigator},
   });
   
@@ -161,6 +159,14 @@ cadastroEventoPage1.navigationOptions = {
 }
 editarUsuario.navigationOptions = {
   title: 'Editar informações',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+visualizarEvento.navigationOptions = {
+  title: 'Evento',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
@@ -193,7 +199,6 @@ const styles = StyleSheet.create({
     fontSize: 5,
   },
   text: {
-    marginBottom: 20,
     color: 'white',
     fontSize: 20,
   },
