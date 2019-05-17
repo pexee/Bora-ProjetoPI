@@ -7,7 +7,6 @@ import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'r
 import firebase from 'react-native-firebase';
 import {Header} from 'react-native-elements';
 import { Icon } from 'react-native-elements';
-import EditarEvento from './editarEvento'
 import VisualizarEvento from './visualizarEvento'
 
 var data = null;
@@ -40,6 +39,7 @@ carregar(){
   return <Icon type='material' name='loop' size={120} color={"black"} />
 }
 
+
 renderList(){
   return <Container>
         <Content>
@@ -57,7 +57,7 @@ renderList(){
               </Left>
             </CardItem>
             <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEvento')}}>
-              <Image source={{uri: rowData.imageUrl}} style={{height: 150, width: 220, resizeMode: 'stretch'}} />
+              <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 300, resizeMode: 'stretch'}} />
             </CardItem>
             <CardItem>
               <Left>
@@ -124,13 +124,6 @@ class editarUsuario extends Component {
   }
 }
 
-class editarEvento extends Component{
-  render(){
-    return(
-      <EditarEvento/>
-    );
-  }
-}
 
 class visualizarEvento extends Component{
   render(){
@@ -155,9 +148,6 @@ const AppSwitchNavigator = createStackNavigator({
       header: null,
     }, },
     cadastroEventoPage1: {screen: AppDrawerNavigator},
-    editarEvento: {screen: editarEvento, navigationOptions: {
-      header: null,
-    },},
   });
   
 const AppContainer = createAppContainer(AppSwitchNavigator);

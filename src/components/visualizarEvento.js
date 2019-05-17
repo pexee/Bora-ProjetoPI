@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Image, TextInput} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Icon } from 'react-native-elements';
 import { Input, Button, ThemeProvider, Header, CheckBox, Text} from 'react-native-elements';
+import ActionButton from 'react-native-action-button';
+import firebase from 'react-native-firebase';
+import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
+import EditarEvento from './editarEvento'
+
+
 
 const dados = require('./Home');
 
@@ -10,8 +16,34 @@ const theme = {
       primary: 'white'
     }
   }
+export default class App extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
 
-export default class App extends Component{  
+class visualizarEvento extends Component{  
+
+    async isProprietario(){
+        const user = await firebase.auth().currentUser;
+        if(user.uid == dados.dados.proprietario){
+            return true;
+        }
+        return false;
+    }
+
+    putButton(){
+        return <ActionButton buttonColor="#1e90ff">
+          <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => this.props.navigation.navigate('editarEvento')}>
+            <Icon type='material' name="edit" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+          <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {}}>
+            <Icon name="md-notifications-off" style={styles.actionButtonIcon} />
+          </ActionButton.Item>
+        </ActionButton>
+
+    }
+
   render() {
     return (
         <View style={styles.containerPrincipal}>
@@ -34,13 +66,36 @@ export default class App extends Component{
             </View>
             <View style={styles.local}>
                 <Icon name='map-marker' size={24} color='#1e90ff'/>
-                <Text>Rua das Drogas</Text>
+                <Text> {dados.dados.endereco} </Text>
             </View>
+                {this.isProprietario() ? this.putButton() : null}
         </View>
   );
   }
 }
 
+class editarEvento extends Component {
+  render(){
+      return (
+          <EditarEvento/>
+      );
+  }
+}
+
+const AppSwitchNavigator = createStackNavigator({
+  visualizarEvento: {screen: visualizarEvento,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  editarEvento: {screen: editarEvento,
+    navigationOptions: {
+      header: null,
+    },
+  }
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
     containerPrincipal: {
@@ -82,6 +137,11 @@ const styles = StyleSheet.create({
         paddingLeft: 90,
         
     },
+    actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
     iconClock: {
         marginTop: 10,
         paddingLeft: 125,

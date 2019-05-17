@@ -1,10 +1,17 @@
 import React, {Component, Fragment} from 'react';
-import {StyleSheet, ScrollView, View, Text} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider, Header, CheckBox} from 'react-native-elements';
 import Overlay from 'react-native-modal-overlay';
 import moment from 'moment'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import firebase from 'react-native-firebase';
+import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
+
+var ImagePicker = NativeModules.ImageCropPicker;
+
+
+const dados = require('./Home');
 
 const theme = {
   colors: {
@@ -18,9 +25,17 @@ const themeButton = {
   }
 }
 
-export default class App extends Component{
+export default class App extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
 
-  state = {modalVisible: false}
+class editarEvento extends Component{
+
+   state = {
+
+  }
   
   showOverlay() {
     this.setState({modalVisible: true})
@@ -32,16 +47,31 @@ export default class App extends Component{
     super()
     this.state= {
       isVisible: false,
-      chosenDate: ''
+        modalVisible: false,
+      rock: dados.dados.categorias.rock,
+      sertanejo: dados.dados.categorias.sertanejo,
+      pagode: dados.dados.categorias.pagode,
+      samba: dados.dados.categorias.samba,
+      eletro: dados.dados.categorias.eletro,
+      funk: dados.dados.categorias.funk,
+      nome: dados.dados.nome,
+      descrição: dados.dados.descrição,
+      data: dados.dados.data,
+      horario: dados.dados.horario,
+      endereco: dados.dados.endereco,
+      image: null,
     }
   }
 
   handlePicker = (datetime) => {
-    this.setState({
-      isVisible: false,
-      chosenDate: moment(datetime).format('DD/MM/YYYY')
-    })
-  }
+    var date = moment(datetime).format('DD/MM/YYYY HH:mm');
+      date = date.split(' ');
+      this.setState({
+        isVisible: false,
+        data: date[0],
+        horario: date[1],
+      })
+    }
 
   showPicker = () => {
     this.setState({
@@ -54,6 +84,70 @@ export default class App extends Component{
       isVisible: false
     })
   }
+
+  pickSingle(cropit, circular=false, mediaType) {
+    ImagePicker.openPicker({
+      width: 400,
+      height: 320,
+      cropping: cropit,
+      cropperCircleOverlay: circular,
+      compressImageMaxWidth: 1000,
+      compressImageMaxHeight: 1000,
+      compressImageQuality: 1,
+      includeExif: true,
+    }).then(image => {
+      console.log('received image', image);
+      this.setState({
+        image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
+      });
+    }).catch(e => {
+      console.log(e);
+      Alert.alert(e.message ? e.message : e);
+    });
+}
+
+  async editarEvento(){
+    var evento = null;
+    var categorias = {
+      rock: this.state.rock,
+      sertanejo: this.state.sertanejo,
+      pagode: this.state.pagode,
+      samba: this.state.samba,
+      eletro: this.state.eletro,
+      funk: this.state.funk,
+    };
+    if(this.state.image){
+      const storage = firebase.storage();
+      const sessionId = new Date().getTime();
+      var imageRef = storage.ref('eventos').child(`${sessionId}`);
+      const img = await imageRef.putFile(this.state.image.uri);
+      evento = {
+        nome: this.state.nome,
+        descrição: this.state.descricao,
+        categorias: categorias,
+        data: this.state.data,
+        horario: this.state.horario,
+        endereco: this.state.endereco,
+        imageUrl: img.downloadUrl,
+        imageName: img.metadata.name,
+      };
+    }
+    else{
+      evento = {
+        nome: this.state.nome,
+        descrição: this.state.descricao,
+        categorias: categorias,
+        data: this.state.data,
+        horario: this.state.horario,
+        endereco: this.state.endereco,
+      };
+    }
+    await firebase.database().ref('/eventos/'+dados.dados.key).update(evento);
+    imageRef = storage.ref('eventos').child(`${dados.dados.imageName}`);
+    await imageRef.delete();
+
+  }
+
   
   render() {
     return (
@@ -73,15 +167,15 @@ export default class App extends Component{
           <ScrollView>
             <View style={styles.input}>
               <Input placeholderTextColor='#fff' placeholder='Nome' leftIcon={
-              <Icon name='map' size={24} color='white'/>}/>
+              <Icon name='map' size={24} color='white'/>} value={this.state.nome} onChangeText={(nome) => this.setState({ nome})}/>
             </View>
             <View style={styles.input}>
               <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Local' leftIcon={
-              <Icon name='map-marker' size={24} color='white'/>}/>
+              <Icon name='map-marker' size={24} color='white'/>} value={this.state.endereco} onChangeText={(endereco) => this.setState({ endereco})}/>
             </View>
             <View style={styles.input}>
               <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Descrição' leftIcon={
-              <Icon name='font' size={24} color='white'/>}/>
+              <Icon name='font' size={24} color='white'/>} value={this.state.descrição} onChangeText={(descrição) => this.setState({ descrição})}/>
             </View>
             <View style={styles.button}>
               <ThemeProvider theme={themeButton}>
@@ -95,12 +189,12 @@ export default class App extends Component{
                   <Fragment>
                     <View style={styles.overlayContainer}>
                       <Text>Escolha as categorias para seu evento:</Text>
-                      <CheckBox title='Rock' checked={this.state.checked}/>
-                      <CheckBox title='Sertanejo' checked={this.state.checked}/>
-                      <CheckBox title='Pagode' checked={this.state.checked}/>
-                      <CheckBox title='Samba' checked={this.state.checked}/>
-                      <CheckBox title='Eletro' checked={this.state.checked}/>
-                      <CheckBox title='Funk' checked={this.state.checked}/>
+                      <CheckBox title='Rock' checkedIcon='check-square' checkedColor='green' checked={this.state.rock} onPress={() => this.setState({rock: !this.state.rock})}/>
+                      <CheckBox title='Sertanejo' checkedIcon='check-square' checkedColor='green' checked={this.state.sertanejo} onPress={() => this.setState({sertanejo: !this.state.sertanejo})}/>
+                      <CheckBox title='Pagode' checkedIcon='check-square' checkedColor='green' checked={this.state.pagode} onPress={() => this.setState({pagode: !this.state.pagode})}/>
+                      <CheckBox title='Samba' checkedIcon='check-square' checkedColor='green' checked={this.state.samba} onPress={() => this.setState({samba: !this.state.samba})}/>
+                      <CheckBox title='Eletro' checkedIcon='check-square' checkedColor='green' checked={this.state.eletro} onPress={() => this.setState({eletro: !this.state.eletro})}/>
+                      <CheckBox title='Funk' checkedIcon='check-square' checkedColor='green' checked={this.state.funk} onPress={() => this.setState({funk: !this.state.funk})}/>
                       <View style={styles.overlayButton}>
                         <Button raised titleStyle={{ color: 'black' }} title="Confirmar" onPress={hideModal}/>
                       </View>
@@ -120,7 +214,12 @@ export default class App extends Component{
           </ScrollView>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' titleStyle={{ color: 'black' }}/>
+              <Button raised title='Mudar Foto' titleStyle={{ color: 'black' }} onPress={() => this.pickSingle(true)}/>
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={theme}>
+              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => this.editarEvento()}/>
             </ThemeProvider>
           </View>
         </View>
@@ -129,6 +228,28 @@ export default class App extends Component{
   }
 }
 
+class home extends Component {
+  render(){
+      return (
+          <Home/>
+      );
+  }
+}
+
+const AppSwitchNavigator = createStackNavigator({
+  editarEvento: {screen: editarEvento,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  home: {screen: home,
+    navigationOptions: {
+      header: null,
+    },
+  }
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
     containerPrincipal: {
