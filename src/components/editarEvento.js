@@ -6,9 +6,11 @@ import Overlay from 'react-native-modal-overlay';
 import moment from 'moment'
 import DateTimePicker from "react-native-modal-datetime-picker";
 import firebase from 'react-native-firebase';
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Home from './Home';
-import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
+import {Left, Body, Header, Title } from 'native-base'
+import VisualizarEvento from './visualizarEvento'
+
 var ImagePicker = NativeModules.ImageCropPicker;
 
 
@@ -155,7 +157,7 @@ class editarEvento extends Component{
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('visualizarEvento')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>
@@ -234,6 +236,14 @@ class home extends Component {
   }
 }
 
+class visualizarEvento extends Component {
+  render(){
+      return (
+          <VisualizarEvento/>
+      );
+  }
+}
+
 const AppSwitchNavigator = createStackNavigator({
   editarEvento: {screen: editarEvento,
     navigationOptions: {
@@ -241,6 +251,11 @@ const AppSwitchNavigator = createStackNavigator({
     },
   },
   home: {screen: home,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  visualizarEvento: {screen: visualizarEvento,
     navigationOptions: {
       header: null,
     },

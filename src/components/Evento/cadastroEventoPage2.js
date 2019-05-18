@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage3 from './cadastroEventoPage3'
 import Overlay from 'react-native-modal-overlay';
+import {Left, Body, Header, Title } from 'native-base'
+import Home from '../Home'
 
 
 const theme = {
@@ -46,6 +48,14 @@ class cadastroEventoPage2 extends Component{
   render() {
     return (
       <View style={styles.container}>
+          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Criar Evento </Title>
+            </Body>
+          </Header>
         <View style={styles.icon}>
         <Icon name='play' size={120} color={"white"}/>
         </View>
@@ -100,6 +110,15 @@ class cadastroEventoPage3 extends Component {
   }
 }
 
+class home extends Component {
+  render(){
+      return (
+          <Home/>
+      );
+  }
+}
+
+
 const AppSwitchNavigator = createStackNavigator({
   cadastroEventoPage2: {screen: cadastroEventoPage2,
     navigationOptions: {
@@ -111,6 +130,11 @@ const AppSwitchNavigator = createStackNavigator({
       header: null,
     },
   },
+  home: {screen: home,
+    navigationOptions: {
+      header: null,
+    },
+  }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -151,4 +175,8 @@ const styles = StyleSheet.create({
     paddingLeft: 70,
     paddingRight: 70,
   },
+  header:{
+    backgroundColor: '#1e90ff'
+  }
+
 });

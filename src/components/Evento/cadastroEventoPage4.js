@@ -6,6 +6,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CadastroEventoPage5 from './cadastroEventoPage5'
 import moment from 'moment'
+import {Left, Body, Header, Title } from 'native-base'
+import Home from '../Home'
 
 const theme = {
   colors: {
@@ -61,6 +63,14 @@ export default class App extends Component {
     render() {
       return (
         <View style={styles.container}>
+          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Criar Evento </Title>
+            </Body>
+          </Header>
           <View style={styles.icon}>
           <Icon name='calendar' size={120} color={"white"}/>
         </View>
@@ -99,6 +109,15 @@ export default class App extends Component {
         );
     }
   }
+
+  class home extends Component {
+    render(){
+        return (
+            <Home/>
+        );
+    }
+  }
+  
   
   const AppSwitchNavigator = createStackNavigator({
     cadastroEventoPage4: {screen: cadastroEventoPage4,
@@ -111,6 +130,11 @@ export default class App extends Component {
             header: null,
           },
     },
+    home: {screen: home,
+      navigationOptions: {
+        header: null,
+      },
+    }
   });
   
   const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -141,5 +165,8 @@ export default class App extends Component {
       marginTop: 40,
       justifyContent: 'center', 
       alignItems: 'center',
+    },
+    header:{
+      backgroundColor: '#1e90ff'
     }
   });

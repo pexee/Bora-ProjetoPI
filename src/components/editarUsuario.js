@@ -3,6 +3,9 @@ import {StyleSheet, ScrollView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider} from 'react-native-elements';
 import firebase from 'react-native-firebase';
+import {Left, Body, Header, Title } from 'native-base'
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+import Home from './Home'
 
 const theme = {
   colors: {
@@ -10,7 +13,16 @@ const theme = {
   }
 }
 const user = firebase.auth().currentUser;
-export default class App extends Component{
+
+
+export default class App extends Component {
+  render() {
+    return <AppContainer />;
+  }
+}
+
+
+class editarUsuario extends Component{
   state = {
     nome: '',
     email: '',
@@ -43,7 +55,6 @@ export default class App extends Component{
           emaill : user.email,
           uid: user.uid
         })
-        alert( 'alterado com sucesso')
 
       } else {
         console.log('user vazio')
@@ -59,6 +70,14 @@ export default class App extends Component{
   render() {
     return (
         <View style={styles.containerPrincipal}>
+          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Editar informações </Title>
+            </Body>
+          </Header>
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>
@@ -82,7 +101,7 @@ export default class App extends Component{
           </ScrollView>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' onPress={this.editarconta} titleStyle={{ color: 'black' }}/>
+              <Button raised title='Confirmar' onPress={() => {this.editarconta(); this.props.navigation.navigate('home')}} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
           </View>
         </View>
@@ -90,6 +109,29 @@ export default class App extends Component{
   );
   }
 }
+
+class home extends Component {
+  render(){
+      return (
+          <Home/>
+      );
+  }
+}
+
+const AppSwitchNavigator = createStackNavigator({
+  editarUsuario: {screen: editarUsuario,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  home: {screen: home,
+    navigationOptions: {
+      header: null,
+    },
+  }
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
     containerPrincipal: {
@@ -111,4 +153,7 @@ const styles = StyleSheet.create({
       paddingLeft: 70,
       paddingRight: 70,
     },
+    header:{
+      backgroundColor: '#1e90ff'
+    }
   });
