@@ -23,8 +23,8 @@ export default class App extends Component {
 
 class telaInicial extends Component {
   state = {
-    email: 'geovanipedroso01@hotmail.com',
-    password: 'aaaaaa',
+    email: 'pexe@teste.com',
+    password: '123456',
     isAuthenticated: false,
   };
 
@@ -54,6 +54,7 @@ class telaInicial extends Component {
     return (
       <View style={styles.container}>
       {this.state.isAuthenticated ? <Text>logado com sucesso</Text>: null }
+       {this.state.isAuthenticated ? this.props.navigation.navigate('paginaPrincipal'): null }
       <View style={styles.logoContainer}>
         <Image style={styles.image} source={require('./src/images/logo.png')}/>
       </View>
@@ -81,7 +82,7 @@ class telaInicial extends Component {
       </View>
       <View style={styles.inputContainer2}>
           <ThemeProvider theme={theme}>
-            <Button raised title='Entrar' onPress={() => {this.login();this.props.navigation.navigate('paginaPrincipal') }} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
       </View>
       <View style={styles.inputContainer2}>
