@@ -3,7 +3,8 @@ import {StyleSheet, View, ScrollView, Image, NativeModules, Dimensions} from 're
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
-
+import PaginaPrincipal from '../Home';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
 const nome = require('./cadastroEventoPage1');
 const categorias = require('./cadastroEventoPage2');
 const descricao = require('./cadastroEventoPage3');
@@ -25,7 +26,11 @@ const themeButton = {
 }
 
 export default class App extends Component{
-
+    render() {
+    return <AppContainer />;
+  }
+}
+class cadastroEventoPage6 extends Component{  
   state = {
     image: null,
   }
@@ -108,13 +113,32 @@ async criarEvento(){
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Criar Evento' titleStyle={{ color: 'black' }} onPress={() => this.criarEvento()}/>
+            <Button raised title='Criar Evento' titleStyle={{ color: 'black' }} onPress={() => {this.criarEvento(); this.props.navigation.navigate('Home')}}/>
         </ThemeProvider>
         </View>
     </View>
   );
   }
 }
+
+class Home extends Component{
+  render(){
+    return(
+      <PaginaPrincipal/>
+    );
+  }
+}
+
+const AppSwitchNavigator = createStackNavigator({
+  cadastroEventoPage6: {screen: cadastroEventoPage6, navigationOptions: {
+    header: null,
+  }, },
+  Home: {screen: Home, navigationOptions: {
+    header: null,
+  }, },
+});
+
+const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
   container: {

@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, ScrollView, View, Image, TextInput} from 'react-native';
 import { Icon } from 'react-native-elements';
-import { Input, Button, ThemeProvider, Header, CheckBox, Text} from 'react-native-elements';
+import { Text} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import firebase from 'react-native-firebase';
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import EditarEvento from './editarEvento'
-
+import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 
 
 const dados = require('./Home');
@@ -158,4 +158,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#000000', 
     },
+    header:{
+      backgroundColor: '#1e90ff'
+    }
   });

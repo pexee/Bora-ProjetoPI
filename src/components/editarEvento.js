@@ -1,13 +1,14 @@
 import React, {Component, Fragment} from 'react';
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button, ThemeProvider, Header, CheckBox} from 'react-native-elements';
+import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
 import Overlay from 'react-native-modal-overlay';
 import moment from 'moment'
 import DateTimePicker from "react-native-modal-datetime-picker";
 import firebase from 'react-native-firebase';
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
-
+import Home from './Home';
+import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 var ImagePicker = NativeModules.ImageCropPicker;
 
 
@@ -152,6 +153,14 @@ class editarEvento extends Component{
   render() {
     return (
         <View style={styles.containerPrincipal}>
+            <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Editar Evento </Title>
+            </Body>
+          </Header>
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>
@@ -208,7 +217,7 @@ class editarEvento extends Component{
           </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => this.editarEvento()}/>
+              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => {this.editarEvento(); this.props.navigation.navigate('home')}}/>
             </ThemeProvider>
           </View>
         </View>
@@ -286,4 +295,7 @@ const styles = StyleSheet.create({
       justifyContent: 'center', 
       alignItems: 'center',
     },
+    header:{
+      backgroundColor: '#1e90ff'
+    }
   });

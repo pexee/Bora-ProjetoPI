@@ -7,6 +7,7 @@ import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'r
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
 import VisualizarEvento from './visualizarEvento'
+import { thisTypeAnnotation } from '@babel/types';
 
 var data = null;
 var a = false;
@@ -40,6 +41,7 @@ carregar(){
 
 
 renderList(){
+  this.teste();
   return <Container>
         <Content>
          <FlatList
@@ -140,7 +142,9 @@ const AppSwitchNavigator = createStackNavigator({
       header: null,
     }, },
     editarUsuario: {screen: AppDrawerNavigator},
-    visualizarEvento: {screen: visualizarEvento},
+    visualizarEvento: {screen: visualizarEvento, navigationOptions: {
+      header: null,
+    },},
     cadastroEventoPage1: {screen: AppDrawerNavigator},
   });
   
