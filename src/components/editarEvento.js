@@ -1,7 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
