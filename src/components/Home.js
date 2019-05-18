@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import { View, FlatList, Image, StyleSheet, Text} from 'react-native';
+import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
 import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
 import CadastroEventoPage1 from './Evento/cadastroEventoPage1'
 import CadastroEventoPage2 from './Evento/cadastroEventoPage2'
@@ -28,7 +28,7 @@ class paginaPrincipal extends Component{
     data: data,
   }
 
-  async teste(){
+  async carregarLista(){
     data = [];
     await firebase.database().ref('/eventos/').once('value', function(snapshot){
       snapshot.forEach(function(childSnapshot){
@@ -39,14 +39,14 @@ class paginaPrincipal extends Component{
     await this.setState({data: data});
   }
 
-carregar(){
-  this.teste();
-  return <Icon type='material' name='loop' size={120} color={"black"} />
+inloading(){
+  this.carregarLista();
+  return <ActivityIndicator size="large" color="#1e90ff" />
 }
 
 
 renderList(){
-  this.teste();
+  this.carregarLista();
   return <Container>
         <Content>
          <FlatList
@@ -103,7 +103,7 @@ renderList(){
             </Body>
           </Header>
           <Container>
-            {this.state.data ? this.renderList() : this.carregar()}
+            {this.state.data ? this.renderList() : this.inloading()}
           </Container>
           
     </View>

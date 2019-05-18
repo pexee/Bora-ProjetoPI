@@ -1,20 +1,21 @@
 import React, {Component, Fragment} from 'react';
+import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
-import Overlay from 'react-native-modal-overlay';
-import moment from 'moment'
 import DateTimePicker from "react-native-modal-datetime-picker";
+import Icon from 'react-native-vector-icons/FontAwesome';
+import Overlay from 'react-native-modal-overlay';
 import firebase from 'react-native-firebase';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import Home from './Home';
 import {Left, Body, Header, Title } from 'native-base'
 import VisualizarEvento from './visualizarEvento'
+import moment from 'moment';
 
 var ImagePicker = NativeModules.ImageCropPicker;
-
-
 const dados = require('./Home');
+const storage = firebase.storage();
 
 const theme = {
   colors: {
@@ -99,7 +100,6 @@ class editarEvento extends Component{
       compressImageQuality: 1,
       includeExif: true,
     }).then(image => {
-      console.log('received image', image);
       this.setState({
         image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
       });
@@ -120,25 +120,24 @@ class editarEvento extends Component{
       funk: this.state.funk,
     };
     if(this.state.image){
-      const storage = firebase.storage();
-      const sessionId = new Date().getTime();
-      var imageRef = storage.ref('eventos').child(`${sessionId}`);
+      var imageRef = storage.ref('eventos').child(dados.dados.key);
+      await imageRef.delete();
+      imageRef = storage.ref('eventos').child(dados.dados.key);
       const img = await imageRef.putFile(this.state.image.uri);
       evento = {
         nome: this.state.nome,
-        descrição: this.state.descricao,
+        descrição: this.state.descrição,
         categorias: categorias,
         data: this.state.data,
         horario: this.state.horario,
         endereco: this.state.endereco,
-        imageUrl: img.downloadUrl,
-        imageName: img.metadata.name,
+        imageUrl: img.downloadURL,
       };
     }
     else{
       evento = {
         nome: this.state.nome,
-        descrição: this.state.descricao,
+        descrição: this.state.descrição,
         categorias: categorias,
         data: this.state.data,
         horario: this.state.horario,
@@ -146,11 +145,7 @@ class editarEvento extends Component{
       };
     }
     await firebase.database().ref('/eventos/'+dados.dados.key).update(evento);
-    imageRef = storage.ref('eventos').child(`${dados.dados.imageName}`);
-    await imageRef.delete();
-
   }
-
   
   render() {
     return (

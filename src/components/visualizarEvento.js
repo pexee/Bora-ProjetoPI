@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Image, TextInput} from 'react-native';
+import {StyleSheet, ScrollView, View, Alert, Image, TextInput} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
@@ -10,6 +10,9 @@ import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header
 
 
 const dados = require('./Home');
+const user = firebase.auth().currentUser;
+const storage = firebase.storage();
+
 
 const theme = {
     colors: {
@@ -24,12 +27,8 @@ export default class App extends Component {
 
 class visualizarEvento extends Component{  
 
-    async isProprietario(){
-        const user = await firebase.auth().currentUser;
-        if(user.uid == dados.dados.proprietario){
-            return true;
-        }
-        return false;
+    state = {
+
     }
 
     putButton(){
@@ -37,14 +36,42 @@ class visualizarEvento extends Component{
           <ActionButton.Item buttonColor='#90ee90' title="Editar" onPress={() => this.props.navigation.navigate('editarEvento')}>
             <Icon type='material' name="edit" style={styles.actionButtonIcon} />
           </ActionButton.Item>
-          <ActionButton.Item buttonColor='red' title="Excluir" onPress={() => {}}>
+          <ActionButton.Item buttonColor='red' title="Excluir" onPress={() => this.alert()}>
             <Icon name="close" type='material' style={styles.actionButtonIcon} />
           </ActionButton.Item>
         </ActionButton>
 
     }
 
+    alert(){
+            Alert.alert(
+                "Excluir Evento",
+                "Deseja EXCLUIR o evento?",
+                [
+                    { text: "Não", onPress: () =>  null },
+                    { text: "Sim", onPress: () => this.excluirEvento()},
+                ],);
+    }
+
+    async excluirEvento(){
+        var imageRef = storage.ref('eventos').child(dados.dados.key);
+        await imageRef.delete();
+        await firebase.database().ref('/eventos/'+dados.dados.key).remove();
+    }
+
   render() {
+    if(dados.dados.proprietario == user.uid){
+            this.state = {
+                isProprietario: true,
+                delete: false
+            };
+        }
+        else{
+            this.state = {
+                isProprietario: false,
+                delete: false,
+            };
+        }
     return (
         <View style={styles.containerPrincipal}>
                 <Image source={{uri: dados.dados.imageUrl}} style={{height: 180,width: null, flex: 1}}/>
@@ -68,7 +95,7 @@ class visualizarEvento extends Component{
                 <Icon name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
                 <Text> {dados.dados.endereco} </Text>
             </View>
-                {this.isProprietario() ? this.putButton() : null}
+                {this.state.isProprietario ? this.putButton() : null}
         </View>
   );
   }

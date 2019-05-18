@@ -72,13 +72,11 @@ renderIcon(){
 
 
 async criarEvento(){
-  const storage = firebase.storage();
-  const sessionId = new Date().getTime();
-  const imageRef = storage.ref('eventos').child(`${sessionId}`);
-  const img = await imageRef.putFile(this.state.image.uri);
-  console.log(img);
-  const user = await firebase.auth().currentUser;
   const key = await firebase.database().ref('/eventos/').push().key;
+  const storage = firebase.storage();
+  const imageRef = storage.ref('eventos').child(`${key}`);
+  const img = await imageRef.putFile(this.state.image.uri);
+  const user = await firebase.auth().currentUser;
   firebase.database().ref('/eventos/'+key).set({
     nome: nome.nome,
     descrição: descricao.descricao,
@@ -86,7 +84,6 @@ async criarEvento(){
     data: dateTime.data,
     horario: dateTime.horario,
     endereco: endereco.endereco,
-    imageName: img.metadata.name,
     imageUrl: img.downloadURL,
     proprietario: user.uid,
     key: key
