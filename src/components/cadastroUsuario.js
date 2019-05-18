@@ -44,8 +44,12 @@ export default class App extends Component{
       //firebase.auth().signInWithEmailAndPassword(email, password);
       const user = await firebase.auth().currentUser;
       if (user) {
+        user.updateProfile({
+          displayName: nome
+        })
+
         firebase.database().ref('/usuarios/'+user.uid).set({
-          name: nome,
+          displayName: nome,
           emaill : user.email,
           uid: user.uid
         });  

@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import { View, FlatList, Image, StyleSheet, Text} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right } from 'native-base'
+import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
 import CadastroEventoPage1 from './Evento/cadastroEventoPage1'
 import EditarUsuario from './editarUsuario'
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
-import {Header} from 'react-native-elements';
 import { Icon } from 'react-native-elements';
 import VisualizarEvento from './visualizarEvento'
 
@@ -88,17 +87,14 @@ renderList(){
     render() {
       return (
         <View style={styles.container}>
-          <Header
-            statusBarProps={{ barStyle: 'light-content' }}
-            barStyle="light-content"
-            leftComponent={<Icon type='font-awesome' name='bars' size={25} color='white' onPress={() => this.props.navigation.toggleDrawer()} />}
-            centerComponent={<Text style={styles.text} >Home</Text>}
-            containerStyle={{
-              height: 60,
-              backgroundColor: '#1e90ff',
-              justifyContent: 'space-around',
-            }}
-          />
+          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon type='font-awesome' color='white' name='bars' onPress={() => this.props.navigation.toggleDrawer()} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Home </Title>
+            </Body>
+          </Header>
           <Container>
             {this.state.data ? this.renderList() : this.carregar()}
           </Container>
@@ -208,5 +204,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'left',
 
+  }, 
+  header:{
+    backgroundColor: '#1e90ff'
   }
 });
