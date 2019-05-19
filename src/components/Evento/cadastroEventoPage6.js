@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
 import PaginaPrincipal from '../Home';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
+import {Left, Body, Header, Title } from 'native-base'
+
 const nome = require('./cadastroEventoPage1');
 const categorias = require('./cadastroEventoPage2');
 const descricao = require('./cadastroEventoPage3');
@@ -107,6 +109,14 @@ verificaIsNull(){
   render() {
     return (
       <View style={styles.container}>
+          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
+            <Left>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
+            </Left>
+            <Body>
+            <Title> Criar Evento </Title>
+            </Body>
+          </Header>
         <View style={styles.containerImagem}>
           <ScrollView>
           {this.state.image ? this.renderImage(this.state.image) : this.renderIcon()}
@@ -184,5 +194,8 @@ const styles = StyleSheet.create({
   teste : {
     justifyContent: 'center', 
     alignItems: 'center',
+  },
+  header:{
+    backgroundColor: '#1e90ff'
   }
 });

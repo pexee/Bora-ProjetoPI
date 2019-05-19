@@ -9,6 +9,7 @@ import Overlay from 'react-native-modal-overlay';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 import Home from './Home';
+import VisualizarEvento from './visualizarEvento'
 
 var ImagePicker = NativeModules.ImageCropPicker;
 const dados = require('./Home');
@@ -149,7 +150,7 @@ class editarEvento extends Component{
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('visualizarEvento')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>
@@ -228,6 +229,14 @@ class home extends Component {
   }
 }
 
+class visualizarEvento extends Component {
+  render(){
+      return (
+          <VisualizarEvento/>
+      );
+  }
+}
+
 const AppSwitchNavigator = createStackNavigator({
   editarEvento: {screen: editarEvento,
     navigationOptions: {
@@ -235,6 +244,11 @@ const AppSwitchNavigator = createStackNavigator({
     },
   },
   home: {screen: home,
+    navigationOptions: {
+      header: null,
+    },
+  },
+  visualizarEvento: {screen: visualizarEvento,
     navigationOptions: {
       header: null,
     },
