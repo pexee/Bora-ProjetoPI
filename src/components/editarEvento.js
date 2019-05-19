@@ -1,15 +1,14 @@
 import React, {Component, Fragment} from 'react';
+import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
+import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Overlay from 'react-native-modal-overlay';
 import firebase from 'react-native-firebase';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
-import Home from './Home';
-import {Left, Body, Header, Title } from 'native-base'
-import VisualizarEvento from './visualizarEvento'
 import moment from 'moment';
+import Home from './Home';
 
 var ImagePicker = NativeModules.ImageCropPicker;
 const dados = require('./Home');
@@ -150,7 +149,7 @@ class editarEvento extends Component{
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('visualizarEvento')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>
@@ -229,14 +228,6 @@ class home extends Component {
   }
 }
 
-class visualizarEvento extends Component {
-  render(){
-      return (
-          <VisualizarEvento/>
-      );
-  }
-}
-
 const AppSwitchNavigator = createStackNavigator({
   editarEvento: {screen: editarEvento,
     navigationOptions: {
@@ -244,11 +235,6 @@ const AppSwitchNavigator = createStackNavigator({
     },
   },
   home: {screen: home,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  visualizarEvento: {screen: visualizarEvento,
     navigationOptions: {
       header: null,
     },

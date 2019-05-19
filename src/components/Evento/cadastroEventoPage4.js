@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import CadastroEventoPage5 from './cadastroEventoPage5'
 import moment from 'moment'
-import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 const theme = {
   colors: {
@@ -33,8 +31,8 @@ export default class App extends Component {
       super()
       this.state= {
         isVisible: false,
-        data: '',
-        horario: '',
+        data: null,
+        horario: null,
       }
     }
 
@@ -60,17 +58,25 @@ export default class App extends Component {
       })
     }
     
+    verificaIsNull(){
+    if(this.state.data && this.state.horario){
+      module.exports.data = this.state.data;
+      module.exports.horario = this.state.horario;
+      this.props.navigation.navigate('cadastroEventoPage5');
+    }
+    else{
+            Alert.alert(
+                "Criação de Evento",
+                "Por Favor, Escolha uma data e um horario",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+    }
+    }
+
     render() {
       return (
         <View style={styles.container}>
-          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
-            <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
-            </Left>
-            <Body>
-            <Title> Criar Evento </Title>
-            </Body>
-          </Header>
           <View style={styles.icon}>
           <Icon name='calendar' size={120} color={"white"}/>
         </View>
@@ -86,15 +92,13 @@ export default class App extends Component {
           </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title="Escolha a data" onPress={this.showPicker} titleStyle={{ color: 'black' }} />
+            <Button raised title="Escolha a data/hora" onPress={this.showPicker} titleStyle={{ color: 'black' }} />
             <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} mode={'datetime'} />
           </ThemeProvider>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> {module.exports.data = this.state.data;
-              module.exports.horario = this.state.horario; 
-              this.props.navigation.navigate('cadastroEventoPage5') }} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
           </ThemeProvider>
         </View>
       </View>
@@ -109,15 +113,6 @@ export default class App extends Component {
         );
     }
   }
-
-  class home extends Component {
-    render(){
-        return (
-            <Home/>
-        );
-    }
-  }
-  
   
   const AppSwitchNavigator = createStackNavigator({
     cadastroEventoPage4: {screen: cadastroEventoPage4,
@@ -130,11 +125,6 @@ export default class App extends Component {
             header: null,
           },
     },
-    home: {screen: home,
-      navigationOptions: {
-        header: null,
-      },
-    }
   });
   
   const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -165,8 +155,5 @@ export default class App extends Component {
       marginTop: 40,
       justifyContent: 'center', 
       alignItems: 'center',
-    },
-    header:{
-      backgroundColor: '#1e90ff'
     }
   });

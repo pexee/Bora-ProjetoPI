@@ -1,12 +1,10 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ScrollView, Image, NativeModules, Dimensions} from 'react-native';
+import {StyleSheet, View, ScrollView, Image, Alert, NativeModules, Dimensions} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
 import PaginaPrincipal from '../Home';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
-import {Left, Body, Header, Title } from 'native-base'
-
 const nome = require('./cadastroEventoPage1');
 const categorias = require('./cadastroEventoPage2');
 const descricao = require('./cadastroEventoPage3');
@@ -77,7 +75,7 @@ async criarEvento(){
   const imageRef = storage.ref('eventos').child(`${key}`);
   const img = await imageRef.putFile(this.state.image.uri);
   const user = await firebase.auth().currentUser;
-  firebase.database().ref('/eventos/'+key).set({
+  await firebase.database().ref('/eventos/'+key).set({
     nome: nome.nome,
     descrição: descricao.descricao,
     categorias: categorias.categorias,
@@ -88,21 +86,27 @@ async criarEvento(){
     proprietario: user.uid,
     key: key
   })
-
+  this.props.navigation.navigate('Home');
 }
+
+verificaIsNull(){
+    if(this.state.image){
+      this.criarEvento();
+    }
+    else{
+            Alert.alert(
+                "Criação de Evento",
+                "Por Favor, Insira uma Imagem",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+    }
+    }
 
 
   render() {
     return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
-            <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
-            </Left>
-            <Body>
-            <Title> Criar Evento </Title>
-            </Body>
-          </Header>
         <View style={styles.containerImagem}>
           <ScrollView>
           {this.state.image ? this.renderImage(this.state.image) : this.renderIcon()}
@@ -120,7 +124,7 @@ async criarEvento(){
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Criar Evento' titleStyle={{ color: 'black' }} onPress={() => {this.criarEvento(); this.props.navigation.navigate('Home')}}/>
+            <Button raised title='Criar Evento' titleStyle={{ color: 'black' }} onPress={() => this.verificaIsNull()}/>
         </ThemeProvider>
         </View>
     </View>
@@ -180,8 +184,5 @@ const styles = StyleSheet.create({
   teste : {
     justifyContent: 'center', 
     alignItems: 'center',
-  },
-  header:{
-    backgroundColor: '#1e90ff'
   }
 });

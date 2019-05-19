@@ -23,7 +23,7 @@ export default class App extends Component {
 
 class telaInicial extends Component {
   state = {
-    email: 'viniciusbosa@gmail.com',
+    email: 'pexe@teste.com',
     password: '123456',
     isAuthenticated: false,
   };
@@ -39,7 +39,7 @@ class telaInicial extends Component {
       this.setState({ isAuthenticated: true });
       
       
-      
+
 
     } catch (error) {
       

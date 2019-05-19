@@ -5,12 +5,12 @@ import { Text} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import firebase from 'react-native-firebase';
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
-import EditarEvento from './editarEvento'
+import EditarEvento from './editarEvento';
+import Home from './Home';
 import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
 
 
 const dados = require('./Home');
-const user = firebase.auth().currentUser;
 const storage = firebase.storage();
 
 
@@ -29,6 +29,25 @@ class visualizarEvento extends Component{
 
     state = {
 
+    }
+
+    constructor(){
+        super()
+        if(dados.user == dados.dados.proprietario){
+            this.state = {
+                user: dados.user,
+                proprietario: dados.dados.proprietario,
+                isProprietario: true,
+            }
+        }
+        else{
+            this.state = {
+                user: dados.user,
+                proprietario: dados.dados.proprietario,
+                isProprietario: false,
+            }
+        }
+        console.log(this.state.isProprietario);
     }
 
     putButton(){
@@ -57,21 +76,10 @@ class visualizarEvento extends Component{
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
         await firebase.database().ref('/eventos/'+dados.dados.key).remove();
+        this.props.navigation.navigate('home');
     }
 
   render() {
-    if(dados.dados.proprietario == user.uid){
-            this.state = {
-                isProprietario: true,
-                delete: false
-            };
-        }
-        else{
-            this.state = {
-                isProprietario: false,
-                delete: false,
-            };
-        }
     return (
         <View style={styles.containerPrincipal}>
                 <Image source={{uri: dados.dados.imageUrl}} style={{height: 180,width: null, flex: 1}}/>
@@ -109,6 +117,14 @@ class editarEvento extends Component {
   }
 }
 
+class home extends Component {
+  render(){
+      return (
+          <Home/>
+      );
+  }
+}
+
 const AppSwitchNavigator = createStackNavigator({
   visualizarEvento: {screen: visualizarEvento,
     navigationOptions: {
@@ -119,7 +135,12 @@ const AppSwitchNavigator = createStackNavigator({
     navigationOptions: {
       header: null,
     },
-  }
+  },
+  home: {screen: home,
+    navigationOptions: {
+        header: null,
+    },
+    }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);

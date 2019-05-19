@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Picker} from 'react-native';
+import {StyleSheet, View, Alert, Picker} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage4 from './cadastroEventoPage4'
-import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 var msg = require('./cadastroEventoPage2');
 
@@ -29,19 +27,27 @@ export default class App extends Component {
   
   class cadastroEventoPage3 extends Component{
     state = {
-      descricao: '',
+      descricao: null,
     }
+
+    verificaIsNull(){
+    if(this.state.descricao){
+      module.exports.descricao = this.state.descricao;
+      this.props.navigation.navigate('cadastroEventoPage4');
+    }
+    else{
+            Alert.alert(
+                "Criação de Evento",
+                "Por Favor, Insira uma descrição",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+    }
+    }
+
     render() {
       return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
-            <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
-            </Left>
-            <Body>
-            <Title> Criar Evento </Title>
-            </Body>
-          </Header>
         <View style={styles.icon}>
         <Icon name='font' size={120} color={"white"}/>
         </View>
@@ -51,12 +57,12 @@ export default class App extends Component {
           </Text>
         </View>
         <View style={styles.input}> 
-          <Input maxLength={200} placeholder={'Digite aqui'} underlineColorAndroid='transparent' 
+          <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' 
           placeholderTextColor='white' onChangeText={(descricao) => this.setState({ descricao})}/>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> {module.exports.descricao = this.state.descricao; this.props.navigation.navigate('cadastroEventoPage4')}} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
       </View>
@@ -68,14 +74,6 @@ export default class App extends Component {
     render(){
         return (
             <CadastroEventoPage4/>
-        );
-    }
-  }
-
-  class home extends Component {
-    render(){
-        return (
-            <Home/>
         );
     }
   }
@@ -91,11 +89,6 @@ export default class App extends Component {
             header: null,
           },
     },
-    home: {screen: home,
-      navigationOptions: {
-        header: null,
-      },
-    }
   });
   
   const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -125,8 +118,5 @@ export default class App extends Component {
       marginTop: 40,
       justifyContent: 'center', 
       alignItems: 'center',
-    },
-    header:{
-      backgroundColor: '#1e90ff'
     }
   });

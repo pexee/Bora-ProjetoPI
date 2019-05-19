@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
+import {StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage6 from './cadastroEventoPage6'
-import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 const theme = {
   colors: {
@@ -27,19 +25,27 @@ export default class App extends Component {
 
 class cadastroEventoPage5 extends Component{
   state = {
-    endereco: '',
+    endereco: null,
   }
+
+  verificaIsNull(){
+    if(this.state.endereco){
+      module.exports.endereco = this.state.endereco;
+      this.props.navigation.navigate('cadastroEventoPage6');
+    }
+    else{
+            Alert.alert(
+                "Criação de Evento",
+                "Por Favor, Insira um Endereço",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+    }
+    }
+
   render() {
     return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
-            <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
-            </Left>
-            <Body>
-            <Title> Criar Evento </Title>
-            </Body>
-          </Header>
         <View style={styles.icon}>
         <Icon name='map-marker' size={120} color={"white"}/>
         </View>
@@ -53,7 +59,7 @@ class cadastroEventoPage5 extends Component{
           </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> {module.exports.endereco = this.state.endereco; this.props.navigation.navigate('cadastroEventoPage6') }} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
     </View>
@@ -69,15 +75,6 @@ class cadastroEventoPage6 extends Component {
   }
 }
 
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
-
-
 const AppSwitchNavigator = createStackNavigator({
   cadastroEventoPage5: {screen: cadastroEventoPage5,
     navigationOptions: {
@@ -85,11 +82,6 @@ const AppSwitchNavigator = createStackNavigator({
     },
   },
   cadastroEventoPage6: {screen: cadastroEventoPage6,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  home: {screen: home,
     navigationOptions: {
       header: null,
     },
@@ -122,8 +114,5 @@ const styles = StyleSheet.create({
     marginTop: 40,
     justifyContent: 'center', 
     alignItems: 'center',
-  },
-  header:{
-    backgroundColor: '#1e90ff'
   }
 });

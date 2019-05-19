@@ -1,12 +1,10 @@
 import React, {Component, Fragment} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Alert, View} from 'react-native';
 import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {createAppContainer, createStackNavigator} from 'react-navigation';
 import CadastroEventoPage3 from './cadastroEventoPage3'
 import Overlay from 'react-native-modal-overlay';
-import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 
 const theme = {
@@ -44,18 +42,32 @@ class cadastroEventoPage2 extends Component{
   
   onClose = () => this.setState({ modalVisible: false});
 
+  verificaIsFalse(){
+    if(this.state.rock == false && this.state.sertanejo == false && this.state.pagode == false && this.state.samba == false && this.state.eletro == false && this.state.funk == false){
+      Alert.alert(
+                "Criação de Evento",
+                "Por Favor, Escolha alguma categoria",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+    }
+    else{
+      var categorias = {
+        rock: this.state.rock,
+        sertanejo: this.state.sertanejo,
+        pagode: this.state.pagode,
+        samba: this.state.samba,
+        eletro: this.state.eletro,
+        funk: this.state.funk,
+      }
+      module.exports.categorias = categorias;
+       this.props.navigation.navigate('cadastroEventoPage3');
+    }
+  }
 
   render() {
     return (
       <View style={styles.container}>
-          <Header androidStatusBarColor="#1e90ff" style={styles.header}>
-            <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
-            </Left>
-            <Body>
-            <Title> Criar Evento </Title>
-            </Body>
-          </Header>
         <View style={styles.icon}>
         <Icon name='play' size={120} color={"white"}/>
         </View>
@@ -94,7 +106,7 @@ class cadastroEventoPage2 extends Component{
       </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> {module.exports.categorias = this.state; this.props.navigation.navigate('cadastroEventoPage3') }} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> this.verificaIsFalse()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
     </View>
@@ -110,15 +122,6 @@ class cadastroEventoPage3 extends Component {
   }
 }
 
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
-
-
 const AppSwitchNavigator = createStackNavigator({
   cadastroEventoPage2: {screen: cadastroEventoPage2,
     navigationOptions: {
@@ -130,11 +133,6 @@ const AppSwitchNavigator = createStackNavigator({
       header: null,
     },
   },
-  home: {screen: home,
-    navigationOptions: {
-      header: null,
-    },
-  }
 });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
@@ -175,8 +173,4 @@ const styles = StyleSheet.create({
     paddingLeft: 70,
     paddingRight: 70,
   },
-  header:{
-    backgroundColor: '#1e90ff'
-  }
-
 });
