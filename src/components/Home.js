@@ -12,6 +12,8 @@ import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'r
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
 import VisualizarEvento from './visualizarEvento'
+import EventosConfirmados from './eventosConfirmados'
+import MeusEventos from './meusEventos'
 import { thisTypeAnnotation } from '@babel/types';
 
 var data = null;
@@ -183,16 +185,36 @@ class visualizarEvento extends Component{
   }
 }
 
+class eventosConfirmados extends Component{
+  render(){
+    return(
+      <EventosConfirmados/>
+    );
+  }
+}
+
+class meusEventos extends Component{
+  render(){
+    return(
+      <MeusEventos/>
+    );
+  }
+}
+
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: paginaPrincipal},
   editarUsuario: {screen: editarUsuario},
-  cadastroEventoPage1: {screen: cadastroEventoPage1}
+  cadastroEventoPage1: {screen: cadastroEventoPage1},
+  meusEventos: {screen: meusEventos},
+  eventosConfirmados: {screen: eventosConfirmados}
 })
 
 const AppSwitchNavigator = createStackNavigator({
   paginaPrincipal: {screen: AppDrawerNavigator, navigationOptions: {
     header: null,
   }, },
+  meusEventos: {screen: AppDrawerNavigator},
+  eventosConfirmados: {screen: AppDrawerNavigator},
   editarUsuario: {screen: AppDrawerNavigator},
   visualizarEvento: {screen: visualizarEvento, navigationOptions: {
     header: null,
@@ -218,7 +240,7 @@ const AppSwitchNavigator = createStackNavigator({
 const AppContainer = createAppContainer(AppSwitchNavigator);
 
 cadastroEventoPage1.navigationOptions = {
-  title: 'Criar Evento',
+  title: 'Criar evento',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
@@ -234,6 +256,22 @@ editarUsuario.navigationOptions = {
 
 visualizarEvento.navigationOptions = {
   title: 'Evento',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+meusEventos.navigationOptions = {
+  title: 'Meus eventos',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+eventosConfirmados.navigationOptions = {
+  title: 'Eventos confirmados',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'

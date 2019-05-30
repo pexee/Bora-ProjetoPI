@@ -97,8 +97,8 @@ verificaIsNull(){
     }
     else{
             Alert.alert(
-                "Criação de Evento",
-                "Por Favor, Insira uma Imagem",
+                "Criação de evento",
+                "Por favor, insira uma imagem",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);

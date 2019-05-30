@@ -37,8 +37,8 @@ class cadastroEventoPage5 extends Component{
     }
     else{
             Alert.alert(
-                "Criação de Evento",
-                "Por Favor, Insira um Endereço",
+                "Criação de evento",
+                "Por favor, insira um endereço",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);

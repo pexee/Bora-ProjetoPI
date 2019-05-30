@@ -68,8 +68,8 @@ export default class App extends Component {
     }
     else{
             Alert.alert(
-                "Criação de Evento",
-                "Por Favor, Escolha uma data e um horario",
+                "Criação de evento",
+                "Por favor, escolha uma data e um horario",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);

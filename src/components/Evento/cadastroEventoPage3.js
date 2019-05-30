@@ -39,8 +39,8 @@ export default class App extends Component {
     }
     else{
             Alert.alert(
-                "Criação de Evento",
-                "Por Favor, Insira uma descrição",
+                "Criação de evento",
+                "Por favor, insira uma descrição",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);

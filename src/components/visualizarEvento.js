@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Alert, Image, TextInput} from 'react-native';
+import {StyleSheet, View, Alert, Image, TouchableOpacity} from 'react-native';
 import { Icon } from 'react-native-elements';
 import { Text} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
@@ -7,7 +7,7 @@ import firebase from 'react-native-firebase';
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import EditarEvento from './editarEvento';
 import Home from './Home';
-import {Container, Content, Card, CardItem, Thumbnail, Left, Body, Right, Header, Title } from 'native-base'
+import {Left, Body, Right} from 'native-base'
 
 
 const dados = require('./Home');
@@ -88,11 +88,25 @@ class visualizarEvento extends Component{
             </View>
             <View style={styles.horario}>
                 <View style={styles.iconCalendar}>
+                  <View style={styles.buttonLeft2}>
+                  <TouchableOpacity style={styles.roundButton}>
                     <Icon name='event' type='material' size={24} color='#1e90ff'/>
+                  </TouchableOpacity>
+                    </View>
                     <Text> {dados.dados.data} </Text>
                 </View>
+                <View style={styles.confirmButton}>
+                    <View style={styles.buttonLeft}>
+                    <TouchableOpacity style={styles.roundButton}>
+                      <Icon name='done' type='material' size={24} color='#1e90ff' onPress={() => {Alert.alert('You tapped the button!')}} /> 
+                    </TouchableOpacity>
+                    </View>
+                  <Text> Confirmar </Text>
+                </View>
                 <View style={styles.iconClock}>
-                    <Icon name='alarm' type='material' size={24} color='#1e90ff'/>
+                    <TouchableOpacity style={styles.roundButton}>
+                      <Icon name='alarm' type='material' size={24} color='#1e90ff'/>
+                    </TouchableOpacity>
                     <Text> {dados.dados.horario} </Text>
                 </View>
             </View>
@@ -174,15 +188,15 @@ const styles = StyleSheet.create({
     },
     horario: {
         backgroundColor: '#fff',
-        height: 60, 
+        height: 70, 
         color: '#fff',
-        borderWidth: 1,
-        borderColor: '#000000',
+        //borderWidth: 1,
+        //borderColor: '#000000',
         flexDirection: 'row'
     },
     iconCalendar: {
         marginTop: 10,
-        paddingLeft: 70,
+        paddingLeft: 30,
         justifyContent: 'center',
         
     },
@@ -193,7 +207,7 @@ const styles = StyleSheet.create({
   },
     iconClock: {
         marginTop: 10,
-        paddingLeft: 80,
+        paddingLeft: 60,
         justifyContent: 'center',
     },
     local: {
@@ -203,10 +217,33 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         alignItems: 'center',
         justifyContent: 'center',
-        borderWidth: 1,
-        borderColor: '#000000', 
+        //borderWidth: 1,
+        //borderColor: '#000000', 
     },
     header:{
       backgroundColor: '#1e90ff'
+    },
+    confirmButton: {
+      marginTop: 10,
+      paddingLeft: 40,
+      justifyContent: 'center',
+    },
+    roundButton: {
+      borderWidth:1,
+      borderColor:'rgba(0,0,0,0.2)',
+      alignItems:'center',
+      justifyContent:'center',
+      width: 40,
+      height: 40,
+      backgroundColor:'#fff',
+      borderRadius: 50,
+    },
+    buttonLeft : {
+      paddingLeft: 14,
+      justifyContent: 'center',
+    },
+    buttonLeft2 : {
+      paddingLeft: 20,
+      justifyContent: 'center',
     }
   });

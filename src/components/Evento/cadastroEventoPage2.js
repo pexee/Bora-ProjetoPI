@@ -47,8 +47,8 @@ class cadastroEventoPage2 extends Component{
   verificaIsFalse(){
     if(this.state.rock == false && this.state.sertanejo == false && this.state.pagode == false && this.state.samba == false && this.state.eletro == false && this.state.funk == false){
       Alert.alert(
-                "Criação de Evento",
-                "Por Favor, Escolha alguma categoria",
+                "Criação de dvento",
+                "Por favor, escolha alguma categoria",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);
