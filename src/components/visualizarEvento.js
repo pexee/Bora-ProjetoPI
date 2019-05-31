@@ -10,7 +10,9 @@ import Home from './Home';
 import {Left, Body, Right} from 'native-base'
 
 
-const dados = require('./Home');
+const fromHome = require('./Home');
+const fromMeusEventos = require('./meusEventos');
+var dados = null;
 const storage = firebase.storage();
 
 
@@ -33,6 +35,12 @@ class visualizarEvento extends Component{
 
     constructor(){
         super()
+        if(home){
+          dados = fromHome;
+        }
+        else{
+          dados = fromMeusEventos;
+        }
         if(dados.user == dados.dados.proprietario){
             this.state = {
                 user: dados.user,

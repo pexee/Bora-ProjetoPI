@@ -7,6 +7,8 @@ import { Icon } from 'react-native-elements';
 import { thisTypeAnnotation } from '@babel/types';
 import VisualizarEvento from './visualizarEvento'
 
+const dados = require('./Home');
+
 var data = null;
 var a = false;
 
@@ -21,21 +23,18 @@ class meusEventos extends Component{
         data: data,
       }
     
-      constructor(){
-        super()
-        const user = firebase.auth().currentUser;
-        module.exports.user = user.uid;
-      }
-    
       async carregarLista(){
         data = [];
         await firebase.database().ref('/eventos/').once('value', function(snapshot){
           snapshot.forEach(function(childSnapshot){
-            data.push(childSnapshot.val());
+            if(dados.user == childSnapshot.val().proprietario){
+              data.push(childSnapshot.val());
+            }
           });
         });
+
+      await this.setState({data: data});
         //data = x;
-        await this.setState({data: data});
       }
     
     inloading(){
