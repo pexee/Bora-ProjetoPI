@@ -14,6 +14,7 @@ import { Icon } from 'react-native-elements';
 import VisualizarEvento from './visualizarEvento'
 import EventosConfirmados from './eventosConfirmados'
 import MeusEventos from './meusEventos'
+import Interesses from './interesses'
 import { thisTypeAnnotation } from '@babel/types';
 
 var data = null;
@@ -201,12 +202,21 @@ class meusEventos extends Component{
   }
 }
 
+class interesses extends Component{
+  render(){
+    return(
+      <Interesses/>
+    );
+  }
+}
+
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: paginaPrincipal},
   editarUsuario: {screen: editarUsuario},
   cadastroEventoPage1: {screen: cadastroEventoPage1},
   meusEventos: {screen: meusEventos},
-  eventosConfirmados: {screen: eventosConfirmados}
+  eventosConfirmados: {screen: eventosConfirmados},
+  interesses: {screen: interesses}
 })
 
 const AppSwitchNavigator = createStackNavigator({
@@ -216,6 +226,7 @@ const AppSwitchNavigator = createStackNavigator({
   meusEventos: {screen: AppDrawerNavigator},
   eventosConfirmados: {screen: AppDrawerNavigator},
   editarUsuario: {screen: AppDrawerNavigator},
+  interesses: {screen: AppDrawerNavigator},
   visualizarEvento: {screen: visualizarEvento, navigationOptions: {
     header: null,
   },},
@@ -254,8 +265,8 @@ editarUsuario.navigationOptions = {
   }  
 }
 
-visualizarEvento.navigationOptions = {
-  title: 'Evento',
+interesses.navigationOptions = {
+  title: 'Configurações de interesses',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
