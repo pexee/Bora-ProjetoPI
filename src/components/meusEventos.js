@@ -12,13 +12,8 @@ const dados = require('./Home');
 var data = null;
 var a = false;
 
-export default class App extends Component {
-    render() {
-      return <AppContainer />;
-    }
-  }
 
-class meusEventos extends Component{  
+export default class meusEventos extends Component{  
     state = {
         data: data,
       }
@@ -59,7 +54,7 @@ class meusEventos extends Component{
                     </Body>
                   </Left>
                 </CardItem>
-                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEvento')}}>
+                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEvento')}}>
                   <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
                 </CardItem>
                 <CardItem>
@@ -108,25 +103,6 @@ class meusEventos extends Component{
         }
       }
 
-class visualizarEvento extends Component{
-    render(){
-        return(
-        <VisualizarEvento/>
-        );
-    }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-    meusEventos: {screen: meusEventos, navigationOptions: {
-        header: null
-    }},
-    visualizarEvento: {screen: visualizarEvento, navigationOptions: {
-    header: null,
-    },
-    },    
-});
-    
-const AppContainer = createAppContainer(AppSwitchNavigator);
     
 const styles = StyleSheet.create({
     container: { 

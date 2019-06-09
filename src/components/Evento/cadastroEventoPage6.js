@@ -3,8 +3,6 @@ import {StyleSheet, View, ScrollView, Image, Alert, NativeModules, Dimensions} f
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
-import PaginaPrincipal from '../Home';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
 import {Left, Body, Header, Title } from 'native-base'
 
 const nome = require('./cadastroEventoPage1');
@@ -27,12 +25,7 @@ const themeButton = {
   }
 }
 
-export default class App extends Component{
-    render() {
-    return <AppContainer />;
-  }
-}
-class cadastroEventoPage6 extends Component{  
+export default class cadastroEventoPage6 extends Component{  
   state = {
     image: null,
   }
@@ -142,24 +135,6 @@ verificaIsNull(){
   }
 }
 
-class Home extends Component{
-  render(){
-    return(
-      <PaginaPrincipal/>
-    );
-  }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-  cadastroEventoPage6: {screen: cadastroEventoPage6, navigationOptions: {
-    header: null,
-  }, },
-  Home: {screen: Home, navigationOptions: {
-    header: null,
-  }, },
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
   container: {

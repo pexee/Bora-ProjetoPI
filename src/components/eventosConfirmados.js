@@ -10,13 +10,7 @@ import VisualizarEvento from './visualizarEvento'
 var data = null;
 var a = false;
 
-export default class App extends Component {
-    render() {
-      return <AppContainer />;
-    }
-  }
-
-class eventosConfirmados extends Component{  
+export default class eventosConfirmados extends Component{  
     state = {
         data: data,
       }
@@ -109,25 +103,6 @@ class eventosConfirmados extends Component{
         }
       }
 
-class visualizarEvento extends Component{
-    render(){
-        return(
-        <VisualizarEvento/>
-        );
-    }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-    eventosConfirmados: {screen: eventosConfirmados, navigationOptions: {
-        header: null
-    }},
-    visualizarEvento: {screen: visualizarEvento, navigationOptions: {
-    header: null,
-    },
-    },    
-});
-    
-const AppContainer = createAppContainer(AppSwitchNavigator);
     
 const styles = StyleSheet.create({
     container: { 

@@ -1,132 +1,115 @@
-import React, {Component} from 'react';
-import {GoogleSigninButton } from 'react-native-google-signin';
-import {StyleSheet, Text, View, Image} from 'react-native';
-import { Input, Button, SocialIcon, ThemeProvider} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-
+import React from 'react';
+import { StyleSheet, Platform, Image, Text, View, ScrollView } from 'react-native';
+import { createAppContainer, createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import Login from './src/components/login'
 import CadastroUsuario from './src/components/cadastroUsuario'
-import PaginaPrincipal from './src/components/Home'
-import firebase from 'react-native-firebase';
-
-const theme = {
-  colors: {
-    primary: 'white'
-  }
-}
-
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
-
-class telaInicial extends Component {
-  state = {
-    email: 'pexe@teste.com',
-    password: '123456',
-    isAuthenticated: false,
-  };
-
-  login = async () => {
-    const { email, password } = this.state;
-    
-    try {
-
-      
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      
-      this.setState({ isAuthenticated: true });
-      
-      
+import Home from './src/components/Home'
+import EditarUsuario from './src/components/editarUsuario'
+import CadastroEventoPage1 from './src/components/Evento/cadastroEventoPage1'
+import CadastroEventoPage2 from './src/components/Evento/cadastroEventoPage2'
+import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
+import CadastroEventoPage4 from './src/components/Evento/cadastroEventoPage4'
+import CadastroEventoPage5 from './src/components/Evento/cadastroEventoPage5'
+import CadastroEventoPage6 from './src/components/Evento/cadastroEventoPage6'
+import VisualizarEvento from './src/components/visualizarEvento'
+import EventosConfirmados from './src/components/eventosConfirmados'
+import MeusEventos from './src/components/meusEventos'
+import Interesses from './src/components/interesses'
+import EditarEvento from './src/components/editarEvento'
 
 
-    } catch (error) {
-      
-    }
 
-    
-  }
-
-
-  render() {
-    
-    return (
-      <View style={styles.container}>
-      {this.state.isAuthenticated ? <Text>logado com sucesso</Text>: null }
-       {this.state.isAuthenticated ? this.props.navigation.navigate('paginaPrincipal'): null }
-      <View style={styles.logoContainer}>
-        <Image style={styles.image} source={require('./src/images/logo.png')}/>
-      </View>
-      <View style={styles.inputContainer}>
-        <View style={styles.input}>
-          <Input placeholder={'E-mail'}
-            underlineColorAndroid='transparent' 
-            placeholderTextColor='white' 
-            leftIcon={<Icon name='user' size={23} color='white'/>}
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-            
-            />
-        </View>
-        <View style={styles.input}>
-          <Input placeholder={'Senha'} 
-            underlineColorAndroid='transparent' 
-            placeholderTextColor='white' 
-            leftIcon={<Icon name='lock' size={23} color='white'/>} 
-            value={this.state.password}
-            secureTextEntry={true}
-            onChangeText={password => this.setState({ password })}
-            />
-        </View>
-      </View>
-      <View style={styles.inputContainer2}>
-          <ThemeProvider theme={theme}>
-            <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }}/>
-            </ThemeProvider>
-      </View>
-      <View style={styles.inputContainer2}>
-        <Text style={styles.TextStyle} onPress={ ()=> this.props.navigation.navigate('cadastroUsuario') } >Não tem uma conta? Cadastra-se</Text>
-      </View>
-    </View>
-    );
-  }
-      
-}
-
-class cadastroUsuario extends Component {
+export default class App extends React.Component {
   render() {
     return (
-      <CadastroUsuario/>
+      <AppContainer />
     );
   }
 }
 
-class paginaPrincipal extends Component {
-  render(){
-    return (
-      <PaginaPrincipal/>
-    );
-  }
-}
+const AppDrawerNavigator = createDrawerNavigator({
+  Home: {screen: Home},
+  EditarUsuario: {screen: EditarUsuario},
+  CadastroEventoPage1: {screen: CadastroEventoPage1},
+  MeusEventos: {screen: MeusEventos},
+  EventosConfirmados: {screen: EventosConfirmados},
+  Interesses: {screen: Interesses},
+})
 
-const AppSwitchNavigator = createStackNavigator({
-  telaInicial: { screen: telaInicial,     
-    navigationOptions: {
-      header: null,
-    }, 
-  },
-  cadastroUsuario: { screen: cadastroUsuario },
-  paginaPrincipal: {screen: paginaPrincipal,
-    navigationOptions: {
+
+const AppStackNavigator = createStackNavigator({
+  Login: {
+    screen: Login, navigationOptions: {
       header: null,
     },
-  }
+  },
+  Cadastro: {
+    screen: CadastroUsuario,
+  },
+  Home: {
+    screen: AppDrawerNavigator, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarUsuario: {
+    screen: AppDrawerNavigator,
+  },
+  MeusEventos: {
+    screen: AppDrawerNavigator, navigationOptions: {
+      header: null,
+    },
+  },
+  EventosConfirmados: {
+    screen: AppDrawerNavigator, navigationOptions: {
+      header: null,
+    },
+  },
+  Interesses: {
+    screen: Interesses,
+  },
+  VisualizarEvento: {
+    screen: VisualizarEvento, navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroEventoPage1: {
+    screen: CadastroEventoPage1, 
+  },
+  CadastroEventoPage2: {
+    screen: CadastroEventoPage2, navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroEventoPage3: {
+    screen: CadastroEventoPage3, navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroEventoPage4: {
+    screen: CadastroEventoPage4, navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroEventoPage5: {
+    screen: CadastroEventoPage5, navigationOptions: {
+      header: null,
+    },
+  },
+  CadastroEventoPage6: {
+    screen: CadastroEventoPage6, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEvento: {
+    screen: EditarEvento, navigationOptions: {
+      header: null,
+    },
+  },
+}, {
+    initialRouteName: 'Login',
 });
 
-const AppContainer = createAppContainer(AppSwitchNavigator);
-
-cadastroUsuario.navigationOptions = {
+CadastroUsuario.navigationOptions = {
   title: 'Cadastro',
   headerTintColor: "white",
   headerStyle: {
@@ -134,39 +117,36 @@ cadastroUsuario.navigationOptions = {
   }  
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#1e90ff',
-  },
-  image: {
-    width: 300,
-    height: 150,
-  },
-  logoContainer: {
-    alignItems: 'center',
-  },
-  input: {
-    borderRadius: 15,
-    backgroundColor: '#00bfff',
-    marginTop: 10,
-  },
-  inputContainer: {
-    paddingLeft: 10,
-    paddingRight: 10,
-  },
-  inputContainer2: {
-    marginTop: 10,
-    paddingLeft: 70,
-    paddingRight: 70,
-  },
-  googleContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  TextStyle: {
-    color: '#fff',
-    textDecorationLine: 'underline'
-  },
-});
+CadastroEventoPage1.navigationOptions = {
+  title: 'Criar evento',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+MeusEventos.navigationOptions = {
+  title: 'Meus eventos',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+EventosConfirmados.navigationOptions = {
+  title: 'Eventos Confirmados',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+EditarUsuario.navigationOptions = {
+  title: 'Editar Usuário',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+
+const AppContainer = createAppContainer(AppStackNavigator)

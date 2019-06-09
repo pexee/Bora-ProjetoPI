@@ -2,11 +2,8 @@ import React, {Component, Fragment} from 'react';
 import {StyleSheet, Alert, View} from 'react-native';
 import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-import CadastroEventoPage3 from './cadastroEventoPage3'
 import Overlay from 'react-native-modal-overlay';
 import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 
 const theme = {
@@ -21,13 +18,7 @@ const themeButton = {
   }
 }
 
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
-
-class cadastroEventoPage2 extends Component{
+export default class cadastroEventoPage2 extends Component{
   state = {
     modalVisible: false,
     rock: false,
@@ -63,7 +54,7 @@ class cadastroEventoPage2 extends Component{
         funk: this.state.funk,
       }
       module.exports.categorias = categorias;
-       this.props.navigation.navigate('cadastroEventoPage3');
+       this.props.navigation.navigate('CadastroEventoPage3');
     }
   }
 
@@ -72,7 +63,7 @@ class cadastroEventoPage2 extends Component{
       <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>
@@ -124,42 +115,6 @@ class cadastroEventoPage2 extends Component{
   }
 }
 
-class cadastroEventoPage3 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage3/>
-      );
-  }
-}
-
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
-
-
-const AppSwitchNavigator = createStackNavigator({
-  cadastroEventoPage2: {screen: cadastroEventoPage2,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  cadastroEventoPage3: {screen: cadastroEventoPage3,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  home: {screen: home,
-    navigationOptions: {
-      header: null,
-    },
-  }
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
 
 
 const styles = StyleSheet.create({

@@ -20,13 +20,7 @@ import { thisTypeAnnotation } from '@babel/types';
 var data = null;
 var a = false;
 
-export default class App extends Component {
-    render() {
-      return <AppContainer />;
-    }
-  }
-
-class paginaPrincipal extends Component{
+export default class Home extends Component{
   state = {
     data: data,
   }
@@ -71,7 +65,7 @@ renderList(){
                 </Body>
               </Left>
             </CardItem>
-            <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEvento')}}>
+            <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEvento')}}>
               <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 300, resizeMode: 'stretch'}} />
             </CardItem>
             <CardItem>
@@ -120,174 +114,6 @@ renderList(){
     }
   }
 
-class cadastroEventoPage1 extends Component {
-    render(){
-        return (
-            <CadastroEventoPage1/>
-        );
-    }
-}
-
-class cadastroEventoPage2 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage2/>
-      );
-  }
-}
-
-class cadastroEventoPage3 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage3/>
-      );
-  }
-}
-
-class cadastroEventoPage4 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage4/>
-      );
-  }
-}
-
-class cadastroEventoPage5 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage5/>
-      );
-  }
-}
-
-class cadastroEventoPage6 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage6/>
-      );
-  }
-}
-
-
-class editarUsuario extends Component {
-  render(){
-      return (
-          <EditarUsuario/>
-      );
-  }
-}
-
-
-class visualizarEvento extends Component{
-  render(){
-    return(
-      <VisualizarEvento/>
-    );
-  }
-}
-
-class eventosConfirmados extends Component{
-  render(){
-    return(
-      <EventosConfirmados/>
-    );
-  }
-}
-
-class meusEventos extends Component{
-  render(){
-    return(
-      <MeusEventos/>
-    );
-  }
-}
-
-class interesses extends Component{
-  render(){
-    return(
-      <Interesses/>
-    );
-  }
-}
-
-const AppDrawerNavigator = createDrawerNavigator({
-  Home: {screen: paginaPrincipal},
-  editarUsuario: {screen: editarUsuario},
-  cadastroEventoPage1: {screen: cadastroEventoPage1},
-  meusEventos: {screen: meusEventos},
-  eventosConfirmados: {screen: eventosConfirmados},
-  interesses: {screen: interesses}
-})
-
-const AppSwitchNavigator = createStackNavigator({
-  paginaPrincipal: {screen: AppDrawerNavigator, navigationOptions: {
-    header: null,
-  }, },
-  meusEventos: {screen: AppDrawerNavigator},
-  eventosConfirmados: {screen: AppDrawerNavigator},
-  editarUsuario: {screen: AppDrawerNavigator},
-  interesses: {screen: AppDrawerNavigator},
-  visualizarEvento: {screen: visualizarEvento, navigationOptions: {
-    header: null,
-  },},
-  cadastroEventoPage1: {screen: AppDrawerNavigator},
-  cadastroEventoPage2: {screen: cadastroEventoPage2, navigationOptions: {
-    header: null,
-  },},
-  cadastroEventoPage3: {screen: cadastroEventoPage3, navigationOptions: {
-    header: null,
-  },},
-  cadastroEventoPage4: {screen: cadastroEventoPage4, navigationOptions: {
-    header: null,
-  },},
-  cadastroEventoPage5: {screen: cadastroEventoPage5, navigationOptions: {
-    header: null,
-  },},
-  cadastroEventoPage6: {screen: cadastroEventoPage6, navigationOptions: {
-    header: null,
-  },},
-});
-  
-const AppContainer = createAppContainer(AppSwitchNavigator);
-
-cadastroEventoPage1.navigationOptions = {
-  title: 'Criar evento',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
-editarUsuario.navigationOptions = {
-  title: 'Editar informações',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
-
-interesses.navigationOptions = {
-  title: 'Configurações de interesses',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
-
-meusEventos.navigationOptions = {
-  title: 'Meus eventos',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
-
-eventosConfirmados.navigationOptions = {
-  title: 'Eventos confirmados',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
-}
 
 const styles = StyleSheet.create({
   container: { 

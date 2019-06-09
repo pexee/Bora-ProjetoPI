@@ -3,11 +3,8 @@ import {StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createStackNavigator, createAppContainer} from 'react-navigation';
-import CadastroEventoPage5 from './cadastroEventoPage5'
 import moment from 'moment'
 import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 const theme = {
   colors: {
@@ -22,13 +19,8 @@ const themeButton = {
 }
 
 
-export default class App extends Component {
-    render() {
-      return <AppContainer />;
-    }
-  }
-  
-  class cadastroEventoPage4 extends Component{
+
+export default class cadastroEventoPage4 extends Component{
     constructor(){
       super()
       this.state= {
@@ -64,7 +56,7 @@ export default class App extends Component {
     if(this.state.data && this.state.horario){
       module.exports.data = this.state.data;
       module.exports.horario = this.state.horario;
-      this.props.navigation.navigate('cadastroEventoPage5');
+      this.props.navigation.navigate('CadastroEventoPage5');
     }
     else{
             Alert.alert(
@@ -81,7 +73,7 @@ export default class App extends Component {
         <View style={styles.container}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>
@@ -115,44 +107,7 @@ export default class App extends Component {
     );
     }
   }
-  
-  class cadastroEventoPage5 extends Component {
-    render(){
-        return (
-            <CadastroEventoPage5/>
-        );
-    }
-  }
-  
-  class home extends Component {
-    render(){
-        return (
-            <Home/>
-        );
-    }
-  }
-  
-  
-  const AppSwitchNavigator = createStackNavigator({
-    cadastroEventoPage4: {screen: cadastroEventoPage4,
-        navigationOptions: {
-            header: null,
-          }
-        },
-    cadastroEventoPage5: {screen: cadastroEventoPage5,
-        navigationOptions: {
-            header: null,
-          },
-    },
-    home: {screen: home,
-      navigationOptions: {
-        header: null,
-      },
-    }
-  });
-  
-  const AppContainer = createAppContainer(AppSwitchNavigator);
-  
+    
   const styles = StyleSheet.create({
     container: {
       flex: 1,

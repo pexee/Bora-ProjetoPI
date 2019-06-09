@@ -4,15 +4,9 @@ import { Icon } from 'react-native-elements';
 import { Text} from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import firebase from 'react-native-firebase';
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
-import EditarEvento from './editarEvento';
-import Home from './Home';
-import {Left, Body, Right} from 'native-base'
 
 
-const fromHome = require('./Home');
-const fromMeusEventos = require('./meusEventos');
-var dados = null;
+const dados = require('./Home');
 const storage = firebase.storage();
 
 
@@ -21,13 +15,9 @@ const theme = {
       primary: 'white'
     }
   }
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
 
-class visualizarEvento extends Component{  
+
+export default class VisualizarEvento extends Component{  
 
     state = {
 
@@ -35,12 +25,6 @@ class visualizarEvento extends Component{
 
     constructor(){
         super()
-        if(home){
-          dados = fromHome;
-        }
-        else{
-          dados = fromMeusEventos;
-        }
         if(dados.user == dados.dados.proprietario){
             this.state = {
                 user: dados.user,
@@ -60,7 +44,7 @@ class visualizarEvento extends Component{
 
     putButton(){
         return <ActionButton buttonColor='#00bfff'>
-          <ActionButton.Item buttonColor='#90ee90' title="Editar" onPress={() => this.props.navigation.navigate('editarEvento')}>
+          <ActionButton.Item buttonColor='#90ee90' title="Editar" onPress={() => this.props.navigation.navigate('EditarEvento')}>
             <Icon type='material' name="edit" style={styles.actionButtonIcon} />
           </ActionButton.Item>
           <ActionButton.Item buttonColor='red' title="Excluir" onPress={() => this.alert()}>
@@ -77,6 +61,7 @@ class visualizarEvento extends Component{
                 [
                     { text: "Não", onPress: () =>  null },
                     { text: "Sim", onPress: () => this.excluirEvento()},
+                    
                 ],);
     }
 
@@ -84,7 +69,7 @@ class visualizarEvento extends Component{
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
         await firebase.database().ref('/eventos/'+dados.dados.key).remove();
-        this.props.navigation.navigate('home');
+        this.props.navigation.navigate('Home');
     }
 
   render() {
@@ -130,42 +115,6 @@ class visualizarEvento extends Component{
   );
   }
 }
-
-class editarEvento extends Component {
-  render(){
-      return (
-          <EditarEvento/>
-      );
-  }
-}
-
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-  visualizarEvento: {screen: visualizarEvento,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  editarEvento: {screen: editarEvento,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  home: {screen: home,
-    navigationOptions: {
-        header: null,
-    },
-    }
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
     containerPrincipal: {

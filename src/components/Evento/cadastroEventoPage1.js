@@ -2,10 +2,7 @@ import React, {Component} from 'react';
 import {StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {createAppContainer, createStackNavigator} from 'react-navigation';
-import CadastroEventoPage2 from './cadastroEventoPage2'
 import {Left, Body, Header, Title } from 'native-base'
-import Home from '../Home'
 
 
 
@@ -21,13 +18,8 @@ const themeButton = {
   }
 }
 
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
 
-class cadastroEventoPage1 extends Component{
+export default class cadastroEventoPage1 extends Component{
   state = {
     nome: null,
   };
@@ -35,7 +27,7 @@ class cadastroEventoPage1 extends Component{
   verificaIsNull(){
     if(this.state.nome){
       module.exports.nome = this.state.nome;
-      this.props.navigation.navigate('cadastroEventoPage2');
+      this.props.navigation.navigate('CadastroEventoPage2');
     }
     else{
             Alert.alert(
@@ -52,7 +44,7 @@ class cadastroEventoPage1 extends Component{
       <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>
@@ -77,51 +69,6 @@ class cadastroEventoPage1 extends Component{
     </View>
   );
   }
-}
-
-class cadastroEventoPage2 extends Component {
-  render(){
-      return (
-          <CadastroEventoPage2/>
-      );
-  }
-}
-
-
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
-
-const AppSwitchNavigator = createStackNavigator({
-  cadastroEventoPage1: {screen: cadastroEventoPage1,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  cadastroEventoPage2: {screen: cadastroEventoPage2,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  home: {screen: home,
-    navigationOptions: {
-      header: null,
-    },
-  }
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
-
-cadastroEventoPage2.navigationOptions = {
-  title: 'Page 2',
-  headerTintColor: "white",
-  headerStyle: {
-    backgroundColor:'#1e90ff'
-  }  
 }
 
 const styles = StyleSheet.create({

@@ -12,7 +12,7 @@ const theme = {
   }
 }
 
-export default class App extends Component{
+export default class CadastroUsuario extends Component{
 
   state = {
     nome: 'geovani',

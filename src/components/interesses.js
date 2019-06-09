@@ -15,14 +15,7 @@ const theme = {
     }
   }
 
-export default class App extends Component {
-  render() {
-    return <AppContainer />;
-  }
-}
-
-
-class interesses extends Component{ 
+export default class interesses extends Component{ 
   constructor() {
     super();
     this.state = {
@@ -38,7 +31,7 @@ class interesses extends Component{
         <View style={styles.containerPrincipal}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
             </Left>
             <Body>
             <Title> Interesses </Title>
@@ -86,28 +79,7 @@ class interesses extends Component{
   }
 }
 
-class home extends Component {
-  render(){
-      return (
-          <Home/>
-      );
-  }
-}
 
-const AppSwitchNavigator = createStackNavigator({
-  interesses: {screen: interesses,
-    navigationOptions: {
-      header: null,
-    },
-  },
-  home: {screen: home,
-    navigationOptions: {
-      header: null,
-    },
-  }
-});
-
-const AppContainer = createAppContainer(AppSwitchNavigator);
 
 const styles = StyleSheet.create({
     containerPrincipal: {
