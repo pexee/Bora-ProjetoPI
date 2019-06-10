@@ -8,6 +8,7 @@ import CadastroEventoPage4 from './Evento/cadastroEventoPage4'
 import CadastroEventoPage5 from './Evento/cadastroEventoPage5'
 import CadastroEventoPage6 from './Evento/cadastroEventoPage6'
 import EditarUsuario from './editarUsuario'
+import Login from './login'
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
 import VisualizarEventoFromHome from './visualizarEventoFromHome'
@@ -24,9 +25,25 @@ export default class Home extends Component{
 
   constructor(){
     super()
+    this.islogged();
     const user = firebase.auth().currentUser;
     module.exports.user = user.uid;
   }
+
+  async islogged(){
+    await firebase.auth().onAuthStateChanged(
+       function(user){
+         if(user){
+         
+           //this.setState({usuario: firebase.auth().currentUser})
+         }else{
+           console.log('home \n usuario deslogado \n' + user)
+          this.props.navigation.navigate('Login')
+         }
+       }.bind(this)
+     )
+   }
+  
 
   async carregarLista(){
     data = [];
@@ -95,6 +112,11 @@ renderList(){
             <Body>
             <Title> Home </Title>
             </Body>
+            <Right>
+              <Button transparent>
+                <Icon color='white' name='exit-to-app' onPress={() => firebase.auth().signOut()} ></Icon>
+              </Button>
+            </Right>
           </Header>
           <Container>
             {this.state.data ? this.renderList() : this.inloading()}
