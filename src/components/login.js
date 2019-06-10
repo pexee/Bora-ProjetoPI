@@ -16,19 +16,42 @@ export default class Login extends Component {
     password: '123456',
     isAuthenticated: false,
   };
+  componentDidMount(){
+    this.islogged();
+    
+  }
+  
+ async islogged(){
+   
+   await firebase.auth().onAuthStateChanged(
+      function(user){
+        if(user){
+          console.log(user)
+          this.props.navigation.navigate('Home');
 
+        }else{
+          
+        }
+      }.bind(this)
+    )
+  }
+
+
+  
   login = async () => {
     const { email, password } = this.state;
+    
     
     try {
 
       
-      const user = await firebase.auth().signInWithEmailAndPassword(email, password);
-      
-      this.setState({ isAuthenticated: true });
-      
-      
-
+      await firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+        
+        console.log('entrou')
+      }).catch(function(error){
+        alert('Email/Senha incorreto')
+        console.log(error)
+      })
 
     } catch (error) {
       
