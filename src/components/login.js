@@ -65,8 +65,6 @@ export default class Login extends Component {
     
     return (
       <View style={styles.container}>
-      {this.state.isAuthenticated ? <Text>logado com sucesso</Text>: null }
-       {this.state.isAuthenticated ? this.props.navigation.navigate('Home'): null }
       <View style={styles.logoContainer}>
         <Image style={styles.image} source={require('../images/logo.png')}/>
       </View>
