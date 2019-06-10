@@ -3,8 +3,8 @@ import {Left, Body, Header, Title } from 'native-base'
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import Overlay from 'react-native-modal-overlay';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 
@@ -142,7 +142,7 @@ export default class editarEvento extends Component{
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('visualizarEventoFromHome')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('VisualizarEventoFromHome')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>

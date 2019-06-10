@@ -1,33 +1,32 @@
 import React, {Component} from 'react';
 import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base';
+import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
-import { thisTypeAnnotation } from '@babel/types';
 import VisualizarEventoFromConfirmados from './visualizarEventoFromConfirmados'
+
+const dados = require('./Home');
 
 var data = null;
 
-export default class eventosConfirmados extends Component{  
+export default class meusEventos extends Component{  
     state = {
         data: data,
       }
-    
-      constructor(){
-        super()
-        const user = firebase.auth().currentUser;
-        module.exports.user = user.uid;
-      }
+
     
       async carregarLista(){
         data = [];
-        await firebase.database().ref('/eventos/').once('value', function(snapshot){
+        await firebase.database().ref('/usuarios/' + dados.user + '/eventos/').once('value',function(snapshot){
           snapshot.forEach(function(childSnapshot){
-            data.push(childSnapshot.val());
+            if(childSnapshot.val() == true){
+              firebase.database().ref('/eventos/' + childSnapshot.key).once('value').then(function(snapshot){
+                data.push(snapshot.val());
+              });
+            }
           });
         });
-        //data = x;
         await this.setState({data: data});
       }
     
@@ -53,25 +52,19 @@ export default class eventosConfirmados extends Component{
                     </Body>
                   </Left>
                 </CardItem>
-                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEventoFromConfirmados')}}>
+                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEventoFromConfirmados')}}>
                   <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
                 </CardItem>
                 <CardItem>
                   <Left>
-                    <Button transparent>
-                      <Icon type='font-awesome' size={10} name="thumbs-up" />
-                      <Text>12 bora</Text>
-                    </Button>
+                  <Icon type='font-awesome' size={12} name="thumbs-up" />
+                  <Text> {rowData.confirmados} bora       </Text>
+                  <Icon type='font-awesome' size={12} name="calendar" />
+                  <Text> {rowData.data} </Text>
                   </Left>
-                  <Body>
-                    <Button transparent>
-                      <Icon type='font-awesome' size={10} name="calendar" />
-                      <Text> 22/5 </Text>
-                    </Button>
-                  </Body>
-                  <Right>
-                    <Text> 11:30h </Text>
-                  </Right>
+              <Right>
+                <Text> {rowData.horario}h </Text>
+              </Right>
                 </CardItem>
               </Card>
               );
@@ -90,7 +83,7 @@ export default class eventosConfirmados extends Component{
                   <Icon type='font-awesome' color='white' name='bars' onPress={() => this.props.navigation.toggleDrawer()} hasTabs/>
                 </Left>
                 <Body>
-                <Title> Eventos confirmados </Title>
+                <Title> Meus eventos </Title>
                 </Body>
               </Header>
               <Container>

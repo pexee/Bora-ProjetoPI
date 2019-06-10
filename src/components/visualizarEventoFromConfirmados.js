@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Alert, Image, TouchableOpacity} from 'react-native';
-import { Icon } from 'react-native-elements';
-import { Text} from 'react-native-elements';
+import { Icon, Text } from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import firebase from 'react-native-firebase';
 
 
-const dados = require('./Home');
+const dados = require('./eventosConfirmados');
+const user = require('./Home');
 const storage = firebase.storage();
 
 
@@ -17,7 +17,7 @@ const theme = {
   }
 
 
-export default class VisualizarEventoFromConfirmados extends Component{  
+export default class VisualizarEventoFromMeusEventos extends Component{  
 
     state = {
 
@@ -25,21 +25,19 @@ export default class VisualizarEventoFromConfirmados extends Component{
 
     constructor(){
         super()
-        if(dados.user == dados.dados.proprietario){
+        if(user.user == dados.dados.proprietario){
             this.state = {
-                user: dados.user,
-                proprietario: dados.dados.proprietario,
+                bora: false,
                 isProprietario: true,
             }
         }
         else{
             this.state = {
-                user: dados.user,
-                proprietario: dados.dados.proprietario,
+                bora: false,
                 isProprietario: false,
             }
         }
-        console.log(this.state.isProprietario);
+        this.verificaStatus();
     }
 
     putButton(){
@@ -68,8 +66,84 @@ export default class VisualizarEventoFromConfirmados extends Component{
     async excluirEvento(){
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
-        await firebase.database().ref('/eventos/'+dados.dados.key).remove();
-        this.props.navigation.navigate('Home');
+        await firebase.database().ref('/eventos/' + dados.dados.key).remove();
+        this.props.navigation.navigate('EventosConfirmados');
+    }
+
+    async verificaStatus(){
+      await firebase.database().ref('/usuarios/' + user.user + '/eventos/' + dados.dados.key).once('value').then(snapshot => {
+        if(snapshot.val() != null){
+          this.setState({bora: snapshot.val()});
+        }
+        else{
+          firebase.database().ref('/usuarios/' + user.user + '/eventos/').update({
+            [dados.dados.key]: false,
+          })
+          this.setState({bora: false});
+        }
+      });
+    }
+
+    async mudaStatus(){
+      if(this.state.bora == true){
+
+        Alert.alert(
+                "Evento",
+                "Você desconfirmou presença no evento, bora?",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+
+        this.setState({bora: false});
+        await firebase.database().ref('/eventos/' + dados.dados.key + '/confirmados/').transaction(function(confirmados){
+          confirmados--;
+          return confirmados;
+        });
+        await firebase.database().ref('/usuarios/' + user.user + '/eventos/').update({
+          [dados.dados.key]: false,
+        });
+      }
+      else{
+
+        Alert.alert(
+                "Evento",
+                "Você confirmou presença no evento, bora!",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+        
+         this.setState({bora: true});
+         await firebase.database().ref('/eventos/' + dados.dados.key + '/confirmados/').transaction(function(confirmados){
+          confirmados++;
+          return confirmados;
+        });
+         await firebase.database().ref('/usuarios/' + user.user + '/eventos/').update({
+          [dados.dados.key]: true,
+        });
+      }
+    }
+
+    verificaBora(){
+      if(this.state.bora == true){
+        return  <View style={styles.confirmButton}>
+                  <View style={styles.buttonLeft}>
+                    <TouchableOpacity style={styles.roundButton}>
+                      <Icon name='done' type='material' size={24} color='#1e90ff' onPress={() => this.mudaStatus()} /> 
+                    </TouchableOpacity>
+                  </View>
+                <Text>     Bora! </Text>
+                </View>
+      }
+      else{
+        return  <View style={styles.confirmButton}>
+                  <View style={styles.buttonLeft}>
+                    <TouchableOpacity style={styles.roundButton}>
+                      <Icon name='flag' type='material' size={24} color='#1e90ff' onPress={() => this.mudaStatus()} /> 
+                    </TouchableOpacity>
+                  </View>
+                <Text>     Bora? </Text>
+                </View>
+      }
     }
 
   render() {
@@ -88,14 +162,7 @@ export default class VisualizarEventoFromConfirmados extends Component{
                     </View>
                     <Text> {dados.dados.data} </Text>
                 </View>
-                <View style={styles.confirmButton}>
-                    <View style={styles.buttonLeft}>
-                    <TouchableOpacity style={styles.roundButton}>
-                      <Icon name='done' type='material' size={24} color='#1e90ff' onPress={() => {Alert.alert('You tapped the button!')}} /> 
-                    </TouchableOpacity>
-                    </View>
-                  <Text> Confirmar </Text>
-                </View>
+                    {this.verificaBora()}
                 <View style={styles.iconClock}>
                     <TouchableOpacity style={styles.roundButton}>
                       <Icon name='alarm' type='material' size={24} color='#1e90ff'/>

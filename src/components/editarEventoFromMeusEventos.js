@@ -2,9 +2,9 @@ import React, {Component, Fragment} from 'react';
 import {Left, Body, Header, Title } from 'native-base'
 import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
+import Overlay from 'react-native-modal-overlay';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Icon from 'react-native-vector-icons/FontAwesome';
-import Overlay from 'react-native-modal-overlay';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 

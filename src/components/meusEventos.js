@@ -9,7 +9,6 @@ import VisualizarEventoFromMeusEventos from './visualizarEventoFromMeusEventos'
 const dados = require('./Home');
 
 var data = null;
-var a = false;
 
 
 export default class meusEventos extends Component{  
