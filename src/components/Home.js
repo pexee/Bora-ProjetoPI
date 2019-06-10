@@ -8,17 +8,14 @@ import CadastroEventoPage4 from './Evento/cadastroEventoPage4'
 import CadastroEventoPage5 from './Evento/cadastroEventoPage5'
 import CadastroEventoPage6 from './Evento/cadastroEventoPage6'
 import EditarUsuario from './editarUsuario'
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
-import VisualizarEvento from './visualizarEvento'
+import VisualizarEventoFromHome from './visualizarEventoFromHome'
 import EventosConfirmados from './eventosConfirmados'
 import MeusEventos from './meusEventos'
 import Interesses from './interesses'
-import { thisTypeAnnotation } from '@babel/types';
 
 var data = null;
-var a = false;
 
 export default class Home extends Component{
   state = {
@@ -65,24 +62,18 @@ renderList(){
                 </Body>
               </Left>
             </CardItem>
-            <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEvento')}}>
+            <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEventoFromHome')}}>
               <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 300, resizeMode: 'stretch'}} />
             </CardItem>
             <CardItem>
               <Left>
-                <Button transparent>
-                  <Icon type='font-awesome' size={10} name="thumbs-up" />
-                  <Text>12 bora</Text>
-                </Button>
-              </Left>
-              <Body>
-                <Button transparent>
-                  <Icon type='font-awesome' size={10} name="calendar" />
-                  <Text> 22/5 </Text>
-                </Button>
-              </Body>
+                  <Icon type='font-awesome' size={12} name="thumbs-up" />
+                  <Text> {rowData.confirmados} bora       </Text>
+                  <Icon type='font-awesome' size={12} name="calendar" />
+                  <Text> {rowData.data} </Text>
+                  </Left>
               <Right>
-                <Text> 11:30h </Text>
+                <Text> {rowData.horario}h </Text>
               </Right>
             </CardItem>
           </Card>

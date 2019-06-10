@@ -79,7 +79,8 @@ async criarEvento(){
     endereco: endereco.endereco,
     imageUrl: img.downloadURL,
     proprietario: user.uid,
-    key: key
+    key: key,
+    confirmados: 0
   })
   this.props.navigation.navigate('Home');
 }

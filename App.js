@@ -11,11 +11,15 @@ import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
 import CadastroEventoPage4 from './src/components/Evento/cadastroEventoPage4'
 import CadastroEventoPage5 from './src/components/Evento/cadastroEventoPage5'
 import CadastroEventoPage6 from './src/components/Evento/cadastroEventoPage6'
-import VisualizarEvento from './src/components/visualizarEvento'
+import VisualizarEventoFromHome from './src/components/visualizarEventoFromHome'
+import VisualizarEventoFromMeusEventos from './src/components/visualizarEventoFromMeusEventos'
+import VisualizarEventoFromConfirmados from './src/components/visualizarEventoFromConfirmados'
 import EventosConfirmados from './src/components/eventosConfirmados'
 import MeusEventos from './src/components/meusEventos'
 import Interesses from './src/components/interesses'
-import EditarEvento from './src/components/editarEvento'
+import EditarEventoFromHome from './src/components/editarEventoFromHome'
+import EditarEventoFromMeusEventos from './src/components/editarEventoFromMeusEventos'
+import EditarEventoFromConfirmados from './src/components/editarEventoFromConfirmados'
 
 
 
@@ -67,8 +71,18 @@ const AppStackNavigator = createStackNavigator({
   Interesses: {
     screen: Interesses,
   },
-  VisualizarEvento: {
-    screen: VisualizarEvento, navigationOptions: {
+  VisualizarEventoFromHome: {
+    screen: VisualizarEventoFromHome, navigationOptions: {
+      header: null,
+    },
+  },
+  VisualizarEventoFromMeusEventos: {
+    screen: VisualizarEventoFromMeusEventos, navigationOptions: {
+      header: null,
+    },
+  },
+  VisualizarEventoFromConfirmados: {
+    screen: VisualizarEventoFromConfirmados, navigationOptions: {
       header: null,
     },
   },
@@ -100,8 +114,18 @@ const AppStackNavigator = createStackNavigator({
       header: null,
     },
   },
-  EditarEvento: {
-    screen: EditarEvento, navigationOptions: {
+  EditarEventoFromHome: {
+    screen: EditarEventoFromHome, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEventoFromMeusEventos: {
+    screen: EditarEventoFromMeusEventos, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEventoFromConfirmados: {
+    screen: EditarEventoFromConfirmados, navigationOptions: {
       header: null,
     },
   },

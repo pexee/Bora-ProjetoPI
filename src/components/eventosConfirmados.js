@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
 import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
+import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base';
 import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
 import { thisTypeAnnotation } from '@babel/types';
-import VisualizarEvento from './visualizarEvento'
+import VisualizarEventoFromConfirmados from './visualizarEventoFromConfirmados'
 
 var data = null;
-var a = false;
 
 export default class eventosConfirmados extends Component{  
     state = {
@@ -54,7 +53,7 @@ export default class eventosConfirmados extends Component{
                     </Body>
                   </Left>
                 </CardItem>
-                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEvento')}}>
+                <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('visualizarEventoFromConfirmados')}}>
                   <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
                 </CardItem>
                 <CardItem>

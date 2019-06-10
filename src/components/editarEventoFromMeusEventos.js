@@ -10,7 +10,7 @@ import moment from 'moment';
 
 
 var ImagePicker = NativeModules.ImageCropPicker;
-const dados = require('./Home');
+const dados = require('./meusEventos');
 const storage = firebase.storage();
 
 const theme = {
@@ -142,7 +142,7 @@ export default class editarEvento extends Component{
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('visualizarEvento')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('MeusEventos')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>
@@ -204,7 +204,7 @@ export default class editarEvento extends Component{
           </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => {this.editarEvento(); this.props.navigation.navigate('Home')}}/>
+              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => {this.editarEvento(); this.props.navigation.navigate('MeusEventos')}}/>
             </ThemeProvider>
           </View>
         </View>
