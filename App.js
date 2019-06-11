@@ -5,6 +5,7 @@ import Login from './src/components/login'
 import CadastroUsuario from './src/components/cadastroUsuario'
 import Home from './src/components/Home'
 import EditarUsuario from './src/components/editarUsuario'
+import ExcluirUsuário from './src/components/excluirUsuario'
 import CadastroEventoPage1 from './src/components/Evento/cadastroEventoPage1'
 import CadastroEventoPage2 from './src/components/Evento/cadastroEventoPage2'
 import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
@@ -33,11 +34,12 @@ export default class App extends React.Component {
 
 const AppDrawerNavigator = createDrawerNavigator({
   Home: {screen: Home},
-  EditarUsuario: {screen: EditarUsuario},
   CadastroEventoPage1: {screen: CadastroEventoPage1},
   MeusEventos: {screen: MeusEventos},
   EventosConfirmados: {screen: EventosConfirmados},
   Interesses: {screen: Interesses},
+  EditarUsuario: {screen: EditarUsuario},
+  ExcluirUsuário: {screen: ExcluirUsuário},
 })
 
 
@@ -56,6 +58,9 @@ const AppStackNavigator = createStackNavigator({
     },
   },
   EditarUsuario: {
+    screen: AppDrawerNavigator,
+  },
+  ExcluirUsuário: {
     screen: AppDrawerNavigator,
   },
   MeusEventos: {
@@ -167,6 +172,13 @@ EventosConfirmados.navigationOptions = {
 
 EditarUsuario.navigationOptions = {
   title: 'Editar usuário',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  }  
+}
+ExcluirUsuário.navigationOptions = {
+  title: 'Excluir conta',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
