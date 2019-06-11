@@ -53,7 +53,7 @@ export default class VisualizarEventoFromMeusEventos extends Component{
 
     alert(){
             Alert.alert(
-                "Excluir Evento",
+                "Excluir evento",
                 "Deseja EXCLUIR o evento?",
                 [
                     { text: "Não", onPress: () =>  null },
@@ -66,7 +66,13 @@ export default class VisualizarEventoFromMeusEventos extends Component{
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
         await firebase.database().ref('/eventos/' + dados.dados.key).remove();
-        this.props.navigation.navigate('Home');
+        alert();
+          Alert.alert(
+              "Excluir evento",
+              "Evento excluido com sucesso!",
+              [
+                  { text: "Ok", onPress: () =>  this.props.navigation.navigate('Home') },  
+              ],);
     }
 
     async verificaStatus(){

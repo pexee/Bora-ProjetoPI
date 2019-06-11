@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {Left, Body, Header, Title } from 'native-base'
-import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Dimensions} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Alert} from 'react-native';
 import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Overlay from 'react-native-modal-overlay';
@@ -98,7 +98,16 @@ export default class editarEvento extends Component{
       Alert.alert(e.message ? e.message : e);
     });
 }
-
+alert(){
+  Alert.alert(
+      "Editar evento",
+      "Deseja editar o evento?",
+      [
+          { text: "Não", onPress: () =>  null },
+          { text: "Sim", onPress: () => this.editarEvento()},
+          
+      ],);
+}
   async editarEvento(){
     var evento = null;
     var categorias = {
@@ -135,6 +144,12 @@ export default class editarEvento extends Component{
       };
     }
     await firebase.database().ref('/eventos/'+dados.dados.key).update(evento);
+    Alert.alert(
+      "Editar evento",
+      "Evento editado com sucesso!",
+      [
+          { text: "Ok", onPress: () => this.props.navigation.navigate('Home') },  
+      ],);
   }
   
   render() {
@@ -204,7 +219,7 @@ export default class editarEvento extends Component{
           </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => {this.editarEvento(); this.props.navigation.navigate('Home')}}/>
+              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => this.alert()}/>
             </ThemeProvider>
           </View>
         </View>

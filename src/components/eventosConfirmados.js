@@ -1,16 +1,15 @@
 import React, {Component} from 'react';
 import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
 import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
-import VisualizarEventoFromConfirmados from './visualizarEventoFromConfirmados'
+
 
 const dados = require('./Home');
 
 var data = null;
 
-export default class meusEventos extends Component{  
+export default class eventosConfirmados extends Component{  
     state = {
         data: data,
       }
@@ -83,7 +82,7 @@ export default class meusEventos extends Component{
                   <Icon type='font-awesome' color='white' name='bars' onPress={() => this.props.navigation.toggleDrawer()} hasTabs/>
                 </Left>
                 <Body>
-                <Title> Meus eventos </Title>
+                <Title> Eventos confirmados </Title>
                 </Body>
               </Header>
               <Container>

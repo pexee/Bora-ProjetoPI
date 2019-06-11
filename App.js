@@ -158,7 +158,7 @@ MeusEventos.navigationOptions = {
 }
 
 EventosConfirmados.navigationOptions = {
-  title: 'Eventos Confirmados',
+  title: 'Eventos confirmados',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'
@@ -166,7 +166,7 @@ EventosConfirmados.navigationOptions = {
 }
 
 EditarUsuario.navigationOptions = {
-  title: 'Editar Usuário',
+  title: 'Editar usuário',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'

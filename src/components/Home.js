@@ -1,20 +1,9 @@
 import React, {Component} from 'react';
-import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
+import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text, Alert} from 'react-native';
 import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
-import CadastroEventoPage1 from './Evento/cadastroEventoPage1'
-import CadastroEventoPage2 from './Evento/cadastroEventoPage2'
-import CadastroEventoPage3 from './Evento/cadastroEventoPage3'
-import CadastroEventoPage4 from './Evento/cadastroEventoPage4'
-import CadastroEventoPage5 from './Evento/cadastroEventoPage5'
-import CadastroEventoPage6 from './Evento/cadastroEventoPage6'
-import EditarUsuario from './editarUsuario'
-import Login from './login'
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
-import VisualizarEventoFromHome from './visualizarEventoFromHome'
-import EventosConfirmados from './eventosConfirmados'
-import MeusEventos from './meusEventos'
-import Interesses from './interesses'
+
 
 var data = null;
 
@@ -101,6 +90,16 @@ renderList(){
       </Container>
 }
 
+alert(){
+  Alert.alert(
+      "Logoff",
+      "Deseja realmente sair da sua conta?",
+      [
+          { text: "Não", onPress: () =>  null },
+          { text: "Sim", onPress: () => firebase.auth().signOut()},
+          
+      ],);
+}
   
     render() {
       return (
@@ -114,7 +113,7 @@ renderList(){
             </Body>
             <Right>
               <Button transparent>
-                <Icon color='white' name='exit-to-app' onPress={() => firebase.auth().signOut()} ></Icon>
+                <Icon color='white' name='exit-to-app' onPress={() => this.alert()} ></Icon>
               </Button>
             </Right>
           </Header>

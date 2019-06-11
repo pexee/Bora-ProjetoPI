@@ -82,7 +82,12 @@ async criarEvento(){
     key: key,
     confirmados: 0
   })
-  this.props.navigation.navigate('Home');
+  Alert.alert(
+    "Criar evento",
+    "Evento criado com sucesso!",
+    [
+        { text: "OK", onPress: () => this.props.navigation.navigate('Home') },
+    ],);
 }
 
 verificaIsNull(){
@@ -91,21 +96,30 @@ verificaIsNull(){
     }
     else{
             Alert.alert(
-                "Criação de evento",
+                "Criar evento",
                 "Por favor, insira uma imagem",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);
     }
     }
-
+    alert(){
+      Alert.alert(
+          "Deseja retornar a Home?",
+          "Todo seu progresso de criação de evento sera perdido",
+          [
+              { text: "Não", onPress: () =>  null },
+              { text: "Sim", onPress: () => this.props.navigation.navigate('Home')},
+              
+          ],);
+}
 
   render() {
     return (
       <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.alert()} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>

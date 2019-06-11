@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
 import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text} from 'react-native';
 import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
-import {createStackNavigator, createAppContainer, createDrawerNavigator} from 'react-navigation';
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
-import VisualizarEventoFromMeusEventos from './visualizarEventoFromMeusEventos'
+
 
 const dados = require('./Home');
 

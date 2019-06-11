@@ -60,20 +60,30 @@ export default class cadastroEventoPage4 extends Component{
     }
     else{
             Alert.alert(
-                "Criação de evento",
+                "Criar evento",
                 "Por favor, escolha uma data e um horario",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);
     }
     }
+    alert(){
+      Alert.alert(
+          "Deseja retornar a Home?",
+          "Todo seu progresso de criação de evento sera perdido",
+          [
+              { text: "Não", onPress: () =>  null },
+              { text: "Sim", onPress: () => this.props.navigation.navigate('Home')},
+              
+          ],);
+}
 
     render() {
       return (
         <View style={styles.container}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.alert()} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>

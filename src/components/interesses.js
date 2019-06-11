@@ -71,7 +71,7 @@ export default class interesses extends Component{
             </View>
             <View style={styles.button}>
                 <ThemeProvider theme={theme}>
-            <Button raised title='Confirmar' onPress={() => {this.props.navigation.navigate('home')}} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Confirmar' onPress={() => {this.props.navigation.navigate('Home')}} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
       </View>
       </View>

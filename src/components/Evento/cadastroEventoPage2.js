@@ -38,7 +38,7 @@ export default class cadastroEventoPage2 extends Component{
   verificaIsFalse(){
     if(this.state.rock == false && this.state.sertanejo == false && this.state.pagode == false && this.state.samba == false && this.state.eletro == false && this.state.funk == false){
       Alert.alert(
-                "Criação de dvento",
+                "Criar evento",
                 "Por favor, escolha alguma categoria",
                 [
                     { text: "OK", onPress: () =>  null },
@@ -57,13 +57,23 @@ export default class cadastroEventoPage2 extends Component{
        this.props.navigation.navigate('CadastroEventoPage3');
     }
   }
+  alert(){
+    Alert.alert(
+        "Deseja retornar a Home?",
+        "Todo seu progresso de criação de evento sera perdido",
+        [
+            { text: "Não", onPress: () =>  null },
+            { text: "Sim", onPress: () => this.props.navigation.navigate('Home')},
+            
+        ],);
+}
 
   render() {
     return (
       <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('Home')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.alert()} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>
