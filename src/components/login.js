@@ -20,20 +20,34 @@ export default class Login extends Component {
     this.islogged();
     
   }
+
+  async emailVerificado(){
+    const user = await firebase.auth().currentUser; 
+    if(user.emailVerified){
+      this.props.navigation.navigate('Home');
+    }else{
+      firebase.auth().signOut();
+      alert('Por favor, faça a confirmação do seu endereço de Email')
+
+    }  
+
+  }
   
  async islogged(){
    
    await firebase.auth().onAuthStateChanged(
       function(user){
         if(user){
-          console.log(user)
-          this.props.navigation.navigate('Home');
+          
+          this.emailVerificado()
+                    
 
         }else{
           
         }
       }.bind(this)
     )
+    Console.log(firebase.auth().currentUser) 
   }
 
 
@@ -46,12 +60,14 @@ export default class Login extends Component {
 
       
       await firebase.auth().signInWithEmailAndPassword(email, password).then(function(){
+       console.log('logado')
         
-        console.log('entrou')
       }).catch(function(error){
         alert('Email/Senha incorreto')
         console.log(error)
       })
+
+      this.emailVerificado();
 
     } catch (error) {
       

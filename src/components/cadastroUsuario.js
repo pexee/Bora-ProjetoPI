@@ -3,6 +3,8 @@ import {StyleSheet, ScrollView, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider} from 'react-native-elements';
 import firebase from 'react-native-firebase';
+import { functionTypeAnnotation } from '@babel/types';
+
 
 
 
@@ -16,7 +18,7 @@ export default class CadastroUsuario extends Component{
 
   state = {
     nome: 'geovani',
-    email: 'geovanipedroso01@hotmail.com',
+    email: 'geeopedroso@gmail.com',
     password: '',
     password2: '',
     isAuthenticated: false,
@@ -41,7 +43,7 @@ export default class CadastroUsuario extends Component{
       
 
       await firebase.auth().createUserWithEmailAndPassword(email, password);
-      //firebase.auth().signInWithEmailAndPassword(email, password);
+     
       const user = await firebase.auth().currentUser;
       if (user) {
         user.updateProfile({
@@ -53,6 +55,13 @@ export default class CadastroUsuario extends Component{
           emaill : user.email,
           uid: user.uid
         });  
+        console.log('usuario criado')
+        user.sendEmailVerification().then(function(){
+          console.log('email enviado')
+          alert('Por favor, faça a confirmação do seu endereço de Email')
+        }).catch(function(error) {
+          console.log('email nao enviado')
+        })
       } else {
         // No user is signed in.
       }
@@ -75,7 +84,6 @@ export default class CadastroUsuario extends Component{
   render() {
     return (
       <View style={styles.containerPrincipal}>
-        {this.state.isAuthenticated ? alert( 'Criado com sucesso'): null }
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>
