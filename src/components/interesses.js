@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View, Dimensions, Switch} from 'react-native';
+import {StyleSheet, ScrollView, Alert, View, Dimensions, Switch} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
 import firebase from 'react-native-firebase';
@@ -9,23 +9,96 @@ import Home from './Home'
 
 var {height, width} = Dimensions.get('window');
 
+const user = require('./Home');
+
 const theme = {
     colors: {
       primary: 'white'
     }
   }
 
-export default class interesses extends Component{ 
-  constructor() {
-    super();
-    this.state = {
-       switch1Value: false,
+export default class interesses extends Component{
+
+    state = {
+
+    } 
+
+    constructor(){
+      super()
+      this.state = {
+        rock: false,
+        sertanejo: false,
+        pagode: false,
+        samba: false,
+        eletro: false,
+        funk: false,
+      }
+      this.verificaInteresses();
+  }
+
+  async verificaInteresses(){
+      await firebase.database().ref('/usuarios/' + user.user + '/interesses/').once('value').then(snapshot => {
+        if(snapshot.val() != null){
+          this.setSta({
+            rock: snapshot.val().rock,
+            sertanejo: snapshot.val().sertanejo,
+            pagode: snapshot.val().pagode,
+            samba: snapshot.val().samba,
+            eletro: snapshot.val().eletro,
+            funk: snapshot.val().funk,
+          })
+        }
+        else{
+          firebase.database().ref('/usuarios/' + user.user + '/interesses/').update({
+            rock: false,
+            sertanejo: false,
+            pagode: false,
+            samba: false,
+            eletro: false,
+            funk: false,
+          });
+        }
+      });
     }
+
+    async atualizaInteresses(){
+      await firebase.database().ref('/usuarios/' + user.user + '/interesses/').update({
+        rock: this.state.rock,
+        sertanejo: this.state.sertanejo,
+        pagode: this.state.pagode,
+        samba: this.state.samba,
+        eletro: this.state.eletro,
+        funk: this.state.funk,
+      });
+      Alert.alert(
+                "Bora?",
+                "Interesses atualizados, bora!",
+                [
+                    { text: "OK", onPress: () =>  null },
+                ],);
+      this.props.navigation.navigate('Home');
+    }
+ 
+ switchRock = (value) => {
+    this.setState({rock: value})
  }
- toggleSwitch1 = (value) => {
-    this.setState({switch1Value: value})
-    console.log('Switch 1 is: ' + value)
+ switchSertanejo = (value) => {
+    this.setState({sertanejo: value})
  }
+ switchPagode = (value) => {
+    this.setState({pagode: value})
+ }
+ switchSamba = (value) => {
+    this.setState({samba: value})
+ }
+ switchEletro = (value) => {
+    this.setState({eletro: value})
+ }
+ switchFunk = (value) => {
+    this.setState({funk: value})
+ }
+ 
+
   render() {
     return (
         <View style={styles.containerPrincipal}>
@@ -41,37 +114,34 @@ export default class interesses extends Component{
               <ScrollView>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Rock </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchRock} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.rock}/>
                 </View>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Sertanejo </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchSertanejo} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.sertanejo}/>
                 </View>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Pagode </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchPagode} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.pagode}/>
                 </View>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Samba </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchSamba} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.samba}/>
                 </View>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Eletro </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchEletro} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.eletro}/>
                 </View>
                 <View style={styles.sw}>
                   <Text style={styles.txt}>Funk </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
+                  <Switch onValueChange = {this.switchFunk} trackColor = {{false: '#C0C0C0', true: '#00FF00'}} thumbColor = {'#C0C0C0'} value = {this.state.funk}/>
                 </View>
-                <View style={styles.sw}>
-                  <Text style={styles.txt}>Pop </Text>
-                  <Switch toggleSwitch1 = {this.toggleSwitch1} switch1Value = {this.state.switch1Value}/>
-                </View>
+
               </ScrollView>
             </View>
             <View style={styles.button}>
                 <ThemeProvider theme={theme}>
-            <Button raised title='Confirmar' onPress={() => {this.props.navigation.navigate('Home')}} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Confirmar' onPress={() => this.atualizaInteresses()} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
       </View>
       </View>
