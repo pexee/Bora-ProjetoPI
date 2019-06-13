@@ -5,6 +5,8 @@ import Login from './src/components/login'
 import CadastroUsuario from './src/components/cadastroUsuario'
 import Home from './src/components/Home'
 import EditarUsuario from './src/components/editarUsuario'
+import ExcluirUsuário from './src/components/excluirUsuario'
+import AlterarEmail from './src/components/alterarEmail'
 import CadastroEventoPage1 from './src/components/Evento/cadastroEventoPage1'
 import CadastroEventoPage2 from './src/components/Evento/cadastroEventoPage2'
 import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
@@ -89,6 +91,9 @@ const AppStackNavigator = createStackNavigator({
   CadastroEventoPage1: {
     screen: CadastroEventoPage1, 
   },
+  AlterarEmail: {
+    screen: AlterarEmail,
+  },
   CadastroEventoPage2: {
     screen: CadastroEventoPage2, navigationOptions: {
       header: null,
@@ -147,6 +152,14 @@ CadastroEventoPage1.navigationOptions = {
   headerStyle: {
     backgroundColor:'#1e90ff'
   }  
+}
+
+AlterarEmail.navigationOptions = {
+  title: 'Alterar Email',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  } 
 }
 
 MeusEventos.navigationOptions = {

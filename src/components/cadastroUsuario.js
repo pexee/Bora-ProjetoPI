@@ -8,6 +8,7 @@ import { functionTypeAnnotation } from '@babel/types';
 
 
 
+
 const theme = {
   colors: {
     primary: 'white'
@@ -23,6 +24,26 @@ export default class CadastroUsuario extends Component{
     password2: '',
     isAuthenticated: false,
   };
+
+  async atualizaBanco(nome){
+    console.log('\n\n nome atualizabanco'+ nome)
+    const user = await firebase.auth().currentUser;
+    console.log('\n\nuser atualiza banco:  \n')
+      if (user) {
+        user.updateProfile({
+          displayName: nome
+        })
+
+        firebase.database().ref('/usuarios/'+user.uid).set({
+          displayName: nome,
+          emaill : user.email,
+          uid: user.uid
+        });  
+      } else {
+        // No user is signed in.
+      }
+  }
+
 
   criarconta = async () => {
     const { nome, email, password } = this.state;
@@ -66,13 +87,12 @@ export default class CadastroUsuario extends Component{
         // No user is signed in.
       }
       
-        
-        
-
+     
       
       
-    
-    this.setState({ isAuthenticated: true });
+      
+      console.log('\n\n\n depois do atualiza banco \n\n\n')
+      
       
       
     } catch (error) {
