@@ -41,7 +41,7 @@ export default class CadastroUsuario extends Component{
       
 
       await firebase.auth().createUserWithEmailAndPassword(email, password);
-      //firebase.auth().signInWithEmailAndPassword(email, password);
+    
       const user = await firebase.auth().currentUser;
       if (user) {
         user.updateProfile({
@@ -53,6 +53,14 @@ export default class CadastroUsuario extends Component{
           emaill : user.email,
           uid: user.uid
         });  
+        console.log('usuario criado')
+        user.sendEmailVerification().then(function(){
+          console.log('email enviado')
+          alert('Por favor, faça a confirmação do seu endereço de Email')
+          
+        }).catch(function(error) {
+          console.log('email nao enviado')
+})
       } else {
         // No user is signed in.
       }

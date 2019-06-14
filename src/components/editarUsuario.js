@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, View, Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider} from 'react-native-elements';
 import firebase from 'react-native-firebase';
@@ -10,7 +10,7 @@ const theme = {
     primary: 'white'
   }
 }
-const user = firebase.auth().currentUser;
+const user =  firebase.auth().currentUser;
 
 
 export default class editarUsuario extends Component{
@@ -25,9 +25,13 @@ export default class editarUsuario extends Component{
   
   componentDidMount(){
     console.log(user);
+    this.preencheUser();
+    
+  }
+  async preencheUser(){
+    const user = await firebase.auth().currentUser;
     this.setState({nome: user.displayName, email: user.email});
   }
-  
 
   editarconta = async () => {
     const { nome, email, password } = this.state;
@@ -41,10 +45,9 @@ export default class editarUsuario extends Component{
           displayName: nome
         })
         
-        firebase.database().ref('/usuarios/'+user.uid).set({
+        firebase.database().ref('/usuarios/'+user.uid).update({
           displayName: nome,
-          emaill : user.email,
-          uid: user.uid
+         
         })
         alert( 'alterado com sucesso')
 
@@ -79,21 +82,23 @@ export default class editarUsuario extends Component{
               onChangeText={nome => this.setState({ nome })}
               />
             </View>
-            <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Email'  leftIcon={
-              <Icon name='user' size={24} color='white'/>}
-              value={this.state.email}
-              //onChangeText={nome => this.setState({ nome })}
-              />
-            </View>
-            <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Digite sua senha novamente' secureTextEntry={true} leftIcon={
-              <Icon name='lock' size={24} color='white'/>}/>
-            </View>
+            
           </ScrollView>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
               <Button raised title='Confirmar' onPress={() => {this.editarconta(); this.props.navigation.navigate('Home')}} titleStyle={{ color: 'black' }}/>
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={theme}>
+              <Button raised title='Alterar Email'  onPress={()=> {this.props.navigation.navigate('AlterarEmail')}} titleStyle={{ color: 'black' }}/>
+
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={theme}>
+              <Button raised title='Redefinir Senha'  titleStyle={{ color: 'black' }}/>
+
             </ThemeProvider>
           </View>
         </View>
