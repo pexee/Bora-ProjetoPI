@@ -12,7 +12,7 @@ const theme = {
 
 export default class Login extends Component {
   state = {
-    email: 'pexe@teste.com',
+    email: 'viniciusbosa@gmail.com',
     password: '123456',
     isAuthenticated: false,
   };

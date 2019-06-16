@@ -59,10 +59,10 @@ export default class meusEventos extends Component{
                   <Icon type='font-awesome' size={12} name="thumbs-up" />
                   <Text> {rowData.confirmados} bora       </Text>
                   <Icon type='font-awesome' size={12} name="calendar" />
-                  <Text> {rowData.data} </Text>
+                  <Text> {rowData.dataInicio} </Text>
                   </Left>
               <Right>
-                <Text> {rowData.horario}h </Text>
+                <Text> {rowData.horarioInicio}h </Text>
               </Right>
                 </CardItem>
               </Card>

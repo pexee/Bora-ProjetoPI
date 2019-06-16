@@ -40,8 +40,15 @@ export default class editarEvento extends Component{
   constructor(){
     super()
     this.state= {
-      isVisible: false,
-        modalVisible: false,
+      isDateVisible1: false,
+      isDateVisible2: false,
+      isTimeVisible1: false,
+      isTimeVisible2: false,
+      dataInicio: dados.dados.dataInicio,
+      dataFim: dados.dados.dataFim,
+      horarioInicio: dados.dados.horarioInicio,
+      horarioFim: dados.dados.horarioFim,
+      modalVisible: false,
       rock: dados.dados.categorias.rock,
       sertanejo: dados.dados.categorias.sertanejo,
       pagode: dados.dados.categorias.pagode,
@@ -50,34 +57,85 @@ export default class editarEvento extends Component{
       funk: dados.dados.categorias.funk,
       nome: dados.dados.nome,
       descrição: dados.dados.descrição,
-      data: dados.dados.data,
-      horario: dados.dados.horario,
       endereco: dados.dados.endereco,
       image: null,
     }
   }
 
-  handlePicker = (datetime) => {
-    var date = moment(datetime).format('DD/MM/YYYY HH:mm');
-      date = date.split(' ');
-      this.setState({
-        isVisible: false,
-        data: date[0],
-        horario: date[1],
-      })
-    }
-
-  showPicker = () => {
+  handleDatePicker1 = (date) => {
+    var date = moment(date).format('DD/MM/YYYY');
     this.setState({
-      isVisible: true
+      isDateVisible1: false,
+      dataInicio: date
     })
   }
 
-  hidePicker = () => {
+  handleDatePicker2 = (date) => {
+    var date = moment(date).format('DD/MM/YYYY');
     this.setState({
-      isVisible: false
+      isDateVisible2: false,
+      dataFim: date
     })
   }
+
+
+  handleTimePicker1 = (time) => {
+    var date = moment(time).format('HH:mm');
+    this.setState({
+      isTimeVisible1: false,
+      horarioInicio: date
+    })
+  }
+
+  handleTimePicker2 = (time) => {
+    var date = moment(time).format('HH:mm');
+    this.setState({
+      isTimeVisible2: false,
+      horarioFim: date
+    })
+  }
+
+  showDatePicker1 = () => {
+    this.setState({
+      isDateVisible1: true
+    })
+  }
+
+
+  hideDatePicker1 = () => {
+    this.setState({
+      isDateVisible1: false
+    })
+  }
+
+  showDatePicker2 = () => {
+    this.setState({
+      isDateVisible2: true
+    })
+  }
+
+
+  hideDatePicker2 = () => {
+    this.setState({
+      isDateVisible2: false
+    })
+  }
+
+  showTimePicker1 = () => {
+    this.setState({ isTimeVisible1: true });
+  };
+
+  hideTimePicker1 = () => {
+    this.setState({ isTimeVisible1: false });
+  };
+  
+  showTimePicker2 = () => {
+    this.setState({ isTimeVisible2: true });
+  };
+
+  hideTimePicker2 = () => {
+    this.setState({ isTimeVisible2: false });
+  };
 
   pickSingle(cropit, circular=false, mediaType) {
     ImagePicker.openPicker({
@@ -127,8 +185,10 @@ alert(){
         nome: this.state.nome,
         descrição: this.state.descrição,
         categorias: categorias,
-        data: this.state.data,
-        horario: this.state.horario,
+        dataInicio: this.state.dataInicio,
+        dataFim: this.state.dataFim,
+        horarioInicio: this.state.horarioInicio,
+        horarioFim: this.state.horarioFim,
         endereco: this.state.endereco,
         imageUrl: img.downloadURL,
       };
@@ -138,8 +198,10 @@ alert(){
         nome: this.state.nome,
         descrição: this.state.descrição,
         categorias: categorias,
-        data: this.state.data,
-        horario: this.state.horario,
+        dataInicio: this.state.dataInicio,
+        dataFim: this.state.dataFim,
+        horarioInicio: this.state.horarioInicio,
+        horarioFim: this.state.horarioFim,
         endereco: this.state.endereco,
       };
     }
@@ -163,8 +225,8 @@ alert(){
             <Title> Editar Evento </Title>
             </Body>
           </Header>
-        <View style={styles.containerInput}>
           <ScrollView>
+        <View style={styles.containerInput}>
             <View style={styles.input}>
               <Input placeholderTextColor='#fff' placeholder='Nome' leftIcon={
               <Icon name='map' size={24} color='white'/>} value={this.state.nome} onChangeText={(nome) => this.setState({ nome})}/>
@@ -205,24 +267,44 @@ alert(){
             </Overlay>
           </ThemeProvider>
         </View>
-        <View style={styles.button}>
-          <ThemeProvider theme={themeButton}>
-            <Button raised title="Escolha a data" onPress={this.showPicker} titleStyle={{ color: 'black' }} />
-            <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} mode={'datetime'} />
-          </ThemeProvider>
+        <View style = {styles.teste}>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} />
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} />
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
+            </ThemeProvider>
+          </View>
         </View>
-          </ScrollView>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
               <Button raised title='Mudar Foto' titleStyle={{ color: 'black' }} onPress={() => this.pickSingle(true)}/>
             </ThemeProvider>
           </View>
-          <View style={styles.button}>
+          <View style={styles.button2}>
             <ThemeProvider theme={theme}>
               <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => this.alert()}/>
             </ThemeProvider>
           </View>
         </View>
+        </ScrollView>
       </View>
   );
   }
@@ -258,8 +340,14 @@ const styles = StyleSheet.create({
     },
     button: {
       marginTop: 20,
-      paddingLeft: 70,
-      paddingRight: 70,
+      paddingLeft: 50,
+      paddingRight: 50,
+    },
+    button2: {
+      marginTop: 20,
+      paddingLeft: 50,
+      paddingRight: 50,
+      marginBottom: 10
     },
     overlayButton: {
       marginTop: 5,
@@ -276,5 +364,8 @@ const styles = StyleSheet.create({
     },
     header:{
       backgroundColor: '#1e90ff'
+    },
+    teste : {
+      height: 250
     }
   });

@@ -8,7 +8,10 @@ import {Left, Body, Header, Title } from 'native-base'
 const nome = require('./cadastroEventoPage1');
 const categorias = require('./cadastroEventoPage2');
 const descricao = require('./cadastroEventoPage3');
-const dateTime = require('./cadastroEventoPage4');
+const dataInicio = require('./cadastroEventoPage4');
+const dataFim = require('./cadastroEventoPage4');
+const horarioInicio = require('./cadastroEventoPage4');
+const horarioFim = require('./cadastroEventoPage4');
 const endereco = require('./cadastroEventoPage5');
 
 var ImagePicker = NativeModules.ImageCropPicker;
@@ -74,8 +77,10 @@ async criarEvento(){
     nome: nome.nome,
     descrição: descricao.descricao,
     categorias: categorias.categorias,
-    data: dateTime.data,
-    horario: dateTime.horario,
+    dataInicio: dataInicio.dataInicio,
+    dataFim: dataFim.dataFim,
+    horarioInicio: horarioInicio.horarioInicio,
+    horarioFim: horarioFim.horarioFim,
     endereco: endereco.endereco,
     imageUrl: img.downloadURL,
     proprietario: user.uid,

@@ -3,6 +3,7 @@ import {StyleSheet, View, Alert, Image, TouchableOpacity} from 'react-native';
 import { Icon, Text } from 'react-native-elements';
 import ActionButton from 'react-native-action-button';
 import firebase from 'react-native-firebase';
+import RNCalendarEvents from 'react-native-calendar-events';
 
 
 const dados = require('./Home');
@@ -62,6 +63,79 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                 ],);
     }
 
+    Authorization(){
+      RNCalendarEvents.authorizationStatus()
+      this.Permission();
+    }
+  
+    Permission(){
+      RNCalendarEvents.authorizeEventStore()
+      this.alertCalendar();
+      }
+  
+
+    alertCalendar(){
+      Alert.alert(
+        "Calendario",
+        "Adicionar a data do evento ao seu calendario?",
+        [
+            { text: "Não", onPress: () =>  null },
+            { text: "Sim", onPress: () =>  this.AddCalendar() },
+        ],);
+    }
+
+    AddCalendar(){
+      var dataInicio = dados.dados.dataInicio,
+      split = dataInicio.split('/');
+      var aux = split[0]
+      var dia = parseInt(aux)
+      novadataInicio = split[2] + "-" +split[1]+"-";
+      var horarioInicio = dados.dados.horarioInicio;
+      split = horarioInicio.split(':');
+      var aux = split[0]
+      var horas = parseInt(aux)
+      var minutos = split[1]
+      horas = horas + 3
+      if (horas > 24){
+        var aux = horas - 24
+        horas = aux
+        dia = dia + 1
+      }
+      var stringStart = novadataInicio+dia+('T')+horas+(':')+minutos+(':00.000Z');
+      console.log(stringStart)
+      
+      var dataFim = dados.dados.dataFim,
+      split = dataFim.split('/');
+      var aux = split[0]
+      var dia = parseInt(aux)
+      novadataFim = split[2] + "-" +split[1]+"-";
+      var horarioFim = dados.dados.horarioFim;
+      split = horarioFim.split(':');
+      var aux = split[0]
+      var horas = parseInt(aux)
+      var minutos = split[1]
+      horas = horas + 3
+      if (horas > 24){
+        var aux = horas - 24
+        horas = aux
+        dia = dia + 1
+      }
+      var stringEnd = novadataFim+dia+('T')+horas+(':')+minutos+(':00.000Z');
+      console.log(stringEnd)
+      RNCalendarEvents.saveEvent(dados.dados.nome, {
+       calendarId: '3',
+        startDate: stringStart,
+        endDate: stringEnd,
+        location: dados.dados.endereco
+  })
+      Alert.alert(
+        "Calendario",
+        "Data adicionada com sucesso!",
+        [
+            { text: "OK", onPress: () =>  null },
+        ],);
+    }
+    
     async excluirEvento(){
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
@@ -162,17 +236,17 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                 <View style={styles.iconCalendar}>
                   <View style={styles.buttonLeft2}>
                   <TouchableOpacity style={styles.roundButton}>
-                    <Icon name='event' type='material' size={24} color='#1e90ff'/>
+                    <Icon onPress={() => this.Authorization()} name='event' type='material' size={24} color='#1e90ff'/>
                   </TouchableOpacity>
                     </View>
-                    <Text> {dados.dados.data} </Text>
+                    <Text> {dados.dados.dataInicio} </Text>
                 </View>
                     {this.verificaBora()}
                 <View style={styles.iconClock}>
                     <TouchableOpacity style={styles.roundButton}>
                       <Icon name='alarm' type='material' size={24} color='#1e90ff'/>
                     </TouchableOpacity>
-                    <Text> {dados.dados.horario} </Text>
+                    <Text> {dados.dados.horarioInicio} </Text>
                 </View>
             </View>
             <View style={styles.desc}>

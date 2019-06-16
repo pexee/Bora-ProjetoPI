@@ -23,39 +23,101 @@ const themeButton = {
 export default class cadastroEventoPage4 extends Component{
     constructor(){
       super()
-      this.state= {
-        isVisible: false,
-        data: null,
-        horario: null,
+      this.state = {
+        isDateVisible1: false,
+        isDateVisible2: false,
+        isTimeVisible1: false,
+        isTimeVisible2: false,
+        dataInicio: null,
+        dataFim: null,
+        horarioInicio: null,
+        horarioFim: null,
       }
     }
 
-    handlePicker = (datetime) => {
-      var date = moment(datetime).format('DD/MM/YYYY HH:mm');
-      date = date.split(' ');
+
+    handleDatePicker1 = (date) => {
+      var date = moment(date).format('DD/MM/YYYY');
       this.setState({
-        isVisible: false,
-        data: date[0],
-        horario: date[1],
+        isDateVisible1: false,
+        dataInicio: date
       })
     }
 
-    showPicker = () => {
+    handleDatePicker2 = (date) => {
+      var date = moment(date).format('DD/MM/YYYY');
       this.setState({
-        isVisible: true
+        isDateVisible2: false,
+        dataFim: date
       })
     }
 
-    hidePicker = () => {
+
+    handleTimePicker1 = (time) => {
+      var date = moment(time).format('HH:mm');
       this.setState({
-        isVisible: false
+        isTimeVisible1: false,
+        horarioInicio: date
       })
     }
+
+    handleTimePicker2 = (time) => {
+      var date = moment(time).format('HH:mm');
+      this.setState({
+        isTimeVisible2: false,
+        horarioFim: date
+      })
+    }
+
+    showDatePicker1 = () => {
+      this.setState({
+        isDateVisible1: true
+      })
+    }
+
+
+    hideDatePicker1 = () => {
+      this.setState({
+        isDateVisible1: false
+      })
+    }
+
+    showDatePicker2 = () => {
+      this.setState({
+        isDateVisible2: true
+      })
+    }
+
+
+    hideDatePicker2 = () => {
+      this.setState({
+        isDateVisible2: false
+      })
+    }
+
+    showTimePicker1 = () => {
+      this.setState({ isTimeVisible1: true });
+    };
+  
+    hideTimePicker1 = () => {
+      this.setState({ isTimeVisible1: false });
+    };
     
+    showTimePicker2 = () => {
+      this.setState({ isTimeVisible2: true });
+    };
+  
+    hideTimePicker2 = () => {
+      this.setState({ isTimeVisible2: false });
+    };
+  
+
     verificaIsNull(){
-    if(this.state.data && this.state.horario){
-      module.exports.data = this.state.data;
-      module.exports.horario = this.state.horario;
+    if(this.state.dataInicio && this.state.dataFim && this.state.horarioInicio && this.state.horarioFim){
+      module.exports.dataInicio = this.state.dataInicio;
+      module.exports.dataFim = this.state.dataFim;
+      module.exports.horarioInicio = this.state.horarioInicio;
+      module.exports.horarioFim = this.state.horarioFim;
       this.props.navigation.navigate('CadastroEventoPage5');
     }
     else{
@@ -97,18 +159,35 @@ export default class cadastroEventoPage4 extends Component{
             Qual a data e hora do seu evento?
           </Text>
         </View>
-          <View style={styles.input}> 
-            <Text>
-              {this.state.chosenDate}
-            </Text>
+        <ScrollView>
+        <View style = {styles.teste}>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} />
+            </ThemeProvider>
           </View>
-        <View style={styles.button}>
-          <ThemeProvider theme={themeButton}>
-            <Button raised title="Escolha a data/hora" onPress={this.showPicker} titleStyle={{ color: 'black' }} />
-            <DateTimePicker isVisible={this.state.isVisible} onConfirm={this.handlePicker} onCancel={this.hidePicker} mode={'datetime'} />
-          </ThemeProvider>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} />
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
+            </ThemeProvider>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
+              <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
+            </ThemeProvider>
+          </View>
         </View>
-        <View style={styles.button}>
+        </ScrollView>
+        <View style={styles.button2}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
           </ThemeProvider>
@@ -135,6 +214,12 @@ export default class cadastroEventoPage4 extends Component{
       paddingLeft: 70,
       paddingRight: 70,
     },
+    button2: {
+      marginTop: 10,
+      paddingLeft: 70,
+      paddingRight: 70,
+      marginBottom: 10
+    },
     icon: {
       justifyContent: 'center', 
       alignItems: 'center',
@@ -147,5 +232,8 @@ export default class cadastroEventoPage4 extends Component{
     },
     header:{
       backgroundColor: '#1e90ff'
+    },
+    teste : {
+      height: 250
     }
   });
