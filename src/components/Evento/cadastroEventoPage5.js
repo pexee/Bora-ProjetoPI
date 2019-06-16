@@ -31,6 +31,8 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
     super(props);
     this.state = {
       endereco: null,
+      latitude: null,
+      longitude: null,
       cep: null,
       num: null,
       Component: null,
@@ -38,20 +40,6 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
     };
   }
 
-  verificaIsNull(){
-    if(this.state.endereco){
-      module.exports.endereco = this.state.endereco;
-      this.props.navigation.navigate('CadastroEventoPage6');
-    }
-    else{
-            Alert.alert(
-                "Criar evento",
-                "Por favor, insira um endereço",
-                [
-                    { text: "OK", onPress: () =>  null },
-                ],);
-    }
-    }
     alert(){
       Alert.alert(
           "Deseja retornar a Home?",
@@ -77,11 +65,31 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
         if(this.state.endereco != null){
           const addressComplet = this.state.endereco.street + ',' + this.state.num
           + '-' + this.state.endereco.neighborhood + ',' + this.state.endereco.city + '-' + this.state.endereco.state;
+        Geocoder.from(addressComplet).then(json => {
+          this.setState({
+            latitude: json.results[0].geometry.location.lat,
+            longitude: json.results[0].geometry.location.lng,
+            endereco: json.results[0].formatted_address,
+          });
+          this.confirmaEndereco();
+        }).catch(error => {
+          console.log(error);
+        });
       }
-        else{
-          console.log('teste');
-        }
       }
+
+      confirmaEndereco(){
+        Alert.alert(
+          "Bora?",
+          "O endereço: " + this.state.endereco + ", está correto?",
+          [
+            { text: "Não", onPress: () =>  null },
+            { text: "Sim", onPress: () =>  {
+              module.exports.endereco = {endereco: this.state.endereco, latitude: this.state.latitude, longitude: this.state.longitude};
+              this.props.navigation.navigate('CadastroEventoPage6');
+            } }
+          ],);
+    }
 
    
 
@@ -110,8 +118,10 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
           <Input placeholder={'Nº'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(num) => this.setState({ num})}/>
           </View>
             <View style={styles.text}>
-          <Text style={{ color: theme.colors.primary }} onPress={() => this.props.navigation.navigate('MapaCriarEvento')}>
-            Indique o local no mapa?
+          <Text style={{color: 'white', textDecorationLine: 'underline'}} onPress={() => {
+            module.exports.endereco = null;
+            this.props.navigation.navigate('MapaCriarEvento');}}>
+            Ou indique o local no mapa
           </Text>
         </View>
         <View style={styles.button}>

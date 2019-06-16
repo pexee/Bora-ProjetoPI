@@ -12,7 +12,8 @@ const dataInicio = require('./cadastroEventoPage4');
 const dataFim = require('./cadastroEventoPage4');
 const horarioInicio = require('./cadastroEventoPage4');
 const horarioFim = require('./cadastroEventoPage4');
-const endereco = require('./mapaCriarEvento');
+const endereco = require('./cadastroEventoPage5');
+const local = require('./mapaCriarEvento');
 
 var ImagePicker = NativeModules.ImageCropPicker;
 
@@ -73,6 +74,12 @@ async criarEvento(){
   const imageRef = storage.ref('eventos').child(`${key}`);
   const img = await imageRef.putFile(this.state.image.uri);
   const user = await firebase.auth().currentUser;
+  if(endereco.endereco == null){
+    var address = local;
+  }
+  else{
+    var address = endereco;
+  }
   await firebase.database().ref('/eventos/'+key).set({
     nome: nome.nome,
     descrição: descricao.descricao,
@@ -81,9 +88,9 @@ async criarEvento(){
     dataFim: dataFim.dataFim,
     horarioInicio: horarioInicio.horarioInicio,
     horarioFim: horarioFim.horarioFim,
-    endereco: 'em devolvimento',
-    latitude: endereco.local.latitude,
-    longitude: endereco.local.longitude,
+    endereco: address.endereco.endereco,
+    latitude: address.endereco.latitude,
+    longitude: address.endereco.longitude,
     imageUrl: img.downloadURL,
     proprietario: user.uid,
     key: key,

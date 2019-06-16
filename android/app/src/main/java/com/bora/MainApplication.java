@@ -3,6 +3,7 @@ package com.bora;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.devfd.RNGeocoder.RNGeocoderPackage;
 import com.airbnb.android.react.maps.MapsPackage;
 import com.calendarevents.CalendarEventsPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -33,6 +34,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new RNGeocoderPackage(),
             new MapsPackage(),
             new CalendarEventsPackage(),
           new PickerPackage(),
