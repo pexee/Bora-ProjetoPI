@@ -253,7 +253,9 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                 <Text style={{color:'white'}}> {dados.dados.descrição} </Text>
             </View>
             <View style={styles.local}>
-                <Icon name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
+                <TouchableOpacity style={styles.roundButton}>
+                <Icon onPress={() => this.props.navigation.navigate('MapaVisualizarHome')} name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
+                </TouchableOpacity>
                 <Text> {dados.dados.endereco} </Text>
             </View>
                 {this.state.isProprietario ? this.putButton() : null}

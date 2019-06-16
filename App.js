@@ -13,6 +13,10 @@ import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
 import CadastroEventoPage4 from './src/components/Evento/cadastroEventoPage4'
 import CadastroEventoPage5 from './src/components/Evento/cadastroEventoPage5'
 import CadastroEventoPage6 from './src/components/Evento/cadastroEventoPage6'
+import MapaCriarEvento from './src/components/Evento/mapaCriarEvento'
+import MapaVisualizarConfirmados from './src/components/mapaVisualizarConfirmados'
+import MapaVisualizarHome from './src/components/mapaVisualizarHome'
+import MapaVisualizarMeus from './src/components/mapaVisualizarMeus'
 import VisualizarEventoFromHome from './src/components/visualizarEventoFromHome'
 import VisualizarEventoFromMeusEventos from './src/components/visualizarEventoFromMeusEventos'
 import VisualizarEventoFromConfirmados from './src/components/visualizarEventoFromConfirmados'
@@ -120,6 +124,26 @@ const AppStackNavigator = createStackNavigator({
   },
   CadastroEventoPage6: {
     screen: CadastroEventoPage6, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaCriarEvento: {
+    screen: MapaCriarEvento, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaVisualizarConfirmados: {
+    screen: MapaVisualizarConfirmados, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaVisualizarHome: {
+    screen: MapaVisualizarHome, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaVisualizarMeus: {
+    screen: MapaVisualizarMeus, navigationOptions: {
       header: null,
     },
   },

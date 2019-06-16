@@ -12,7 +12,7 @@ const dataInicio = require('./cadastroEventoPage4');
 const dataFim = require('./cadastroEventoPage4');
 const horarioInicio = require('./cadastroEventoPage4');
 const horarioFim = require('./cadastroEventoPage4');
-const endereco = require('./cadastroEventoPage5');
+const endereco = require('./mapaCriarEvento');
 
 var ImagePicker = NativeModules.ImageCropPicker;
 
@@ -81,7 +81,9 @@ async criarEvento(){
     dataFim: dataFim.dataFim,
     horarioInicio: horarioInicio.horarioInicio,
     horarioFim: horarioFim.horarioFim,
-    endereco: endereco.endereco,
+    endereco: 'em devolvimento',
+    latitude: endereco.local.latitude,
+    longitude: endereco.local.longitude,
     imageUrl: img.downloadURL,
     proprietario: user.uid,
     key: key,

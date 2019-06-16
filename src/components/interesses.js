@@ -39,7 +39,7 @@ export default class interesses extends Component{
   async verificaInteresses(){
       await firebase.database().ref('/usuarios/' + user.user + '/interesses/').once('value').then(snapshot => {
         if(snapshot.val() != null){
-          this.setSta({
+          this.setState({
             rock: snapshot.val().rock,
             sertanejo: snapshot.val().sertanejo,
             pagode: snapshot.val().pagode,

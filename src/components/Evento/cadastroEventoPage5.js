@@ -1,9 +1,18 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, ScrollView} from 'react-native';
+import {Platform, TouchableOpacity, Switch, StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Left, Body, Header, Title } from 'native-base'
+import {Left, Body, Header, Title } from 'native-base';
+import cep from 'cep-promise';
+import Geocoder from 'react-native-geocoding';
+import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 
+const IOS = Platform.OS === 'ios';
+const ANDROID = Platform.OS === 'android';
+
+Geocoder.init("AIzaSyDGsc2c_hhwujrjwu30BeOfw3Oh9dgNqJQ", {language : "pt-br"}); // set the language
+
+var dados = null;
 const theme = {
   colors: {
     primary: 'black'
@@ -17,9 +26,16 @@ const themeButton = {
 }
 
 
-export default class cadastroEventoPage5 extends Component{
-  state = {
-    endereco: null,
+export default class cadastroEventoPage5 extends React.Component<Props>{
+  constructor(props) {
+    super(props);
+    this.state = {
+      endereco: null,
+      cep: null,
+      num: null,
+      Component: null,
+      useGoogleMaps: ANDROID,
+    };
   }
 
   verificaIsNull(){
@@ -45,10 +61,34 @@ export default class cadastroEventoPage5 extends Component{
               { text: "Sim", onPress: () => this.props.navigation.navigate('Home')},
               
           ],);
-}
+    }
+
+    async enderecoByCep(){
+      await cep(this.state.cep).then(address => {
+        this.setState({endereco: address});
+      }).catch(error => {
+        this.setState({endereco: null});
+        alert('Erro, CEP Invalido');
+      });
+      this.verificaEndereco();
+      }
+
+    verificaEndereco(){
+        if(this.state.endereco != null){
+          const addressComplet = this.state.endereco.street + ',' + this.state.num
+          + '-' + this.state.endereco.neighborhood + ',' + this.state.endereco.city + '-' + this.state.endereco.state;
+      }
+        else{
+          console.log('teste');
+        }
+      }
+
+   
+
+
   render() {
     return (
-      <View style={styles.container}>
+    <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
               <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.alert()} hasTabs/>
@@ -66,14 +106,20 @@ export default class cadastroEventoPage5 extends Component{
           </Text>
         </View>
           <View style={styles.input}> 
-          <Input placeholder={'Endereço'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(endereco) => this.setState({ endereco})}/>
+          <Input placeholder={'CEP'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(cep) => this.setState({ cep})}/>
+          <Input placeholder={'Nº'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(num) => this.setState({ num})}/>
           </View>
+            <View style={styles.text}>
+          <Text style={{ color: theme.colors.primary }} onPress={() => this.props.navigation.navigate('MapaCriarEvento')}>
+            Indique o local no mapa?
+          </Text>
+        </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
+            <Button raised title='Ok' onPress={ ()=> this.enderecoByCep()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
-    </View>
+      </View>
   );
   }
 }
@@ -83,6 +129,11 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#1e90ff',
   },
+  container2: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+},
   input: {
     marginTop: 20,
     paddingLeft: 20,
@@ -97,6 +148,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center', 
     alignItems: 'center',
     marginTop: 50,
+  },
+  back: {
+    position: 'absolute',
+    top: 20,
+    left: 12,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+    padding: 12,
+    borderRadius: 20,
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  backButton: { 
+    fontWeight: 'bold', 
+    fontSize: 30,
   },
   text: {
     marginTop: 40,
