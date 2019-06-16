@@ -18,6 +18,7 @@ const themeButton = {
   }
 }
 
+var d = moment().toDate()
 
 
 export default class cadastroEventoPage4 extends Component{
@@ -51,7 +52,6 @@ export default class cadastroEventoPage4 extends Component{
         dataFim: date
       })
     }
-
 
     handleTimePicker1 = (time) => {
       var date = moment(time).format('HH:mm');
@@ -110,7 +110,6 @@ export default class cadastroEventoPage4 extends Component{
     hideTimePicker2 = () => {
       this.setState({ isTimeVisible2: false });
     };
-  
 
     verificaIsNull(){
     if(this.state.dataInicio && this.state.dataFim && this.state.horarioInicio && this.state.horarioFim){
@@ -162,24 +161,44 @@ export default class cadastroEventoPage4 extends Component{
         <ScrollView>
         <View style = {styles.teste}>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.dataInicio}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} />
+              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.dataFim}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} />
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={d}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.horarioInicio}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
               <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+          <View style={styles.inputText}> 
+              <Text>
+                {this.state.horarioFim}
+              </Text>
+            </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
               <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
@@ -234,6 +253,13 @@ export default class cadastroEventoPage4 extends Component{
       backgroundColor: '#1e90ff'
     },
     teste : {
-      height: 250
-    }
+      height: 350
+    },
+    inputText: {
+      borderRadius: 15,
+      backgroundColor: '#00bfff',
+      justifyContent: 'center', 
+      alignItems: 'center',
+      marginBottom: 5
+    },
   });

@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import {Left, Body, Header, Title } from 'native-base'
-import {StyleSheet, ScrollView, View, Text, Image, NativeModules, Alert} from 'react-native';
-import { Input, Button, ThemeProvider, CheckBox} from 'react-native-elements';
+import {StyleSheet, ScrollView, View, Image, NativeModules, Alert} from 'react-native';
+import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Overlay from 'react-native-modal-overlay';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -24,6 +24,8 @@ const themeButton = {
     primary: 'white'
   }
 }
+
+var d = moment().toDate()
 
 export default class editarEvento extends Component{
 
@@ -268,24 +270,44 @@ alert(){
         </View>
         <View style = {styles.teste}>
           <View style={styles.button}>
+            <View style={styles.inputText}> 
+                <Text>
+                  {this.state.dataInicio}
+                </Text>
+              </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
               <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} />
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.dataFim}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} />
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={d}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.horarioInicio}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
+              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} minimumDate={d}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
+              <View style={styles.inputText}> 
+                  <Text>
+                    {this.state.horarioFim}
+                  </Text>
+                </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
               <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
@@ -349,11 +371,11 @@ const styles = StyleSheet.create({
       paddingRight: 70,
     },
     inputText: {
-      marginTop: 10,
       borderRadius: 15,
       backgroundColor: '#00bfff',
       justifyContent: 'center', 
       alignItems: 'center',
+      marginBottom: 5
     },
     header:{
       backgroundColor: '#1e90ff'
@@ -365,6 +387,6 @@ const styles = StyleSheet.create({
       marginBottom: 10
     },
     teste : {
-      height: 250
+      height: 350
     }
   });
