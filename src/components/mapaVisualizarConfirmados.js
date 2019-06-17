@@ -23,38 +23,6 @@ export default class mapaVisualizar extends Component {
     }
   }
 
-  getEndereco(){
-    console.log(this.state.latitude);
-    console.log(this.state.longitude);
-    Alert.alert(
-    "Bora?",
-    "Deseja Mudar?",
-    [
-        { text: "Não", onPress: () => null },
-        { text: "Sim", onPress: () => {
-          module.exports.local = {latitude: this.state.latitude, longitude: this.state.longitude};
-          this.props.navigation.navigate('CadastroEventoPage6');} }
-    ],);
-  }
-
-  teste(){
-    console.log(this.state.latitude);
-    console.log(this.state.longitude);
-    Geocoder.from(this.state.latitude, this.state.longitude).then(json => {
-      console.log(json);
-    }).catch(error => {
-      console.log(error);
-    });
-    Alert.alert(
-    "Bora?",
-    this.state.endereco,
-    "Deseja Mudar?"
-    [
-        { text: "Não", onPress: () => null },
-        { text: "Sim", onPress: () => null }
-    ],);
-  }
-
   render() {
     return (
 

@@ -17,11 +17,15 @@ export default class eventosConfirmados extends Component{
     
       async carregarLista(){
         data = [];
-        await firebase.database().ref('/usuarios/' + dados.user + '/eventos/').once('value',function(snapshot){
-          snapshot.forEach(function(childSnapshot){
-            if(childSnapshot.val() == true){
-              firebase.database().ref('/eventos/' + childSnapshot.key).once('value').then(function(snapshot){
-                data.push(snapshot.val());
+        await firebase.database().ref('/usuarios/' + dados.user + '/eventos/').once('value',function(snapshot1){
+          snapshot1.forEach(function(childSnapshot1){
+            if(childSnapshot1.val() == true){
+              firebase.database().ref('/eventos/').once('value').then(function(snapshot2){
+                snapshot2.forEach(function(childSnapshot2){
+                  if(childSnapshot1.key == childSnapshot2.key){
+                    data.push(childSnapshot2.val());
+                  }
+                });
               });
             }
           });

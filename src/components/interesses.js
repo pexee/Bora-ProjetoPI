@@ -46,7 +46,7 @@ export default class interesses extends Component{
             samba: snapshot.val().samba,
             eletro: snapshot.val().eletro,
             funk: snapshot.val().funk,
-          })
+          });
         }
         else{
           firebase.database().ref('/usuarios/' + user.user + '/interesses/').update({

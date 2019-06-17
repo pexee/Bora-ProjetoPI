@@ -1,23 +1,64 @@
 import React, {Component} from 'react';
-import { View, ActivityIndicator, FlatList, Image, StyleSheet, Text, Alert} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
+import { View, ActivityIndicator, FlatList, Image, StyleSheet, Alert} from 'react-native';
+import {Container, Content, Card, CardItem, Thumbnail, Button, Text, Left, Body, Right, Header, Title } from 'native-base'
 import firebase from 'react-native-firebase';
 import { Icon } from 'react-native-elements';
 
 
 var data = null;
+var user = null;
+var lista = [];
 
 export default class Home extends Component{
+
   state = {
-    data: data,
+
   }
 
   constructor(){
     super()
     this.islogged();
-    const user = firebase.auth().currentUser;
+    user = firebase.auth().currentUser;
     module.exports.user = user.uid;
+    this.state = {
+        eventos: null,
+        interesses: '', 
+    }
   }
+
+
+  async getListas(){
+    lista = [];
+    await firebase.database().ref('/usuarios/' + user.uid + '/interesses/').once('value', function(snapshot1){
+      snapshot1.forEach(function(childSnapshot1){
+        if(childSnapshot1.val() == true){
+          firebase.database().ref('/eventos/').once('value', function(snapshot2){
+            snapshot2.forEach(function(childSnapshot2){
+              firebase.database().ref('/eventos/' + childSnapshot2.key + '/categorias/').once('value', function(snapshot3){
+                snapshot3.forEach(function(childSnapshot3){
+                  if(childSnapshot3.key == childSnapshot1.key && childSnapshot3.val() == true){
+                    var i;
+                    var aux = false;
+                    for(i = 0; i < lista.length; i++){
+                      if(lista[i].key == childSnapshot2.val().key){
+                        aux = true;
+                        break;
+                      }
+                    }
+                    if(aux == false){
+                      lista.push(childSnapshot2.val());
+                    }
+                  }
+                });
+              });
+            });
+            });
+        }
+      });
+    });
+    await this.setState({eventos: lista});
+
+}
 
   async islogged(){
     await firebase.auth().onAuthStateChanged(
@@ -33,31 +74,18 @@ export default class Home extends Component{
      )
    }
   
-
-  async carregarLista(){
-    data = [];
-    await firebase.database().ref('/eventos/').once('value', function(snapshot){
-      snapshot.forEach(function(childSnapshot){
-        data.push(childSnapshot.val());
-      });
-    });
-    //data = x;
-    await this.setState({data: data});
-  }
-
 inloading(){
-  this.carregarLista();
+  this.getListas();
   return <ActivityIndicator size="large" color="#1e90ff" />
 }
 
-
 renderList(){
-  this.carregarLista();
+  this.getListas();
   return <Container>
         <Content>
+        <Text h4 sytle={{color:'#1e90ff'}}> Eventos  </Text>
          <FlatList
-        horizontal
-        data={this.state.data}
+        data={this.state.eventos}
         renderItem={({ item: rowData }) => {
           return (
            <Card>
@@ -68,8 +96,9 @@ renderList(){
                 </Body>
               </Left>
             </CardItem>
+            {console.log(rowData.imageUrl)}
             <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEventoFromHome')}}>
-              <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 300, resizeMode: 'stretch'}} />
+              <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
             </CardItem>
             <CardItem>
               <Left>
@@ -113,13 +142,15 @@ alert(){
             </Body>
             <Right>
               <Button transparent>
-                <Icon color='white' name='exit-to-app' onPress={() => this.alert()} ></Icon>
+                <Icon color='white' name='exit-to-app' onPress={() => this.getListas()} ></Icon>
               </Button>
             </Right>
           </Header>
           <Container>
-            {this.state.data ? this.renderList() : this.inloading()}
+            {this.state.eventos ?  this.renderList() : this.inloading()}
+
           </Container>
+       
           
     </View>
       );
