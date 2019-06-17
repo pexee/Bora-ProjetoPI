@@ -48,6 +48,7 @@ export default class editarEvento extends Component{
       isTimeVisible2: false,
       dataInicio: dados.dados.dataInicio,
       dataFim: dados.dados.dataFim,
+      data: null,
       horarioInicio: dados.dados.horarioInicio,
       horarioFim: dados.dados.horarioFim,
       modalVisible: false,
@@ -64,10 +65,11 @@ export default class editarEvento extends Component{
     }
   }
   handleDatePicker1 = (date) => {
-    var date = moment(date).format('DD/MM/YYYY');
+    var formatado = moment(date).format('DD/MM/YYYY');
     this.setState({
       isDateVisible1: false,
-      dataInicio: date
+      dataInicio: formatado,
+      data: date,
     })
   }
 
@@ -277,7 +279,7 @@ alert(){
               </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} />
+              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
@@ -288,7 +290,7 @@ alert(){
                 </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={d}/>
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
@@ -299,7 +301,7 @@ alert(){
                 </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} minimumDate={d}/>
+              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>

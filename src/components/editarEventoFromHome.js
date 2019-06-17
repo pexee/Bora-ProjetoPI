@@ -52,6 +52,7 @@ export default class editarEvento extends Component{
       isTimeVisible2: false,
       dataInicio: dados.dados.dataInicio,
       dataFim: dados.dados.dataFim,
+      data: null,
       horarioInicio: dados.dados.horarioInicio,
       horarioFim: dados.dados.horarioFim,
       modalVisible: false,
@@ -69,10 +70,11 @@ export default class editarEvento extends Component{
   }
 
   handleDatePicker1 = (date) => {
-    var date = moment(date).format('DD/MM/YYYY');
+    var formatado = moment(date).format('DD/MM/YYYY');
     this.setState({
       isDateVisible1: false,
-      dataInicio: date
+      dataInicio: formatado,
+      data: date,
     })
   }
 
@@ -249,7 +251,7 @@ alert(){
             </View>
             <View style={styles.button}>
               <View style={styles.inputText}> 
-                <Text TESTEEEEEEE>
+                <Text>
                 </Text>
               </View>
               <ThemeProvider theme={themeButton}>
@@ -299,7 +301,7 @@ alert(){
             </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={d} />
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data} />
             </ThemeProvider>
           </View>
           <View style={styles.button}>
@@ -400,4 +402,4 @@ const styles = StyleSheet.create({
     teste : {
       height: 350
     }
-  });
+});

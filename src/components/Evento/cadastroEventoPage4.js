@@ -30,6 +30,7 @@ export default class cadastroEventoPage4 extends Component{
         isTimeVisible1: false,
         isTimeVisible2: false,
         dataInicio: null,
+        data: null,
         dataFim: null,
         horarioInicio: null,
         horarioFim: null,
@@ -38,10 +39,11 @@ export default class cadastroEventoPage4 extends Component{
 
 
     handleDatePicker1 = (date) => {
-      var date = moment(date).format('DD/MM/YYYY');
+      var formatado = moment(date).format('DD/MM/YYYY');
       this.setState({
         isDateVisible1: false,
-        dataInicio: date
+        dataInicio: formatado,
+        data: date,
       })
     }
 
@@ -179,7 +181,7 @@ export default class cadastroEventoPage4 extends Component{
                 </View>
             <ThemeProvider theme={themeButton}>
               <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={d}/>
+              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
             </ThemeProvider>
           </View>
           <View style={styles.button}>
