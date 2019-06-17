@@ -7,6 +7,8 @@ import Home from './src/components/Home'
 import EditarUsuario from './src/components/editarUsuario'
 import ExcluirUsuário from './src/components/excluirUsuario'
 import AlterarEmail from './src/components/alterarEmail'
+import AlterarSenha from './src/components/alterarSenha'
+import RedefinirSenha from './src/components/redefinirSenha'
 import CadastroEventoPage1 from './src/components/Evento/cadastroEventoPage1'
 import CadastroEventoPage2 from './src/components/Evento/cadastroEventoPage2'
 import CadastroEventoPage3 from './src/components/Evento/cadastroEventoPage3'
@@ -99,6 +101,12 @@ const AppStackNavigator = createStackNavigator({
   AlterarEmail: {
     screen: AlterarEmail,
   },
+  AlterarSenha: {
+    screen: AlterarSenha,
+  },
+  RedefinirSenha: {
+    screen: RedefinirSenha,
+  },
   CadastroEventoPage1: {
     screen: CadastroEventoPage1, 
   },
@@ -184,6 +192,22 @@ CadastroEventoPage1.navigationOptions = {
 
 AlterarEmail.navigationOptions = {
   title: 'Alterar Email',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  } 
+}
+
+AlterarSenha.navigationOptions = {
+  title: 'Alterar Senha',
+  headerTintColor: "white",
+  headerStyle: {
+    backgroundColor:'#1e90ff'
+  } 
+}
+
+RedefinirSenha.navigationOptions = {
+  title: 'Redefinir Senha',
   headerTintColor: "white",
   headerStyle: {
     backgroundColor:'#1e90ff'

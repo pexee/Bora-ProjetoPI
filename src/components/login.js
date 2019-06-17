@@ -12,8 +12,8 @@ const theme = {
 
 export default class Login extends Component {
   state = {
-    email: 'pexe@teste.com',
-    password: '123456',
+    email: 'geeopedroso@gmail.com',
+    password: 'aaaaaa',
     isAuthenticated: false,
   };
   componentDidMount(){
@@ -95,7 +95,10 @@ export default class Login extends Component {
             <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
       </View>
-      <View style={styles.inputContainer2}>
+      <View style={styles.inputContainer3}>
+        <Text style={styles.TextStyle} onPress={ () => this.props.navigation.navigate('RedefinirSenha')}  >Esqueci minha Senha</Text>
+      </View>
+      <View style={styles.inputContainer3}>
         <Text style={styles.TextStyle} onPress={ ()=> this.props.navigation.navigate('Cadastro') } >Não tem uma conta? Cadastra-se</Text>
       </View>
     </View>
@@ -127,9 +130,15 @@ const styles = StyleSheet.create({
     paddingRight: 10,
   },
   inputContainer2: {
-    marginTop: 10,
+    marginTop: 15,
     paddingLeft: 70,
     paddingRight: 70,
+  },
+  inputContainer3: {
+    marginTop: 15,
+     justifyContent: 'center',
+    alignItems: 'center',
+    
   },
   googleContainer: {
     justifyContent: 'center',
@@ -138,6 +147,7 @@ const styles = StyleSheet.create({
   },
   TextStyle: {
     color: '#fff',
-    textDecorationLine: 'underline'
+    textDecorationLine: 'underline',
+    
   },
 });

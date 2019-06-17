@@ -97,7 +97,7 @@ export default class editarUsuario extends Component{
           </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Redefinir Senha'  titleStyle={{ color: 'black' }}/>
+              <Button raised title='Alterar Senha' onPress={()=> {this.props.navigation.navigate('AlterarSenha')}}  titleStyle={{ color: 'black' }}/>
 
             </ThemeProvider>
           </View>

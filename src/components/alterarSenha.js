@@ -18,8 +18,8 @@ export default class excluirUsuario extends Component{
   state = {
     nome: '',
     email: '',
-    novoEmail: '',
-    novoEmail2: '',
+    novaSenha: '',
+    novaSenha2: '',
     password: '',
 
 
@@ -29,7 +29,7 @@ export default class excluirUsuario extends Component{
   componentDidMount(){
     console.log('\n\n didmount \n\n');
     const user = firebase.auth().currentUser;
-    this.setState({email: user.email});
+    this.setState({nome: user.displayName, email: user.email});
 
   }
 
@@ -46,8 +46,8 @@ export default class excluirUsuario extends Component{
   }
 
 
-  async changeEmail(){
-    const { nome, email, password, novoEmail, novoEmail2 } = this.state;
+  async changeSenha(){
+    const { nome, email, password, novaSenha, novaSenha2 } = this.state;
     console.log('\n\n comecou \n\n')
     try {
       
@@ -56,8 +56,8 @@ export default class excluirUsuario extends Component{
           return;
         }
 
-        if(this.state.novoEmail.localeCompare(this.state.novoEmail2)){
-          alert('E-mails diferentes')
+        if(this.state.novaSenha.localeCompare(this.state.novaSenha2)){
+          alert('Senhas diferentes')
           return;
 
         }
@@ -68,21 +68,14 @@ export default class excluirUsuario extends Component{
 
           var user = firebase.auth().currentUser;
 
-          user.updateEmail(novoEmail).then(function(){
+          user.updatePassword(novaSenha).then(function(){
 
-            firebase.database().ref('/usuarios/'+user.uid).update({
-                emaill: novoEmail
-
-                }).then(function(){
-                    console.log('\n\n email atualizado no banco\n\n')
-                }).catch(function(error){
-                    console.log('\n\n email nao atualizado no banco\n\n')
-                })  
-            console.log('\n\n email atualizado no User\n\n')
+             
+            console.log('\n\n senha atualizada no User\n\n')
             
-            this.props.navigation.navigate('EditarUsuario')
+            
           }).catch(function(error){
-              console.log('email nao atualizado no User')
+              console.log('senha nao atualizado no User')
           })
 
 
@@ -102,11 +95,11 @@ export default class excluirUsuario extends Component{
 
   alert(){
     Alert.alert(
-        "Alterar Email",
-        "Deseja realmente alterar seu email?",
+        "Alterar Senha",
+        "Deseja realmente alterar sua senha?",
         [
             { text: "Não", onPress: () =>  null },
-            { text: "Sim", onPress: () => this.changeEmail()},
+            { text: "Sim", onPress: () => this.changeSenha()},
             
         ],);
   }
@@ -118,28 +111,35 @@ export default class excluirUsuario extends Component{
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>
+              <Input placeholderTextColor='#fff' placeholder='Nome' leftIcon={
+              <Icon name='user' size={24} color='white'/>}
+              value={this.state.nome}
+              //onChangeText={nome => this.setState({ nome })}
+              />
+            </View>
+            <View style={styles.input}>
               <Input placeholderTextColor='#fff' placeholder='E-mail' leftIcon={
               <Icon name='at' size={24} color='white'/>}
               value={this.state.email}
-              onChangeText={email => this.setState({ email })}
+              //onChangeText={email => this.setState({ email })}
               />
             </View>
             <View style={styles.input}>
-              <Input placeholderTextColor='#fff' placeholder='Digite o novo E-mail' leftIcon={
-              <Icon name='at' size={24} color='white'/>}
-              value={this.state.novoEmail}
-              onChangeText={novoEmail => this.setState({ novoEmail })}
+             <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Nova Senha' secureTextEntry={true} leftIcon={
+              <Icon name='lock' size={24} color='white'/>}
+              value={this.state.novaSenha}
+              onChangeText={novaSenha => this.setState({ novaSenha })}
               />
             </View>
             <View style={styles.input}>
-              <Input placeholderTextColor='#fff' placeholder='Digite o novo E-mail novamente' leftIcon={
-              <Icon name='at' size={24} color='white'/>}
-              value={this.state.novoEmail2}
-              onChangeText={novoEmail2 => this.setState({ novoEmail2 })}
+            <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Confirme Nova Senha' secureTextEntry={true} leftIcon={
+              <Icon name='lock' size={24} color='white'/>}
+              value={this.state.novaSenha2}
+              onChangeText={novaSenha2 => this.setState({ novaSenha2 })}
               />
             </View>
             <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Senha' secureTextEntry={true} leftIcon={
+              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Senha Atual' secureTextEntry={true} leftIcon={
               <Icon name='lock' size={24} color='white'/>}
               value={this.state.password}
               onChangeText={password => this.setState({ password })}
@@ -147,11 +147,11 @@ export default class excluirUsuario extends Component{
             </View>
 
           </ScrollView>
-          <Text style={{fontWeight: 'normal', color:'red'}}> *Digite sua senha para confirmar </Text>
+          <Text style={{fontWeight: 'normal', color:'red'}}> *Digite sua senha atual para confirmar </Text>
 
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' onPress={ () =>  this.alert() } titleStyle={{ color: 'black' }}/>
+              <Button raised title='Confirmar' onPress={()=>this.alert()} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
           </View>
         </View>
