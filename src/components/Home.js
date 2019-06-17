@@ -142,7 +142,7 @@ alert(){
             </Body>
             <Right>
               <Button transparent>
-                <Icon color='white' name='exit-to-app' onPress={() => this.getListas()} ></Icon>
+                <Icon color='white' name='exit-to-app' onPress={() => this.alert()} ></Icon>
               </Button>
             </Right>
           </Header>

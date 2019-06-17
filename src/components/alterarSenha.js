@@ -49,49 +49,49 @@ export default class excluirUsuario extends Component{
   async changeSenha(){
     const { nome, email, password, novaSenha, novaSenha2 } = this.state;
     console.log('\n\n comecou \n\n')
+    
+  
+    if(this.state.password.length < 6){
+      alert('Digite sua senha')
+      return;
+    }
+    if(this.state.novaSenha.length < 1){
+      alert('Digite sua nova senha')
+      return;
+    }
+    if(this.state.novaSenha.length < 6){
+      alert('A nova senha deve conter no minimo 6 caracteres')
+      return;
+    }
+    if(this.state.novaSenha.localeCompare(this.state.novaSenha2)){
+      alert('Senhas diferentes')
+      return;
+
+    }
+
+    
     try {
+      await this.reauthenticate(password)
+        
       
-        if(this.state.password.length < 6){
-          alert('Digite sua senha')
-          return;
-        }
+    } catch (error) {
+      console.log('\nerro no reauthentication\n')
+      console.log(error)
+      alert('Senha Incorreta')
+      return
+    }
+    var user = firebase.auth().currentUser;
 
-        if(this.state.novaSenha.localeCompare(this.state.novaSenha2)){
-          alert('Senhas diferentes')
-          return;
+    await user.updatePassword(novaSenha);
 
-        }
-
-        console.log('\n\n senha parametro: '+ password)
-
-        this.reauthenticate(password).then( function() {
-
-          var user = firebase.auth().currentUser;
-
-          user.updatePassword(novaSenha).then(function(){
-
-             
-            console.log('\n\n senha atualizada no User\n\n')
-            
-            
-          }).catch(function(error){
-              console.log('senha nao atualizado no User')
-          })
+    alert('Senha Atualizada')
+    this.props.navigation.navigate('EditarUsuario')
+    
 
 
-        }).catch(function(error){
-          console.log('\nerro no reauthentication\n')
-          console.log(error)
-          alert('Senha Incorreta')
-
-        })
-
-
-      } catch (error) {
-        console.log('nao deu')
-      }
 
   }
+  
 
   alert(){
     Alert.alert(

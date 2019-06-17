@@ -18,6 +18,7 @@ export default class excluirUsuario extends Component{
   state = {
     nome: '',
     email: '',
+    envio: false,
 
 
 
@@ -30,15 +31,29 @@ export default class excluirUsuario extends Component{
 
   }
 
+   
 
   async RedefinirSenha(){
-    const { email } = this.state;
-      firebase.auth().sendPasswordResetEmail(email).then(function(){
-          console.log('email enviado:  '+ email)
-          alert('enviamos um link no seu email para poder redefinir a sua senha')
-      }).catch(function(error){
-          console.log('email nao enviado:  '+ error)
-      })
+    const { email, envio } = this.state;
+    const aa = false;
+    if(this.state.email.length<1){
+      alert('Digite seu email')
+      return;
+    }
+    try {
+    
+      await firebase.auth().sendPasswordResetEmail(email)
+          
+
+      alert('enviamos um link no seu email para poder redefinir a sua senha')
+      this.props.navigation.navigate('Login')
+    } catch (error) {
+      alert('email nao cadastrado')
+        console.log('email nao enviado:  '+ error)
+        
+    }
+
+      
     
   }
 

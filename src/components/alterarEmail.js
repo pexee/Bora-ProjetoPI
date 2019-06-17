@@ -49,56 +49,54 @@ export default class excluirUsuario extends Component{
   async changeEmail(){
     const { nome, email, password, novoEmail, novoEmail2 } = this.state;
     console.log('\n\n comecou \n\n')
-    try {
+    
       
-        if(this.state.password.length < 6){
-          alert('Digite sua senha')
-          return;
-        }
+    if(this.state.password.length < 6){
+      alert('Digite sua senha')
+        return;
+    }
+    if(this.state.novoEmail.length<1){
+      alert('Digite o novo Email')
+      return
+    }
 
-        if(this.state.novoEmail.localeCompare(this.state.novoEmail2)){
-          alert('E-mails diferentes')
-          return;
+    if(this.state.novoEmail.localeCompare(this.state.novoEmail2)){
+      alert('E-mails diferentes')
+      return;
 
-        }
+    }
 
-        console.log('\n\n senha parametro: '+ password)
+    try {
 
-        this.reauthenticate(password).then( function() {
+      await this.reauthenticate(password)
+        
+    } catch (error) {
+      console.log('nao deu')
+      alert('Senha Incorreta')
+      return
 
-          var user = firebase.auth().currentUser;
+    }
 
-          user.updateEmail(novoEmail).then(function(){
+    var user = firebase.auth().currentUser;
 
-            firebase.database().ref('/usuarios/'+user.uid).update({
-                emaill: novoEmail
+    user.updateEmail(novoEmail).then(function(){
 
-                }).then(function(){
-                    console.log('\n\n email atualizado no banco\n\n')
-                }).catch(function(error){
-                    console.log('\n\n email nao atualizado no banco\n\n')
-                })  
-            console.log('\n\n email atualizado no User\n\n')
+      firebase.database().ref('/usuarios/'+user.uid).update({
+        emaill: novoEmail
+
+      }).then(function(){
+        console.log('\n\n email atualizado no banco\n\n')
+      }).catch(function(error){
+        console.log('\n\n email nao atualizado no banco\n\n')
+      })  
+      console.log('\n\n email atualizado no User\n\n')
             
-            this.props.navigation.navigate('EditarUsuario')
-          }).catch(function(error){
-              console.log('email nao atualizado no User')
-          })
+      
+    })
+    alert('Email Atualizado')
+    this.props.navigation.navigate('EditarUsuario')
 
-
-        }).catch(function(error){
-          console.log('\nerro no reauthentication\n')
-          console.log(error)
-          alert('Senha Incorreta')
-
-        })
-
-
-      } catch (error) {
-        console.log('nao deu')
-      }
-
-  }
+}
 
   alert(){
     Alert.alert(
