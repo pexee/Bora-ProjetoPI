@@ -26,6 +26,10 @@ export default class Home extends Component{
     }
   }
 
+  componentDidMount(){
+    console.log('\n\n didmount \n\n');
+  }
+
 
   async getListas(){
     lista = [];
