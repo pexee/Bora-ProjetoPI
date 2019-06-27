@@ -8,7 +8,7 @@ import {
 } from 'react-native-google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
-import {LoginManager} from 'react-native-fbsdk'
+import { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk'
 
 const theme = {
   colors: {
@@ -75,7 +75,7 @@ export default class Login extends Component {
   loginGoogle = async () => {
     await GoogleSignin.signIn()
       .then((data) => {
-        
+
         const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
         this.loginCredential(credential);
 
@@ -85,7 +85,7 @@ export default class Login extends Component {
 
       })
       .catch((error) => {
-        
+
         console.log('erro login google \n ' + error);
       })
 
@@ -148,23 +148,25 @@ export default class Login extends Component {
             <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }} />
           </ThemeProvider>
         </View>
-        <View style={styles.inputContainer2}>
-
-          <GoogleSigninButton
-            style={styles.googleContainer}
-            size={GoogleSigninButton.Size.Standard}
-            color={GoogleSigninButton.Color.Light}
+        <View style={styles.inputContainer4}>
+          <SocialIcon style={styles.googleContainer}
+            raised
+            title="Entrar com o google"
+            button
+            type="google-plus-official"
             onPress={this.loginGoogle}
-
-
           />
+        </View>
+        <View style={styles.inputContainer4} >
+          <SocialIcon style={styles.googleContainer}
+            raised 
+            title='Entrar com o Facebook'
+            button
+            type='facebook'
+          />
+        </View>
 
-        </View>
-        <View style={styles.inputContainer2}>
-          <ThemeProvider theme={theme}>
-            <Button raised title='Entrar com o Facebook'  titleStyle={{ color: 'black' }} />
-          </ThemeProvider>
-        </View>
+
         <View style={styles.inputContainer3}>
           <Text style={styles.TextStyle} onPress={() => this.props.navigation.navigate('RedefinirSenha')}  >Esqueci minha Senha</Text>
         </View>
@@ -205,16 +207,24 @@ const styles = StyleSheet.create({
     paddingRight: 70,
   },
   inputContainer3: {
-    marginTop: 15,
+    marginTop: 10,
     justifyContent: 'center',
     alignItems: 'center',
 
   },
+  inputContainer4: {
+    marginTop: 10,
+    paddingLeft: 63,
+  
+  
+  },
+
+
   googleContainer: {
-    width: 220,
-    height: 48,
-    //justifyContent: 'center',
-    //alignItems: 'center',
+    width: 222,
+    height: 45,
+    justifyContent: 'center',
+    alignItems: 'center',
 
   },
   TextStyle: {
