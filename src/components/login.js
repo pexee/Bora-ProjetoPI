@@ -18,8 +18,8 @@ const theme = {
 
 export default class Login extends Component {
   state = {
-    email: 'geeopedroso@gmail.com',
-    password: 'aaaaaa',
+    email: 'pexe@teste.com',
+    password: '123456',
     isAuthenticated: false,
   };
   componentDidMount() {
@@ -72,6 +72,36 @@ export default class Login extends Component {
     }
 
   }
+
+  loginFacebook = async () => {
+    try {
+      // const result = await LoginManager.logInWithReadPermissions(['public_profile', 'email']);
+
+      // if (result.isCancelled) {
+      //   // handle this however suites the flow of your app
+      //   throw new Error('User cancelled request');
+      // }
+
+
+
+      // get the access token
+      const data = await AccessToken.getCurrentAccessToken();
+
+      if (!data) {
+        // handle this however suites the flow of your app
+        throw new Error('erro na obtencao do token');
+      }
+
+      // create a new firebase credential with the token
+      const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
+      this.loginCredential(credential);
+
+    } catch (e) {
+      console.error(e);
+    }
+
+  }
+
   loginGoogle = async () => {
     await GoogleSignin.signIn()
       .then((data) => {
@@ -148,23 +178,51 @@ export default class Login extends Component {
             <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }} />
           </ThemeProvider>
         </View>
-        <View style={styles.inputContainer4}>
+        <View style={styles.inputContainer2}>
+          <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Icon}
+            color={GoogleSigninButton.Color.Light}
+            onPress={this.loginGoogle}
+            disabled={this.state.isSigninInProgress} />
+
+        </View>
+        {/* <View style={styles.inputContainer4}>
           <SocialIcon style={styles.googleContainer}
             raised
             title="Entrar com o google"
             button
-            type="google-plus-official"
+            type="google-"
             onPress={this.loginGoogle}
           />
-        </View>
-        <View style={styles.inputContainer4} >
+        </View> */}
+        {/* <View style={styles.inputContainer2}>
+        <LoginButton
+        
+          publishPermissions={["email"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("Login failed with error: " + error.message);
+              } else if (result.isCancelled) {
+                alert("Login was cancelled");
+              } else {
+                alert("Login was successful with permissions: " + result.grantedPermissions)
+              }
+            }
+          }
+          onLogoutFinished={() => alert("User logged out")}/>
+
+        </View> */}
+        {/* <View style={styles.inputContainer4} >
           <SocialIcon style={styles.googleContainer}
-            raised 
+            raised
             title='Entrar com o Facebook'
             button
             type='facebook'
+            onPress={this.loginFacebook}
           />
-        </View>
+        </View> */}
 
 
         <View style={styles.inputContainer3}>
@@ -215,8 +273,8 @@ const styles = StyleSheet.create({
   inputContainer4: {
     marginTop: 10,
     paddingLeft: 63,
-  
-  
+
+
   },
 
 
