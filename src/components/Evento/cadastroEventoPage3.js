@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, Picker} from 'react-native';
+import {StyleSheet, View, Alert, ScrollView} from 'react-native';
 import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import {Left, Body, Header, Title } from 'native-base'
@@ -59,23 +59,26 @@ export default class cadastroEventoPage3 extends Component{
             <Title> Criar Evento </Title>
             </Body>
           </Header>
-        <View style={styles.icon}>
-        <Icon name='font' size={120} color={"white"}/>
-        </View>
-        <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
-            Descrição do seu evento
-          </Text>
-        </View>
-        <View style={styles.input}> 
-          <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' 
-          placeholderTextColor='white' onChangeText={(descricao) => this.setState({ descricao})}/>
-        </View>
-        <View style={styles.button}>
-          <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
-        </ThemeProvider>
-        </View>
+        <ScrollView>
+          <View style={styles.icon}>
+          <Icon name='font' size={120} color={"white"}/>
+          </View>
+          <View style={styles.text}>
+            <Text h4 style={{ color: 'white' }}>
+              Descrição do seu evento
+            </Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <View style={styles.input}>
+              <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='comment' size={23} color='white'/>} onChangeText={(descricao) => this.setState({ descricao})}/> 
+            </View>
+          </View>
+          <View style={styles.button}>
+            <ThemeProvider theme={themeButton}>
+              <Button raised title='Ok' onPress={ ()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
+          </ThemeProvider>
+          </View>
+        </ScrollView>
       </View>
     );
     }
@@ -88,8 +91,10 @@ export default class cadastroEventoPage3 extends Component{
     },
     input: {
       marginTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderRadius: 15,
+      backgroundColor: '#00bfff',
     },
     button: {
       marginTop: 20,
@@ -108,5 +113,9 @@ export default class cadastroEventoPage3 extends Component{
     },
     header:{
       backgroundColor: '#1e90ff'
-    }
+    },
+    inputContainer: {
+      paddingLeft: 15,
+      paddingRight: 15,
+    },
   });

@@ -59,22 +59,26 @@ export default class cadastroEventoPage1 extends Component{
             <Title> Criar Evento </Title>
             </Body>
           </Header>
+        <ScrollView>
         <View style={styles.icon}>
-        <Icon name='map' size={120} color={"white"}/>
+        <Icon name='flag' size={120} color={"white"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
+          <Text h4 style={{ color: 'white' }}>
             Qual o nome do seu evento?
           </Text>
         </View>
-          <View style={styles.input}> 
-          <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(nome) => this.setState({ nome})}/>
+        <View style={styles.inputContainer}>
+          <View style={styles.input}>
+            <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='map' size={23} color='white'/>} onChangeText={(nome) => this.setState({ nome})}/> 
           </View>
+        </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={() => this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
+        </ScrollView>
     </View>
   );
   }
@@ -87,8 +91,10 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 15,
+    backgroundColor: '#00bfff',
   },
   button: {
     marginTop: 20,
@@ -107,5 +113,9 @@ const styles = StyleSheet.create({
   },
   header:{
     backgroundColor: '#1e90ff'
-  }
+  },
+  inputContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
 });

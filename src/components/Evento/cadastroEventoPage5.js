@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Platform, TouchableOpacity, Switch, StyleSheet, View, Alert, ScrollView} from 'react-native';
-import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button, ThemeProvider, Text, Icon} from 'react-native-elements';
 import {Left, Body, Header, Title } from 'native-base';
 import cep from 'cep-promise';
 import Geocoder from 'react-native-geocoding';
@@ -105,20 +104,27 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
             <Title> Criar Evento </Title>
             </Body>
           </Header>
+        <ScrollView>
         <View style={styles.icon}>
-        <Icon name='map-marker' size={120} color={"white"}/>
+        <Icon name='map-marker' type='font-awesome' size={120} color={"white"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
+          <Text h4 style={{ color: 'white' }}>
             Qual o local do seu evento?
           </Text>
         </View>
-          <View style={styles.input}> 
-          <Input placeholder={'CEP'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(cep) => this.setState({ cep})}/>
-          <Input placeholder={'Nº'} underlineColorAndroid='transparent' placeholderTextColor='white' onChangeText={(num) => this.setState({ num})}/>
+          <View style={styles.inputContainer}>
+            <View style={styles.input}>
+              <Input placeholder={'CEP'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon type='font-awesome' name='location-arrow' size={23} color='white'/>} onChangeText={(cep) => this.setState({ cep})}/> 
+            </View>
+          </View>
+          <View style={styles.inputContainer}>
+            <View style={styles.input}>
+              <Input placeholder={'Numero'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon type='font-awesome' name='compass' size={23} color='white'/>} onChangeText={(num) => this.setState({ num})}/> 
+            </View>
           </View>
             <View style={styles.text}>
-          <Text style={{color: 'white', textDecorationLine: 'underline'}} onPress={() => {
+            <Text style={{color: 'white', textDecorationLine: 'underline'}} onPress={() => {
             module.exports.endereco = null;
             this.props.navigation.navigate('MapaCriarEvento');}}>
             Ou indique o local no mapa
@@ -129,6 +135,7 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
             <Button raised title='Ok' onPress={ ()=> this.enderecoByCep()} titleStyle={{ color: 'black' }}/>
         </ThemeProvider>
         </View>
+        </ScrollView>
       </View>
   );
   }
@@ -146,8 +153,10 @@ const styles = StyleSheet.create({
 },
   input: {
     marginTop: 20,
-    paddingLeft: 20,
-    paddingRight: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 15,
+    backgroundColor: '#00bfff',
   },
   button: {
     marginTop: 20,
@@ -175,11 +184,15 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text: {
-    marginTop: 40,
+    marginTop: 20,
     justifyContent: 'center', 
     alignItems: 'center',
   },
   header:{
     backgroundColor: '#1e90ff'
-  }
+  },
+  inputContainer: {
+    paddingLeft: 15,
+    paddingRight: 15,
+  },
 });

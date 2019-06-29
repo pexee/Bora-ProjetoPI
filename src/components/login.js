@@ -12,8 +12,8 @@ const theme = {
 
 export default class Login extends Component {
   state = {
-    email: 'geeopedroso@gmail.com',
-    password: 'aaaaaa',
+    email: 'viniciusbosa@gmail.com',
+    password: '111111',
     isAuthenticated: false,
   };
   componentDidMount(){

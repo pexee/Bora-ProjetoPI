@@ -83,7 +83,7 @@ export default class cadastroEventoPage2 extends Component{
         <Icon name='play' size={120} color={"white"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
+          <Text h4 style={{ color: 'white' }}>
             Qual a categoria do seu evento?
           </Text>
         </View>

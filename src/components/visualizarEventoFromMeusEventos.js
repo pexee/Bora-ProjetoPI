@@ -220,8 +220,8 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                     <TouchableOpacity style={styles.roundButton}>
                       <Icon name='done' type='material' size={24} color='#1e90ff' onPress={() => this.mudaStatus()} /> 
                     </TouchableOpacity>
+                    <Text> Bora! </Text>
                   </View>
-                <Text>     Bora! </Text>
                 </View>
       }
       else{
@@ -230,8 +230,8 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                     <TouchableOpacity style={styles.roundButton}>
                       <Icon name='flag' type='material' size={24} color='#1e90ff' onPress={() => this.mudaStatus()} /> 
                     </TouchableOpacity>
+                    <Text> Bora? </Text>
                   </View>
-                <Text>     Bora? </Text>
                 </View>
       }
     }
@@ -250,14 +250,28 @@ export default class VisualizarEventoFromMeusEventos extends Component{
                     <Icon onPress={() => this.Authorization()} name='event' type='material' size={24} color='#1e90ff'/>
                   </TouchableOpacity>
                     </View>
+                    <View style={styles.minIcon}>
+                    <Icon name='play' type='font-awesome' size={10} color='#1e90ff'/>
                     <Text> {dados.dados.dataInicio} </Text>
+                    </View>
+                    <View style={styles.minIcon}>
+                    <Icon name='stop' type='font-awesome' size={10} color='#1e90ff'/>
+                    <Text> {dados.dados.dataFim} </Text>
+                    </View>
                 </View>
                     {this.verificaBora()}
                 <View style={styles.iconClock}>
                     <TouchableOpacity style={styles.roundButton}>
                       <Icon name='alarm' type='material' size={24} color='#1e90ff'/>
                     </TouchableOpacity>
+                    <View style={styles.minIcon}>
+                    <Icon name='play' type='font-awesome' size={10} color='#1e90ff'/>
                     <Text> {dados.dados.horarioInicio} </Text>
+                    </View>
+                    <View style={styles.minIcon}>
+                    <Icon name='stop' type='font-awesome' size={10} color='#1e90ff'/>
+                    <Text> {dados.dados.horarioFim} </Text>
+                    </View>
                 </View>
             </View>
             <View style={styles.desc}>
@@ -265,7 +279,7 @@ export default class VisualizarEventoFromMeusEventos extends Component{
             </View>
             <View style={styles.local}>
                 <TouchableOpacity style={styles.roundButton}>
-                <Icon onPress={() => this.props.navigation.navigate('MapaVisualizarMeus')} name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
+                <Icon onPress={() => this.props.navigation.navigate('MapaVisualizarHome')} name='map-marker' type='font-awesome' size={24} color='#1e90ff'/>
                 </TouchableOpacity>
                 <Text> {dados.dados.endereco} </Text>
             </View>
@@ -304,7 +318,7 @@ const styles = StyleSheet.create({
     },
     horario: {
         backgroundColor: '#fff',
-        height: 70, 
+        height: 90, 
         color: '#fff',
         //borderWidth: 1,
         //borderColor: '#000000',
@@ -312,7 +326,7 @@ const styles = StyleSheet.create({
     },
     iconCalendar: {
         marginTop: 10,
-        paddingLeft: 30,
+        paddingLeft: 20,
         justifyContent: 'center',
         
     },
@@ -323,7 +337,7 @@ const styles = StyleSheet.create({
   },
     iconClock: {
         marginTop: 10,
-        paddingLeft: 60,
+        paddingLeft: 75,
         justifyContent: 'center',
     },
     local: {
@@ -355,11 +369,17 @@ const styles = StyleSheet.create({
       borderRadius: 50,
     },
     buttonLeft : {
-      paddingLeft: 14,
+      marginBottom: 20,
+      paddingLeft: 10,
       justifyContent: 'center',
     },
     buttonLeft2 : {
       paddingLeft: 20,
       justifyContent: 'center',
+    },
+    minIcon: {
+      flexDirection: 'row',
+      alignItems:'center',
+      justifyContent:'center',
     }
   });

@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import {StyleSheet, View, Alert, ScrollView} from 'react-native';
-import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
+import {StyleSheet, View, Alert, ScrollView, Dimensions} from 'react-native';
+import { Input, Button, ThemeProvider, Text, Icon} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
-import Icon from 'react-native-vector-icons/FontAwesome';
 import moment from 'moment'
 import {Left, Body, Header, Title } from 'native-base'
 
+var {height, width} = Dimensions.get('window');
+
 const theme = {
   colors: {
-    primary: 'black'
+    primary: '#00bfff'
   }
 }
 
@@ -19,7 +20,8 @@ const themeButton = {
 }
 
 var d = moment().toDate()
-
+var dataatual = moment(d).format('DD/MM/YYYY')
+var horaatual = moment(d).format('HH:MM')
 
 export default class cadastroEventoPage4 extends Component{
     constructor(){
@@ -29,11 +31,11 @@ export default class cadastroEventoPage4 extends Component{
         isDateVisible2: false,
         isTimeVisible1: false,
         isTimeVisible2: false,
-        dataInicio: null,
+        dataInicio: dataatual,
         data: null,
-        dataFim: null,
-        horarioInicio: null,
-        horarioFim: null,
+        dataFim: dataatual,
+        horarioInicio: horaatual,
+        horarioFim: horaatual,
       }
     }
 
@@ -153,61 +155,47 @@ export default class cadastroEventoPage4 extends Component{
             </Body>
           </Header>
           <View style={styles.icon}>
-          <Icon name='calendar' size={120} color={"white"}/>
+          <Icon name='calendar' type='font-awesome' size={120} color={"white"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
+          <Text h4 style={{ color: 'white' }}>
             Qual a data e hora do seu evento?
           </Text>
         </View>
-        <ScrollView>
-        <View style = {styles.teste}>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.dataInicio}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.dataFim}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.horarioInicio}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-          <View style={styles.inputText}> 
-              <Text>
-                {this.state.horarioFim}
-              </Text>
+        <View style={styles.inputContainer}>
+            <View style={styles.input}>
+              <Input placeholder={this.state.dataInicio + " as " + this.state.horarioInicio} editable={false} placeholderTextColor='white'/> 
             </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
-            </ThemeProvider>
+            <View style={styles.button}>
+              <ThemeProvider theme={theme}>
+                <Button buttonStyle={{width: 40, height: 45}} icon={<Icon name='event' type='material' size={20} color="white" />} onPress={this.showDatePicker1} />
+                <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
+              </ThemeProvider>
+            </View>
+            <View style={styles.button}>
+              <ThemeProvider theme={theme}>
+                <Button buttonStyle={{width: 40, height: 45}} icon={<Icon name='alarm' type='material' size={20} color="white" />} onPress={this.showTimePicker1} />
+                <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
+              </ThemeProvider>
+            </View>
           </View>
-        </View>
-        </ScrollView>
+          <View style={styles.inputContainer}>
+            <View style={styles.input}>
+              <Input placeholder={this.state.dataFim + " as " + this.state.horarioFim} editable={false} placeholderTextColor='white'/> 
+            </View>
+            <View style={styles.button}>
+              <ThemeProvider theme={theme}>
+                <Button buttonStyle={{width: 40, height: 45}} onPress={this.showDatePicker2} icon={<Icon name='event' type='material' size={20} color="white" />} />
+                <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
+              </ThemeProvider>
+            </View>
+            <View style={styles.button}>
+              <ThemeProvider theme={theme}>
+                <Button buttonStyle={{width: 40, height: 45}} onPress={this.showTimePicker2} icon={<Icon name='alarm' type='material' size={20} color="white" />} />
+                <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
+              </ThemeProvider>
+            </View>
+          </View>
         <View style={styles.button2}>
           <ThemeProvider theme={themeButton}>
             <Button raised title='Ok' onPress={()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
@@ -225,15 +213,18 @@ export default class cadastroEventoPage4 extends Component{
     },
     input: {
       marginTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      justifyContent: 'center', 
-      alignItems: 'center',
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderRadius: 15,
+      backgroundColor: '#00bfff',
+      width: (width-(width*0.33)),
     },
     button: {
       marginTop: 20,
-      paddingLeft: 70,
-      paddingRight: 70,
+      width: '15%',
+      justifyContent: 'center', 
+      alignItems: 'center',
+      
     },
     button2: {
       marginTop: 10,
@@ -263,5 +254,10 @@ export default class cadastroEventoPage4 extends Component{
       justifyContent: 'center', 
       alignItems: 'center',
       marginBottom: 5
+    },
+    inputContainer: {
+      paddingLeft: 15,
+      paddingRight: 15,
+      flexDirection: 'row',
     },
   });

@@ -145,7 +145,7 @@ verificaIsNull(){
           </ScrollView>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: theme.colors.primary }}>
+          <Text h4 style={{ color: 'white'}}>
             Carregue a foto do seu evento
           </Text>
         </View>

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { View, ActivityIndicator, FlatList, Image, StyleSheet, Alert} from 'react-native';
-import {Container, Content, Card, CardItem, Thumbnail, Button, Text, Left, Body, Right, Header, Title } from 'native-base'
+import {Container, Content, Card, CardItem, Thumbnail, Button, Left, Body, Right, Header, Title } from 'native-base'
 import firebase from 'react-native-firebase';
-import { Icon } from 'react-native-elements';
+import { Icon, Text } from 'react-native-elements';
 
 
 var data = null;
@@ -83,7 +83,9 @@ renderList(){
   this.getListas();
   return <Container>
         <Content>
-        <Text h4 sytle={{color:'#1e90ff'}}> Eventos  </Text>
+          <View style={styles.teste}>
+            <Text h3 style={{color:'#1e90ff'}}> Eventos  </Text>
+          </View>
          <FlatList
         data={this.state.eventos}
         renderItem={({ item: rowData }) => {
@@ -196,5 +198,9 @@ const styles = StyleSheet.create({
   }, 
   header:{
     backgroundColor: '#1e90ff'
+  },
+  teste: {
+    justifyContent: 'center', 
+    alignItems: 'center', 
   }
 });

@@ -1,14 +1,13 @@
 import React, {Component, Fragment} from 'react';
 import {Left, Body, Header, Title } from 'native-base'
-import {StyleSheet, ScrollView, View, Image, NativeModules, Alert} from 'react-native';
-import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
+import {StyleSheet, ScrollView, View, Image, NativeModules, Alert, Dimensions} from 'react-native';
+import { Input, Button, ThemeProvider, Text, CheckBox, Icon} from 'react-native-elements';
 import DateTimePicker from "react-native-modal-datetime-picker";
 import Overlay from 'react-native-modal-overlay';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
 import moment from 'moment';
 
-
+var {height, width} = Dimensions.get('window');
 var ImagePicker = NativeModules.ImageCropPicker;
 const dados = require('./eventosConfirmados');
 const storage = firebase.storage();
@@ -16,6 +15,12 @@ const storage = firebase.storage();
 const theme = {
   colors: {
     primary: 'white'
+  }
+}
+
+const theme2 = {
+  colors: {
+    primary: '#00bfff'
   }
 }
 
@@ -222,7 +227,7 @@ alert(){
         <View style={styles.containerPrincipal}>
             <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='backward' onPress={() => this.props.navigation.navigate('VisualizarEventoFromConfirmados')} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('VisualizarEventoFromHome')} hasTabs/>
             </Left>
             <Body>
             <Title> Editar Evento </Title>
@@ -230,19 +235,72 @@ alert(){
           </Header>
           <ScrollView>
         <View style={styles.containerInput}>
+          <View style={styles.alinhar}>
+            <Text style={{color:'white'}}>Nome</Text>
+          </View>
             <View style={styles.input}>
               <Input placeholderTextColor='#fff' placeholder='Nome' leftIcon={
-              <Icon name='map' size={24} color='white'/>} value={this.state.nome} onChangeText={(nome) => this.setState({ nome})}/>
+              <Icon name='flag' type='font-awesome' size={24} color='white'/>} value={this.state.nome} onChangeText={(nome) => this.setState({ nome})}/>
+            </View>
+            <View style={styles.alinhar}>
+              <Text style={{color:'white'}} >Local</Text>
             </View>
             <View style={styles.input}>
               <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Local' leftIcon={
-              <Icon name='map-marker' size={24} color='white'/>} value={this.state.endereco} onChangeText={(endereco) => this.setState({ endereco})}/>
+              <Icon name='map-marker' type='font-awesome' size={24} color='white'/>} value={this.state.endereco} onChangeText={(endereco) => this.setState({ endereco})}/>
+            </View>
+            <View style={styles.alinhar}>
+              <Text style={{color:'white'}} >Descrição</Text>
             </View>
             <View style={styles.input}>
               <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Descrição' leftIcon={
-              <Icon name='font' size={24} color='white'/>} value={this.state.descrição} onChangeText={(descrição) => this.setState({ descrição})}/>
+              <Icon name='font' type='font-awesome' size={24} color='white'/>} value={this.state.descrição} onChangeText={(descrição) => this.setState({ descrição})}/>
             </View>
-            <View style={styles.button}>
+        <View style={styles.alinhar}>
+            <Text style={{color:'white'}} >Data e horario do começo do evento</Text>
+          </View>
+        <View style={styles.inputContainer}>
+            <View style={styles.inputT}>
+              <Input placeholder={this.state.dataInicio + " as " + this.state.horarioInicio} editable={false} placeholderTextColor='black'/> 
+            </View>
+            <View style={styles.buttonT}>
+              <ThemeProvider theme={theme2}>
+                <Button buttonStyle={{width: 40, height: 45}} icon={<Icon name='event' type='material' size={20} color="white" />} onPress={this.showDatePicker1} />
+                <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
+              </ThemeProvider>
+            </View>
+            <View style={styles.buttonT}>
+              <ThemeProvider theme={theme2}>
+                <Button buttonStyle={{width: 40, height: 45}} icon={<Icon name='alarm' type='material' size={20} color="white" />} onPress={this.showTimePicker1} />
+                <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'} />
+              </ThemeProvider>
+            </View>
+          </View>
+          <View style={styles.alinhar}>
+            <Text style={{color:'white'}} >Data e horario de termino do evento</Text>
+          </View>
+          <View style={styles.inputContainer}>
+            <View style={styles.inputT}>
+              <Input placeholder={this.state.dataFim + " as " + this.state.horarioFim} editable={false} placeholderTextColor='black'/> 
+            </View>
+            <View style={styles.buttonT}>
+              <ThemeProvider theme={theme2}>
+                <Button buttonStyle={{width: 40, height: 45}} onPress={this.showDatePicker2} icon={<Icon name='event' type='material' size={20} color="white" />} />
+                <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
+              </ThemeProvider>
+            </View>
+            <View style={styles.buttonT}>
+              <ThemeProvider theme={theme2}>
+                <Button buttonStyle={{width: 40, height: 45}} onPress={this.showTimePicker2} icon={<Icon name='alarm' type='material' size={20} color="white" />} />
+                <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
+              </ThemeProvider>
+            </View>
+          </View>
+          <View style={styles.button}>
+              <View style={styles.inputText}> 
+                <Text>
+                </Text>
+              </View>
               <ThemeProvider theme={themeButton}>
               <Button raised titleStyle={{ color: 'black' }} onPress={this.showOverlay.bind(this)} title="Escolha as categorias"/>
               <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside
@@ -270,52 +328,6 @@ alert(){
             </Overlay>
           </ThemeProvider>
         </View>
-        <View style = {styles.teste}>
-          <View style={styles.button}>
-            <View style={styles.inputText}> 
-                <Text>
-                  {this.state.dataInicio}
-                </Text>
-              </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a data de inicio" onPress={this.showDatePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible1} onConfirm={this.handleDatePicker1} onCancel={this.hideDatePicker1} mode={'date'} minimumDate={d}/>
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.dataFim}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a data de termino" onPress={this.showDatePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isDateVisible2} onConfirm={this.handleDatePicker2} onCancel={this.hideDatePicker2} mode={'date'} minimumDate={this.state.data}/>
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.horarioInicio}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a hora de inicio" onPress={this.showTimePicker1} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible1} onConfirm={this.handleTimePicker1} onCancel={this.hideTimePicker1} mode={'time'}/>
-            </ThemeProvider>
-          </View>
-          <View style={styles.button}>
-              <View style={styles.inputText}> 
-                  <Text>
-                    {this.state.horarioFim}
-                  </Text>
-                </View>
-            <ThemeProvider theme={themeButton}>
-              <Button raised title="Escolha a hora de termino" onPress={this.showTimePicker2} titleStyle={{ color: 'black' }} />
-              <DateTimePicker isVisible={this.state.isTimeVisible2} onConfirm={this.handleTimePicker2} onCancel={this.hideTimePicker2} mode={'time'} />
-            </ThemeProvider>
-          </View>
-        </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
               <Button raised title='Mudar Foto' titleStyle={{ color: 'black' }} onPress={() => this.pickSingle(true)}/>
@@ -340,18 +352,13 @@ const styles = StyleSheet.create({
     },
     containerInput: {
       marginTop: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
+      paddingLeft: 10,
+      paddingRight: 10,
     },
     input: {
       marginTop: 10,
       borderRadius:15,
       backgroundColor: '#00bfff',
-    },
-    button: {
-      marginTop: 10,
-      paddingLeft: 70,
-      paddingRight: 70,
     },
     icone: {
       marginBottom: 20,
@@ -365,6 +372,13 @@ const styles = StyleSheet.create({
       marginTop: 20,
       paddingLeft: 50,
       paddingRight: 50,
+      marginBottom: 10
+    },
+    button2: {
+      marginTop: 20,
+      paddingLeft: 50,
+      paddingRight: 50,
+      marginBottom: 10
     },
     overlayButton: {
       marginTop: 5,
@@ -382,13 +396,29 @@ const styles = StyleSheet.create({
     header:{
       backgroundColor: '#1e90ff'
     },
-    button2: {
-      marginTop: 20,
-      paddingLeft: 50,
-      paddingRight: 50,
-      marginBottom: 10
-    },
     teste : {
       height: 350
+    },
+    inputContainer: {
+      flexDirection: 'row',
+    },
+    buttonT: {
+      marginTop: 20,
+      width: '15%',
+      justifyContent: 'center', 
+      alignItems: 'center',
+    },
+    inputT: {
+      marginTop: 20,
+      paddingLeft: 10,
+      paddingRight: 10,
+      borderRadius: 15,
+      backgroundColor: '#00bfff',
+      width: (width-(width*0.33)),
+    },
+    alinhar: {
+      marginTop: 10,
+      justifyContent: 'center', 
+      alignItems: 'center', 
     }
-  });
+});
