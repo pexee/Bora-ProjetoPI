@@ -243,13 +243,6 @@ alert(){
               <Icon name='flag' type='font-awesome' size={24} color='white'/>} value={this.state.nome} onChangeText={(nome) => this.setState({ nome})}/>
             </View>
             <View style={styles.alinhar}>
-              <Text style={{color:'white'}} >Local</Text>
-            </View>
-            <View style={styles.input}>
-              <Input underLineColorAndroid={'transparent'} placeholderTextColor='white' placeholder='Local' leftIcon={
-              <Icon name='map-marker' type='font-awesome' size={24} color='white'/>} value={this.state.endereco} onChangeText={(endereco) => this.setState({ endereco})}/>
-            </View>
-            <View style={styles.alinhar}>
               <Text style={{color:'white'}} >Descrição</Text>
             </View>
             <View style={styles.input}>

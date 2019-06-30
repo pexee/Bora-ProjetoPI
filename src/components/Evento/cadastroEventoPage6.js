@@ -45,13 +45,11 @@ export default class cadastroEventoPage6 extends Component{
       compressImageQuality: 1,
       includeExif: true,
     }).then(image => {
-      console.log('received image', image);
       this.setState({
         image: {uri: image.path, width: image.width, height: image.height, mime: image.mime},
       });
     }).catch(e => {
-      console.log(e);
-      Alert.alert(e.message ? e.message : e);
+      Alert.alert('Não foi selecionado uma imagem para o evento');
     });
 }
 

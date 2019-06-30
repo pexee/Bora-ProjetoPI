@@ -5,11 +5,15 @@ import {Left, Body, Header, Title } from 'native-base';
 import cep from 'cep-promise';
 import Geocoder from 'react-native-geocoding';
 import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
+import firebase from 'react-native-firebase';
+
 
 const IOS = Platform.OS === 'ios';
 const ANDROID = Platform.OS === 'android';
 
-Geocoder.init("AIzaSyDGsc2c_hhwujrjwu30BeOfw3Oh9dgNqJQ", {language : "pt-br"}); // set the language
+const dados = require('./Home');
+
+Geocoder.init("AIzaSyDGsc2c_hhwujrjwu30BeOfw3Oh9dgNqJQ", {language : "pt-br"});
 
 const theme = {
   colors: {
@@ -37,17 +41,6 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
       useGoogleMaps: ANDROID,
     };
   }
-
-    alert(){
-      Alert.alert(
-          "Deseja retornar a Home?",
-          "Todo seu progresso de criação de evento sera perdido",
-          [
-              { text: "Não", onPress: () =>  null },
-              { text: "Sim", onPress: () => this.props.navigation.navigate('Home')},
-              
-          ],);
-    }
 
     async enderecoByCep(){
       await cep(this.state.cep).then(address => {
@@ -82,14 +75,18 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
           "O endereço: " + this.state.endereco + ", está correto?",
           [
             { text: "Não", onPress: () =>  null },
-            { text: "Sim", onPress: () =>  {
-              module.exports.endereco = {endereco: this.state.endereco, latitude: this.state.latitude, longitude: this.state.longitude};
-              this.props.navigation.navigate('CadastroEventoPage6');
-            } }
+            { text: "Sim", onPress: () =>  this.alterarEndereco() }
           ],);
     }
 
-   
+   async alterarEndereco(){
+    await firebase.database().ref('/eventos/' + dados.dados.key).update({
+      longitude: this.state.longitude,
+      latitude: this.state.latitude,
+      endereco: this.state.endereco,
+    });
+    this.props.navigation.navigate('Home');
+  }
 
 
   render() {
@@ -97,7 +94,7 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
     <View style={styles.container}>
           <Header androidStatusBarColor="#1e90ff" style={styles.header}>
             <Left>
-              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.alert()} hasTabs/>
+              <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('VisualizarEventoFromHome')} hasTabs/>
             </Left>
             <Body>
             <Title> Criar Evento </Title>
@@ -109,7 +106,7 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
         </View>
         <View style={styles.text}>
           <Text h4 style={{ color: 'white' }}>
-            Qual o local do seu evento?
+            Indique o novo local do seu evento
           </Text>
         </View>
           <View style={styles.inputContainer}>
@@ -124,8 +121,7 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
           </View>
             <View style={styles.text}>
             <Text style={{color: 'white', textDecorationLine: 'underline'}} onPress={() => {
-            module.exports.endereco = null;
-            this.props.navigation.navigate('MapaCriarEvento');}}>
+            this.props.navigation.navigate('MapaEditarHome');}}>
             Ou indique o local no mapa
           </Text>
         </View>

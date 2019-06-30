@@ -49,6 +49,9 @@ export default class VisualizarEventoFromMeusEventos extends Component{
           <ActionButton.Item buttonColor='red' title="Excluir" onPress={() => this.alert()}>
             <Icon name="close" type='material' style={styles.actionButtonIcon} />
           </ActionButton.Item>
+          <ActionButton.Item buttonColor='white' title="Mudar Endereço" onPress={() => this.props.navigation.navigate('EditarEnderecoFromMeus')}>
+            <Icon name="place" type='material' style={styles.actionButtonIcon} />
+          </ActionButton.Item>
         </ActionButton>
 
     }

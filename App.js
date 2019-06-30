@@ -19,6 +19,9 @@ import MapaCriarEvento from './src/components/Evento/mapaCriarEvento'
 import MapaVisualizarConfirmados from './src/components/mapaVisualizarConfirmados'
 import MapaVisualizarHome from './src/components/mapaVisualizarHome'
 import MapaVisualizarMeus from './src/components/mapaVisualizarMeus'
+import MapaEditarConfirmados from './src/components/mapaEditarConfirmados'
+import MapaEditarHome from './src/components/mapaEditarHome'
+import MapaEditarMeus from './src/components/mapaEditarMeus'
 import VisualizarEventoFromHome from './src/components/visualizarEventoFromHome'
 import VisualizarEventoFromMeusEventos from './src/components/visualizarEventoFromMeusEventos'
 import VisualizarEventoFromConfirmados from './src/components/visualizarEventoFromConfirmados'
@@ -28,6 +31,9 @@ import Interesses from './src/components/interesses'
 import EditarEventoFromHome from './src/components/editarEventoFromHome'
 import EditarEventoFromMeusEventos from './src/components/editarEventoFromMeusEventos'
 import EditarEventoFromConfirmados from './src/components/editarEventoFromConfirmados'
+import EditarEnderecoFromHome from './src/components/editarEnderecoFromHome'
+import EditarEnderecoFromConfirmados from './src/components/editarEnderecoFromConfirmados'
+import EditarEnderecoFromMeus from './src/components/editarEnderecoFromMeus'
 
 
 
@@ -155,6 +161,21 @@ const AppStackNavigator = createStackNavigator({
       header: null,
     },
   },
+  MapaEditarConfirmados: {
+    screen: MapaEditarConfirmados, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaEditarHome: {
+    screen: MapaEditarHome, navigationOptions: {
+      header: null,
+    },
+  },
+  MapaEditarMeus: {
+    screen: MapaEditarMeus, navigationOptions: {
+      header: null,
+    },
+  },
   EditarEventoFromHome: {
     screen: EditarEventoFromHome, navigationOptions: {
       header: null,
@@ -167,6 +188,21 @@ const AppStackNavigator = createStackNavigator({
   },
   EditarEventoFromConfirmados: {
     screen: EditarEventoFromConfirmados, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEnderecoFromHome: {
+    screen: EditarEnderecoFromHome, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEnderecoFromConfirmados: {
+    screen: EditarEnderecoFromConfirmados, navigationOptions: {
+      header: null,
+    },
+  },
+  EditarEnderecoFromMeus: {
+    screen: EditarEnderecoFromMeus, navigationOptions: {
       header: null,
     },
   },
