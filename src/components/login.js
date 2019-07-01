@@ -180,8 +180,8 @@ export default class Login extends Component {
         </View>
         <View style={styles.inputContainer2}>
           <GoogleSigninButton
-            style={{ width: 192, height: 48 }}
-            size={GoogleSigninButton.Size.Icon}
+            style={{ width: 220, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
             onPress={this.loginGoogle}
             disabled={this.state.isSigninInProgress} />
@@ -279,6 +279,9 @@ const styles = StyleSheet.create({
 
 
   googleContainer: {
+    marginTop: 10,
+    paddingLeft: 70,
+    paddingRight: 70,
     width: 222,
     height: 45,
     justifyContent: 'center',
