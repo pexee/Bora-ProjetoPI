@@ -16,7 +16,7 @@ export default class CadastroUsuario extends Component{
 
   state = {
     nome: 'geovani',
-    email: 'geovanipedroso01@hotmail.com',
+    email: 'geeopedroso@gmail.com',
     password: '',
     password2: '',
     isAuthenticated: false,
@@ -40,7 +40,13 @@ export default class CadastroUsuario extends Component{
       }
       
 
-      await firebase.auth().createUserWithEmailAndPassword(email, password);
+      await firebase.auth().createUserWithEmailAndPassword(email, password).then(function(){
+        console.log('conta criada')
+      }).catch(function(error){
+        console.log('\n\nerro: ' + error)
+        alert('esse email ja existe')
+        return 
+      })
     
       const user = await firebase.auth().currentUser;
       if (user) {
@@ -83,7 +89,7 @@ export default class CadastroUsuario extends Component{
   render() {
     return (
       <View style={styles.containerPrincipal}>
-        {this.state.isAuthenticated ? alert( 'Criado com sucesso'): null }
+        
         <View style={styles.containerInput}>
           <ScrollView>
             <View style={styles.input}>

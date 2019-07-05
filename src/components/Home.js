@@ -102,7 +102,7 @@ renderList(){
                 </Body>
               </Left>
             </CardItem>
-            {console.log(rowData.imageUrl)}
+            {/* {console.log(rowData.imageUrl)} */}
             <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEventoFromHome')}}>
               <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
             </CardItem>

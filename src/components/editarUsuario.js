@@ -20,17 +20,25 @@ export default class editarUsuario extends Component{
     password: '',
     password2: '',
     isAuthenticated: false,
+    visivel: false,
     
   };
   
   componentDidMount(){
     console.log(user);
+    console.log('\n\n\n\n\n: '+ user.providerData[0].providerId + '\n\n\n\n')
     this.preencheUser();
     
   }
   async preencheUser(){
     const user = await firebase.auth().currentUser;
     this.setState({nome: user.displayName, email: user.email});
+    if(!user.providerData[0].providerId.localeCompare('password')){
+      this.setState({visivel: true})
+    }else{
+      this.setState({visivel: false})
+    }
+    
   }
 
   editarconta = async () => {
@@ -89,17 +97,17 @@ export default class editarUsuario extends Component{
               <Button raised title='Confirmar' onPress={() => {this.editarconta(); this.props.navigation.navigate('Home')}} titleStyle={{ color: 'black' }}/>
             </ThemeProvider>
           </View>
+          
           <View style={styles.button}>
-            <ThemeProvider theme={theme}>
-              <Button raised title='Alterar Email'  onPress={()=> {this.props.navigation.navigate('AlterarEmail')}} titleStyle={{ color: 'black' }}/>
-
-            </ThemeProvider>
+          {this.state.visivel ? <ThemeProvider theme={theme}>
+               <Button raised title='Alterar Email'  onPress={()=> {this.props.navigation.navigate('AlterarEmail')}} titleStyle={{ color: 'black' }}/> 
+            </ThemeProvider> :null}
           </View>
           <View style={styles.button}>
-            <ThemeProvider theme={theme}>
-              <Button raised title='Alterar Senha' onPress={()=> {this.props.navigation.navigate('AlterarSenha')}}  titleStyle={{ color: 'black' }}/>
+          {this.state.visivel ?  <ThemeProvider theme={theme}>
+            <Button raised title='Alterar Senha' onPress={()=> {this.props.navigation.navigate('AlterarSenha')}}  titleStyle={{ color: 'black' }}/> 
 
-            </ThemeProvider>
+            </ThemeProvider>: null}
           </View>
         </View>
       </View>
