@@ -149,7 +149,7 @@ export default class excluirUsuario extends Component{
 
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' onPress={ () =>  this.alert() } titleStyle={{ color: 'black' }}/>
+              <Button onPress={ () =>  this.alert() } buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="black" />} />
             </ThemeProvider>
           </View>
         </View>
@@ -176,8 +176,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 10,
-    paddingLeft: 70,
-    paddingRight: 70,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   header:{
     backgroundColor: '#1e90ff'

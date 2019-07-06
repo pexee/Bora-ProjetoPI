@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import {StyleSheet, Alert, View} from 'react-native';
-import { Input, Button, ThemeProvider, Text, CheckBox} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button, ThemeProvider, Text, CheckBox, Icon} from 'react-native-elements';
 import Overlay from 'react-native-modal-overlay';
 import {Left, Body, Header, Title } from 'native-base'
 
@@ -14,7 +13,7 @@ const theme = {
 
 const themeButton = {
   colors: {
-    primary: 'white'
+    primary: '#1e90ff'
   }
 }
 
@@ -80,16 +79,16 @@ export default class cadastroEventoPage2 extends Component{
             </Body>
           </Header>
         <View style={styles.icon}>
-        <Icon name='play' size={120} color={"white"}/>
+        <Icon name='play' type='font-awesome' size={120} color={"#1e90ff"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: 'white' }}>
+          <Text h4 style={{ color: '#1e90ff' }}>
             Qual a categoria do seu evento?
           </Text>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised titleStyle={{ color: 'black' }} onPress={this.showOverlay.bind(this)} title="Escolha as categorias"/>
+            <Button title='Escolha a categoria' onPress={this.showOverlay.bind(this)} buttonStyle={{width: 200, height: 45}} /> 
               <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside
               animationType="zoomIn" containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
               childrenWrapperStyle={{backgroundColor: '#eee'}}
@@ -117,7 +116,7 @@ export default class cadastroEventoPage2 extends Component{
       </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.verificaIsFalse()} titleStyle={{ color: 'black' }}/>
+          <Button onPress={ ()=> this.verificaIsFalse()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="white" />} /> 
         </ThemeProvider>
         </View>
     </View>
@@ -130,7 +129,7 @@ export default class cadastroEventoPage2 extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e90ff',
+    backgroundColor: 'white',
   },
   input: {
     marginTop: 20,
@@ -139,8 +138,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    paddingLeft: 70,
-    paddingRight: 70,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   icon: {
     justifyContent: 'center', 

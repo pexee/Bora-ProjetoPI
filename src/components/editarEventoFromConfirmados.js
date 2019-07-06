@@ -290,12 +290,8 @@ alert(){
             </View>
           </View>
           <View style={styles.button}>
-              <View style={styles.inputText}> 
-                <Text>
-                </Text>
-              </View>
               <ThemeProvider theme={themeButton}>
-              <Button raised titleStyle={{ color: 'black' }} onPress={this.showOverlay.bind(this)} title="Escolha as categorias"/>
+              <Button titleStyle={{ color: 'black' }} title='Escolha a categoria' onPress={this.showOverlay.bind(this)} buttonStyle={{width: 200, height: 45}} />
               <Overlay visible={this.state.modalVisible} onClose={this.onClose} closeOnTouchOutside
               animationType="zoomIn" containerStyle={{backgroundColor: 'rgba(37, 8, 10, 0.78)'}}
               childrenWrapperStyle={{backgroundColor: '#eee'}}
@@ -323,12 +319,12 @@ alert(){
         </View>
           <View style={styles.button}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Mudar Foto' titleStyle={{ color: 'black' }} onPress={() => this.pickSingle(true)}/>
+            <Button onPress={() => this.pickSingle(true)} buttonStyle={{width: 60, height: 45}} icon={<Icon name='upload' type='font-awesome' size={20} color="black" />} />
             </ThemeProvider>
           </View>
           <View style={styles.button2}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' titleStyle={{ color: 'black' }} onPress={() => this.alert()}/>
+            <Button onPress={() => this.alert()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="black" />} />
             </ThemeProvider>
           </View>
         </View>
@@ -363,14 +359,14 @@ const styles = StyleSheet.create({
     },
     button: {
       marginTop: 20,
-      paddingLeft: 50,
-      paddingRight: 50,
+      justifyContent: 'center', 
+      alignItems: 'center',
       marginBottom: 10
     },
     button2: {
       marginTop: 20,
-      paddingLeft: 50,
-      paddingRight: 50,
+      justifyContent: 'center', 
+      alignItems: 'center',
       marginBottom: 10
     },
     overlayButton: {

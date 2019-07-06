@@ -92,9 +92,9 @@ export default class editarUsuario extends Component{
             </View>
             
           </ScrollView>
-          <View style={styles.button}>
+          <View style={styles.button2}>
             <ThemeProvider theme={theme}>
-              <Button raised title='Confirmar' onPress={() => {this.editarconta(); this.props.navigation.navigate('Home')}} titleStyle={{ color: 'black' }}/>
+            <Button onPress={() => {this.editarconta(); this.props.navigation.navigate('Home')}}  buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="black" />} />
             </ThemeProvider>
           </View>
           
@@ -135,6 +135,11 @@ const styles = StyleSheet.create({
       marginTop: 10,
       paddingLeft: 70,
       paddingRight: 70,
+    },
+    button2: {
+      marginTop: 10,
+      justifyContent: 'center', 
+      alignItems: 'center',
     },
     header:{
       backgroundColor: '#1e90ff'

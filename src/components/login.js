@@ -178,9 +178,9 @@ export default class Login extends Component {
             <Button raised title='Entrar' onPress={() => this.login()} titleStyle={{ color: 'black' }} />
           </ThemeProvider>
         </View>
-        <View style={styles.inputContainer2}>
+        <View style={styles.inputContainer5}>
           <GoogleSigninButton
-            style={{ width: 220, height: 48 }}
+            style={{ width: 230, height: 48 }}
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Light}
             onPress={this.loginGoogle}
@@ -276,7 +276,11 @@ const styles = StyleSheet.create({
 
 
   },
-
+  inputContainer5: {
+    marginTop: 15,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 
   googleContainer: {
     marginTop: 10,

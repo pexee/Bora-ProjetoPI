@@ -141,7 +141,7 @@ export default class interesses extends Component{
             </View>
             <View style={styles.button}>
                 <ThemeProvider theme={theme}>
-            <Button raised title='Confirmar' onPress={() => this.atualizaInteresses()} titleStyle={{ color: 'black' }}/>
+                <Button onPress={ () =>  this.atualizaInteresses() } buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="black" />} />
             </ThemeProvider>
       </View>
       </View>
@@ -160,7 +160,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        height: 380,
+        height: 300,
         alignItems: 'center',
         justifyContent: 'center', 
     },
@@ -169,8 +169,8 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 10,
-        paddingLeft: 70,
-        paddingRight: 70,
+        justifyContent: 'center', 
+        alignItems: 'center',
       },
     sw : {
       marginTop: 10,

@@ -9,13 +9,13 @@ var {height, width} = Dimensions.get('window');
 
 const theme = {
   colors: {
-    primary: '#00bfff'
+    primary: '#1e90ff'
   }
 }
 
 const themeButton = {
   colors: {
-    primary: 'white'
+    primary: '#1e90ff'
   }
 }
 
@@ -155,16 +155,16 @@ export default class cadastroEventoPage4 extends Component{
             </Body>
           </Header>
           <View style={styles.icon}>
-          <Icon name='calendar' type='font-awesome' size={120} color={"white"}/>
+          <Icon name='calendar' type='font-awesome' size={120} color={"#1e90ff"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: 'white' }}>
+          <Text h4 style={{ color: '#1e90ff' }}>
             Qual a data e hora do seu evento?
           </Text>
         </View>
         <View style={styles.inputContainer}>
             <View style={styles.input}>
-              <Input placeholder={this.state.dataInicio + " as " + this.state.horarioInicio} editable={false} placeholderTextColor='white'/> 
+              <Input placeholder={this.state.dataInicio + " as " + this.state.horarioInicio} editable={false} placeholderTextColor='#808080'/> 
             </View>
             <View style={styles.button}>
               <ThemeProvider theme={theme}>
@@ -181,7 +181,7 @@ export default class cadastroEventoPage4 extends Component{
           </View>
           <View style={styles.inputContainer}>
             <View style={styles.input}>
-              <Input placeholder={this.state.dataFim + " as " + this.state.horarioFim} editable={false} placeholderTextColor='white'/> 
+              <Input placeholder={this.state.dataFim + " as " + this.state.horarioFim} editable={false} placeholderTextColor='#808080'/> 
             </View>
             <View style={styles.button}>
               <ThemeProvider theme={theme}>
@@ -198,7 +198,7 @@ export default class cadastroEventoPage4 extends Component{
           </View>
         <View style={styles.button2}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={()=> this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
+          <Button onPress={() => this.verificaIsNull()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="white" />} />
           </ThemeProvider>
         </View>
       </View>
@@ -209,14 +209,14 @@ export default class cadastroEventoPage4 extends Component{
   const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: '#1e90ff',
+      backgroundColor: '#fff',
     },
     input: {
       marginTop: 20,
       paddingLeft: 10,
       paddingRight: 10,
       borderRadius: 15,
-      backgroundColor: '#00bfff',
+      backgroundColor: '#fff',
       width: (width-(width*0.33)),
     },
     button: {
@@ -228,8 +228,8 @@ export default class cadastroEventoPage4 extends Component{
     },
     button2: {
       marginTop: 10,
-      paddingLeft: 70,
-      paddingRight: 70,
+      justifyContent: 'center', 
+      alignItems: 'center',
       marginBottom: 10
     },
     icon: {
@@ -250,7 +250,7 @@ export default class cadastroEventoPage4 extends Component{
     },
     inputText: {
       borderRadius: 15,
-      backgroundColor: '#00bfff',
+      backgroundColor: '#1e90ff',
       justifyContent: 'center', 
       alignItems: 'center',
       marginBottom: 5

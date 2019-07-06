@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, Alert, ScrollView} from 'react-native';
-import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button, ThemeProvider, Text, Icon} from 'react-native-elements';
 import {Left, Body, Header, Title } from 'native-base'
 
 
@@ -14,7 +13,7 @@ const theme = {
 
 const themeButton = {
   colors: {
-    primary: 'white'
+    primary: '#1e90ff'
   }
 }
 
@@ -61,21 +60,21 @@ export default class cadastroEventoPage1 extends Component{
           </Header>
         <ScrollView>
         <View style={styles.icon}>
-        <Icon name='flag' size={120} color={"white"}/>
+        <Icon name='bookmark' type='material' size={120} color="#1e90ff"/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: 'white' }}>
+          <Text h4 style={{ color: '#1e90ff' }}>
             Qual o nome do seu evento?
           </Text>
         </View>
         <View style={styles.inputContainer}>
           <View style={styles.input}>
-            <Input placeholder={'Digite aqui'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon name='map' size={23} color='white'/>} onChangeText={(nome) => this.setState({ nome})}/> 
+            <Input placeholder={'Escreva'} underlineColorAndroid='transparent' placeholderTextColor='#a9a9a9' onChangeText={(nome) => this.setState({ nome})}/> 
           </View>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={() => this.verificaIsNull()} titleStyle={{ color: 'black' }}/>
+          <Button onPress={() => this.verificaIsNull()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="white" />} />
         </ThemeProvider>
         </View>
         </ScrollView>
@@ -87,19 +86,19 @@ export default class cadastroEventoPage1 extends Component{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e90ff',
+    backgroundColor: '#fff',
   },
   input: {
     marginTop: 20,
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 15,
-    backgroundColor: '#00bfff',
+    backgroundColor: 'white',
   },
   button: {
     marginTop: 20,
-    paddingLeft: 70,
-    paddingRight: 70,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   icon: {
     justifyContent: 'center', 

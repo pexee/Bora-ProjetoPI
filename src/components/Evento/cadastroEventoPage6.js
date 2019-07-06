@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, View, ScrollView, Image, Alert, NativeModules, Dimensions} from 'react-native';
-import { Input, Button, ThemeProvider, Text} from 'react-native-elements';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button, ThemeProvider, Text, Icon} from 'react-native-elements';
 import firebase from 'react-native-firebase';
 import {Left, Body, Header, Title } from 'native-base'
 
@@ -25,7 +24,7 @@ const theme = {
 
 const themeButton = {
   colors: {
-    primary: 'white'
+    primary: '#1e90ff'
   }
 }
 
@@ -61,7 +60,7 @@ renderImage(image) {
 
 renderIcon(){
   return <View style={styles.teste}>
-    <Icon name='image' size={120} color={"white"} />
+    <Icon name='image' type='font-awesome' size={120} color={"#1e90ff"} />
   </View>
 }
 
@@ -143,18 +142,18 @@ verificaIsNull(){
           </ScrollView>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: 'white'}}>
+          <Text h4 style={{ color: '#1e90ff'}}>
             Carregue a foto do seu evento
           </Text>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Escolher Foto' titleStyle={{ color: 'black' }} onPress={() => this.pickSingle(true)}/>
+          <Button onPress={() => this.pickSingle(true)} buttonStyle={{width: 60, height: 45}} icon={<Icon name='upload' type='font-awesome' size={20} color="white" />} />
         </ThemeProvider>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Criar Evento' titleStyle={{ color: 'black' }} onPress={() => this.verificaIsNull()}/>
+            <Button onPress={() => this.verificaIsNull()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="white" />} />
         </ThemeProvider>
         </View>
     </View>
@@ -166,7 +165,7 @@ verificaIsNull(){
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e90ff',
+    backgroundColor: '#fff',
   },
   input: {
     marginTop: 20,
@@ -175,8 +174,8 @@ const styles = StyleSheet.create({
   },
   button: {
     marginTop: 20,
-    paddingLeft: 70,
-    paddingRight: 70,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   containerImagem:{
     marginTop: 20,

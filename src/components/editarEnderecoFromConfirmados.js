@@ -23,7 +23,7 @@ const theme = {
 
 const themeButton = {
   colors: {
-    primary: 'white'
+    primary: '#1e90ff'
   }
 }
 
@@ -97,37 +97,37 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
               <Icon size={24} type='font-awesome' color='white' name='arrow-left' onPress={() => this.props.navigation.navigate('VisualizarEventoFromHome')} hasTabs/>
             </Left>
             <Body>
-            <Title> Criar Evento </Title>
+            <Title> Editar endereço </Title>
             </Body>
           </Header>
         <ScrollView>
         <View style={styles.icon}>
-        <Icon name='map-marker' type='font-awesome' size={120} color={"white"}/>
+        <Icon name='map-marker' type='font-awesome' size={120} color={"#1e90ff"}/>
         </View>
         <View style={styles.text}>
-          <Text h4 style={{ color: 'white' }}>
+          <Text h4 style={{ color: '#1e90ff' }}>
             Indique o novo local do seu evento
           </Text>
         </View>
           <View style={styles.inputContainer}>
             <View style={styles.input}>
-              <Input placeholder={'CEP'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon type='font-awesome' name='location-arrow' size={23} color='white'/>} onChangeText={(cep) => this.setState({ cep})}/> 
+              <Input placeholder={'CEP'} underlineColorAndroid='transparent' placeholderTextColor='#808080' onChangeText={(cep) => this.setState({ cep})}/> 
             </View>
           </View>
           <View style={styles.inputContainer}>
             <View style={styles.input}>
-              <Input placeholder={'Numero'} underlineColorAndroid='transparent' placeholderTextColor='white' leftIcon={<Icon type='font-awesome' name='compass' size={23} color='white'/>} onChangeText={(num) => this.setState({ num})}/> 
+              <Input placeholder={'Numero'} underlineColorAndroid='transparent' placeholderTextColor='#808080' onChangeText={(num) => this.setState({ num})}/> 
             </View>
           </View>
             <View style={styles.text}>
-            <Text style={{color: 'white', textDecorationLine: 'underline'}} onPress={() => {
+            <Text style={{textDecorationLine: 'underline'}} onPress={() => {
             this.props.navigation.navigate('MapaEditarConfirmados');}}>
             Ou indique o local no mapa
           </Text>
         </View>
         <View style={styles.button}>
           <ThemeProvider theme={themeButton}>
-            <Button raised title='Ok' onPress={ ()=> this.enderecoByCep()} titleStyle={{ color: 'black' }}/>
+          <Button onPress={() => this.enderecoByCep()} buttonStyle={{width: 60, height: 45}} icon={<Icon name='check' type='material' size={20} color="white" />} />
         </ThemeProvider>
         </View>
         </ScrollView>
@@ -139,7 +139,7 @@ export default class cadastroEventoPage5 extends React.Component<Props>{
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1e90ff',
+    backgroundColor: '#fff',
   },
   container2: {
     ...StyleSheet.absoluteFillObject,
@@ -151,12 +151,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingRight: 10,
     borderRadius: 15,
-    backgroundColor: '#00bfff',
+    backgroundColor: 'white',
   },
   button: {
     marginTop: 20,
-    paddingLeft: 70,
-    paddingRight: 70,
+    justifyContent: 'center', 
+    alignItems: 'center',
   },
   icon: {
     justifyContent: 'center', 
