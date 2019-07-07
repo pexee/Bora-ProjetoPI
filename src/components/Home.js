@@ -8,6 +8,7 @@ import { Icon, Text } from 'react-native-elements';
 var data = null;
 var user = null;
 var lista = [];
+var token = null;
 
 export default class Home extends Component{
 
@@ -21,15 +22,18 @@ export default class Home extends Component{
     user = firebase.auth().currentUser;
     module.exports.user = user.uid;
     this.state = {
-        eventos: null,
-        interesses: '', 
-    }
+        eventos: null, 
+    };
+    this.saveToken();
   }
 
-  componentDidMount(){
-    console.log('\n\n didmount \n\n');
-  }
 
+  async saveToken(){
+    const fcmToken = await firebase.messaging().getToken()
+    await firebase.database().ref('/usuarios/' + user.uid).update({
+      token: fcmToken,
+    });
+  }
 
   async getListas(){
     lista = [];
@@ -102,7 +106,6 @@ renderList(){
                 </Body>
               </Left>
             </CardItem>
-            {/* {console.log(rowData.imageUrl)} */}
             <CardItem cardBody button onPress={() => {module.exports.dados = rowData; this.props.navigation.navigate('VisualizarEventoFromHome')}}>
               <Image source={{uri: rowData.imageUrl}} style={{height: 180, width: 350, resizeMode: 'stretch'}} />
             </CardItem>

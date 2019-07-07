@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { Input, Button, SocialIcon, ThemeProvider } from 'react-native-elements';
-import {
-  GoogleSignin,
-  GoogleSigninButton,
-  statusCodes,
-} from 'react-native-google-signin';
+import {GoogleSignin, GoogleSigninButton, statusCodes} from 'react-native-google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import firebase from 'react-native-firebase';
 import { LoginManager, LoginButton, AccessToken } from 'react-native-fbsdk'

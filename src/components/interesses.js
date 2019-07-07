@@ -70,6 +70,36 @@ export default class interesses extends Component{
         eletro: this.state.eletro,
         funk: this.state.funk,
       });
+
+      var lista = [];
+      await firebase.database().ref('/eventos/-Lj47jF06GOmLO91aAlF/categorias/').once('value', function(snapshot1){
+      snapshot1.forEach(function(childSnapshot1){
+        if(childSnapshot1.val() == true){
+          firebase.database().ref('/usuarios/').once('value', function(snapshot2){
+            snapshot2.forEach(function(childSnapshot2){
+              firebase.database().ref('/usuarios/' + childSnapshot2.key + '/interesses/').once('value', function(snapshot3){
+                snapshot3.forEach(function(childSnapshot3){
+                  if(childSnapshot3.key == childSnapshot1.key && childSnapshot3.val() == true){
+                    var i;
+                    var aux = false;
+                    for(i = 0; i < lista.length; i++){
+                      if(lista[i] == childSnapshot2.val().token){
+                        aux = true;
+                        break;
+                      }
+                    }
+                    if(aux == false){
+                      lista.push(childSnapshot2.val().token);
+                    }
+                  }
+                });
+              });
+            });
+            });
+        }
+      });
+    });
+
       Alert.alert(
                 "Bora?",
                 "Interesses atualizados, bora!",
