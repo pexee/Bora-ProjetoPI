@@ -57,7 +57,7 @@ export default class editarEvento extends Component{
       isTimeVisible2: false,
       dataInicio: dados.dados.dataInicio,
       dataFim: dados.dados.dataFim,
-      data: null,
+      data: d,
       horarioInicio: dados.dados.horarioInicio,
       horarioFim: dados.dados.horarioFim,
       modalVisible: false,

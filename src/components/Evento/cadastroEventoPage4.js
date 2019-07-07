@@ -32,7 +32,7 @@ export default class cadastroEventoPage4 extends Component{
         isTimeVisible1: false,
         isTimeVisible2: false,
         dataInicio: dataatual,
-        data: null,
+        data: d,
         dataFim: dataatual,
         horarioInicio: horaatual,
         horarioFim: horaatual,

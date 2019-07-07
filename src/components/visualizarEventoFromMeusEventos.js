@@ -141,17 +141,6 @@ export default class VisualizarEventoFromMeusEventos extends Component{
     }
   
     async excluirEvento(){
-        await firebase.database().ref('/usuarios/').once('value',function(snapshot1){
-          snapshot1.forEach(function(childSnapshot1){
-            firebase.database().ref('/usuarios/' + childSnapshot1.key + '/eventos/').once('value', function(snapshot2){
-              snapshot2.forEach(function(childSnapshot2){
-                if(childSnapshot2.key == dados.dados.key && childSnapshot2.val() == true){
-                  firebase.database().ref('/usuarios/' + childSnapshot1.key + '/eventos/' + childSnapshot2.key).remove();
-                }
-              });
-            });
-          });
-        });
         var imageRef = storage.ref('eventos').child(dados.dados.key);
         await imageRef.delete();
         await firebase.database().ref('/eventos/' + dados.dados.key).remove();
