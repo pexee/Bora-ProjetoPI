@@ -18,7 +18,7 @@ O "Bora?" permite a criação e visualização de eventos de diferentes tipos, a
 <p>4º: gere sua chave de SHA-1 de debug "https://developers.google.com/android/guides/client-auth"</p>
 <p>5º: adicione um aplicativo no firebase, siga o passo a passo que será mostrado.</p>
 <p>6º: crie uma conta de desenvolvedor no Google e habilite as API "maps" e "geocoding"</p>
-<p>7º: edite os arquivos "src/components/editarEnderecoFrom..." e "src/components/evento/cadastrarEventoPage5" colocando a chave da api do passo anterior dentro do parâmetro "geocoder.init"</p>
+<p>7º: edite os arquivos "src/components/editarEnderecoFrom..." e "src/components/evento/cadastrarEventoPage5" colocando a chave da api do passo anterior dentro do parâmetro "geocoder.init" e no androidManistes no parâmetro android:value </p>
 <p>8º: Faça a configuração do Google function executando os comandos dentro da pasta do repositório "$ npm install -g firebase-tools", "$ firebase login" e "$ firebase init" (marque as opções 'functions' e 'database').</p>
 <p>9º: instale as dependências com o comando "$ npm install"</p>
 <p>10º: inicie o servidor com o comando "$ npm start"</p>
