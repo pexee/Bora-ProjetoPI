@@ -8,7 +8,7 @@ O "Bora?" permite a criação e visualização de eventos de diferentes tipos, a
 
 Passos para utilização do repositório
 
-OBS: o SDK do android já deve estar previamente instalado e configurado
+OBS: o SDK do android já deve estar previamente instalado e configurado \n
 OBS: é necessário realizar os passos abaixo num computador Windows, caso seja realizado num sistema Linux a autenticação via Google não irá funcionar.
 OBS: Num sistema Linux é necessário indicar o local do sdk do android por meio de um arquivo chamado "local.properties" que deve ser colocado dentro da pasta android, o conteúdo do arquivo deve ser "sdk.dir = path para o sdk"
 
