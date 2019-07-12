@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Alert } from 'react-native';
 import { Input, Button, SocialIcon, ThemeProvider } from 'react-native-elements';
 import {GoogleSignin, GoogleSigninButton, statusCodes} from 'react-native-google-signin';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -74,34 +74,6 @@ export default class Login extends Component {
 
   }
 
-  loginFacebook = async () => {
-    try {
-      // const result = await LoginManager.logInWithReadPermissions(['public_profile', 'email']);
-
-      // if (result.isCancelled) {
-      //   // handle this however suites the flow of your app
-      //   throw new Error('User cancelled request');
-      // }
-
-
-
-      // get the access token
-      const data = await AccessToken.getCurrentAccessToken();
-
-      if (!data) {
-        // handle this however suites the flow of your app
-        throw new Error('erro na obtencao do token');
-      }
-
-      // create a new firebase credential with the token
-      const credential = firebase.auth.FacebookAuthProvider.credential(data.accessToken);
-      this.loginCredential(credential);
-
-    } catch (e) {
-      console.error(e);
-    }
-
-  }
 
   loginGoogle = async () => {
     await GoogleSignin.signIn()
@@ -114,6 +86,13 @@ export default class Login extends Component {
       })
       .then((currentUser) => {
         console.log('login google : \n ' + currentUser)
+        Alert.alert(
+          "Bora?",
+          "Vá até a aba interesse e selecione alguma categoria para achar os eventos",
+          [
+              { text: "Ok", onPress: () =>  null }
+              
+          ],);
 
       })
       .catch((error) => {

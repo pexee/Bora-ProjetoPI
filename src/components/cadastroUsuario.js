@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, ScrollView, View} from 'react-native';
+import {StyleSheet, ScrollView, Alert, View} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, ThemeProvider} from 'react-native-elements';
 import firebase from 'react-native-firebase';
@@ -50,6 +50,7 @@ export default class CadastroUsuario extends Component{
     
       const user = await firebase.auth().currentUser;
       if (user) {
+        this.alertInteresses()
         user.updateProfile({
           displayName: nome
         })
@@ -63,8 +64,6 @@ export default class CadastroUsuario extends Component{
         
         user.sendEmailVerification().then(function(){
           console.log('email enviado')
-          alert('Por favor, faça a confirmação do seu endereço de Email')
-          
         }).catch(function(error) {
           console.log('email nao enviado')
 })
@@ -86,6 +85,24 @@ export default class CadastroUsuario extends Component{
     }
     
   }
+
+  alertInteresses(){
+        Alert.alert(
+          "Bora?",
+          "Por favor, faça a confirmação do seu endereço de Email",
+          [
+              { text: "Ok", onPress: () =>  null }
+              
+          ],);
+
+        Alert.alert(
+          "Bora?",
+          "Vá até a aba interesse e selecione alguma categoria para achar os eventos",
+          [
+              { text: "Ok", onPress: () =>  null }
+              
+          ],);
+    }
   
   render() {
     return (

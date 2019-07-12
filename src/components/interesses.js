@@ -62,22 +62,32 @@ export default class interesses extends Component{
     }
 
     async atualizaInteresses(){
-      await firebase.database().ref('/usuarios/' + user.user + '/interesses/').update({
-        rock: this.state.rock,
-        sertanejo: this.state.sertanejo,
-        pagode: this.state.pagode,
-        samba: this.state.samba,
-        eletro: this.state.eletro,
-        funk: this.state.funk,
-      });
-
-      Alert.alert(
+      if((this.state.rock == false) && (this.state.sertanejo == false) && (this.state.pagode == false) && (this.state.samba == false) && (this.state.eletro == false) && (this.state.funk == false)){
+        Alert.alert(
                 "Bora?",
-                "Interesses atualizados, bora!",
+                "Por Favor escolha alguma categoria",
                 [
                     { text: "OK", onPress: () =>  null },
                 ],);
-      this.props.navigation.navigate('Home');
+      }
+      else{
+        await firebase.database().ref('/usuarios/' + user.user + '/interesses/').update({
+          rock: this.state.rock,
+          sertanejo: this.state.sertanejo,
+          pagode: this.state.pagode,
+          samba: this.state.samba,
+          eletro: this.state.eletro,
+          funk: this.state.funk,
+        });
+
+        Alert.alert(
+                  "Bora?",
+                  "Interesses atualizados, bora!",
+                  [
+                      { text: "OK", onPress: () =>  null },
+                  ],);
+        this.props.navigation.navigate('Home');
+      }
     }
  
  switchRock = (value) => {
