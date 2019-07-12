@@ -6,9 +6,9 @@ O aplicativo foi desenvolvido para a plataforma Android, utilizando o framworkd 
 O "Bora?" permite a criação e visualização de eventos de diferentes tipos, além de permitir a o usuário a criação de lembretes na agenda, visualização da rota até o evento, e notificações de acordo com os seus interesses, sendo uma ótima forma de descobrir novos eventos.
 
 
-Passos para utilização do repositório
+<p>Passos para utilização do repositório</p>
 
-OBS: o SDK do android já deve estar previamente instalado e configurado \n
+OBS: o SDK do android já deve estar previamente instalado e configurado
 OBS: é necessário realizar os passos abaixo num computador Windows, caso seja realizado num sistema Linux a autenticação via Google não irá funcionar.
 OBS: Num sistema Linux é necessário indicar o local do sdk do android por meio de um arquivo chamado "local.properties" que deve ser colocado dentro da pasta android, o conteúdo do arquivo deve ser "sdk.dir = path para o sdk"
 
