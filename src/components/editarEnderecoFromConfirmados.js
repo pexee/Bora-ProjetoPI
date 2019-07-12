@@ -13,7 +13,7 @@ const ANDROID = Platform.OS === 'android';
 
 const dados = require('./eventosConfirmados');
 
-Geocoder.init("AIzaSyDGsc2c_hhwujrjwu30BeOfw3Oh9dgNqJQ", {language : "pt-br"});
+Geocoder.init("", {language : "pt-br"});
 
 const theme = {
   colors: {
