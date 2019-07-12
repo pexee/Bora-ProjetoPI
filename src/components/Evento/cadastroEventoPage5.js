@@ -9,7 +9,7 @@ import { PROVIDER_GOOGLE, PROVIDER_DEFAULT } from 'react-native-maps';
 const IOS = Platform.OS === 'ios';
 const ANDROID = Platform.OS === 'android';
 
-Geocoder.init("AIzaSyDGsc2c_hhwujrjwu30BeOfw3Oh9dgNqJQ", {language : "pt-br"}); // set the language
+Geocoder.init("", {language : "pt-br"}); // set the language
 
 const theme = {
   colors: {
