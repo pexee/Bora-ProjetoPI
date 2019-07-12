@@ -15,8 +15,8 @@ const theme = {
 export default class CadastroUsuario extends Component{
 
   state = {
-    nome: 'geovani',
-    email: 'geeopedroso@gmail.com',
+    nome: '',
+    email: '',
     password: '',
     password2: '',
     isAuthenticated: false,
@@ -60,6 +60,7 @@ export default class CadastroUsuario extends Component{
           uid: user.uid
         });  
         console.log('usuario criado')
+        
         user.sendEmailVerification().then(function(){
           console.log('email enviado')
           alert('Por favor, faça a confirmação do seu endereço de Email')

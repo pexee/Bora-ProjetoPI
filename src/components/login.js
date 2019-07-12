@@ -12,11 +12,13 @@ const theme = {
   }
 }
 
+
 export default class Login extends Component {
   state = {
-    email: 'pexe@teste.com',
-    password: '123456',
+    email: '',
+    password: '',
     isAuthenticated: false,
+    credential: '',
   };
   componentDidMount() {
     this.islogged();
@@ -47,6 +49,9 @@ export default class Login extends Component {
   }
 
   loginCredential = async (credencial) => {
+    this.setState({credential: credencial});
+    
+    module.exports.cred = credencial;
     firebase.auth().createuser
     await firebase.auth().signInWithCredential(credencial).then(function () {
 
@@ -104,6 +109,7 @@ export default class Login extends Component {
 
         const credential = firebase.auth.GoogleAuthProvider.credential(data.idToken, data.accessToken);
         this.loginCredential(credential);
+
 
       })
       .then((currentUser) => {

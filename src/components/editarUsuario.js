@@ -26,7 +26,7 @@ export default class editarUsuario extends Component{
   
   componentDidMount(){
     console.log(user);
-    console.log('\n\n\n\n\n: '+ user.providerData[0].providerId + '\n\n\n\n')
+   
     this.preencheUser();
     
   }

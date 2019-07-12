@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
-import com.devfd.RNGeocoder.RNGeocoderPackage;
+
 import com.airbnb.android.react.maps.MapsPackage;
 import com.calendarevents.CalendarEventsPackage;
 import com.reactnative.ivpusic.imagepicker.PickerPackage;
@@ -46,7 +46,7 @@ public class MainApplication extends Application implements ReactApplication {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
           new FBSDKPackage(mCallbackManager),
-          new RNGeocoderPackage(),
+         
           new MapsPackage(),
           new CalendarEventsPackage(),
           new PickerPackage(),

@@ -13,7 +13,36 @@
           "package_name": "com.bora"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "699033061403-sqrkugag156pbidatoj27o6982k67mpu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bora",
+            "certificate_hash": "11272d292ab2e5abc013460dd32aff4fcd6909a2"
+          }
+        },
+        {
+          "client_id": "699033061403-qa3h19r92bo9t721c75uevm35tljsc44.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bora",
+            "certificate_hash": "669d5664cb4b172152c6a5d79182624c2be87846"
+          }
+        },
+        {
+          "client_id": "699033061403-r94rkc6ntn9b06mdrg53ocmj1a813hho.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bora",
+            "certificate_hash": "48050b71fb1512c4a8cf5c99f9f1b0647509f7b3"
+          }
+        },
+        {
+          "client_id": "699033061403-a38lcl0o9talongp68f37hsn15jq1pt5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyADC8vBVQ3cPNwyCsMXDt4p8B1x24JByBw"
